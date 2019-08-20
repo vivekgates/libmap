@@ -37,5 +37,5 @@ dependencies {
     }
     api rootProject.ext.libs.rxjava
     implementation 'androidx.annotation:annotation:1.1.0'
-    compile project(path: ':rxandroidble')
+    implementation project(path: ':rxandroidble')
 }
