@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#f7f6f6</color>
+    <color name="light_white">#aaaaaa</color>
+    <color name="light_white1">#D1D1D1</color>
+    <color name="accept_col">#D4E7F4</color>
+    <color name="reject_col">#F0E1E1</color>
+    <color name="white">#ffffff</color>
+    <color name="default_text_color">#ffffff</color>
+    <color name="transparent_white">#4fffffff</color>
+    <color name="transparent_whiteg">#c1ffffff</color>
+    <color name="toolbarTransparent">#00FFFFFF</color>
+    <color name="pairedName">#8c8c8c</color>
+    <color name="rippelColor">#0099CC</color>
+    <color name="dimBg">#aaa</color>
+    <color name="lolgreyco">#d6898989</color>
+    <color name="blue">#5780f3</color>
+    <color name="dark_gray">#454545</color>
+    <color name="black">#333333</color>
+    <color name="blacker">#4B4B4B</color>
+    <color name="blackerki">#767676</color>
+    <color name="black1">#333333</color>
+    <color name="black12">#3B3B3B</color>
+    <color name="light_black">#333333</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="editbox">#565555</color>
+    <color name="background2">#C3C3C3</color>
+    <color name="dividercol">#EDEDED</color>
+    <color name="dividercl">#F8F8F8</color>
+    <color name="removebtn">#FF3A30</color>
+    <color name="blockbtn">#FF9500</color>
+
+
+    <color name="greish">#EBEBEB</color>
+    <color name="greishnew">#EDEDED</color>
+    <color name="transparent_black">#6e656565</color>
+    <color name="transparent_bla">#a2000000</color>
+    <color name="transparent_bla_twenty">#39000000</color>
+    <color name="transparent_bla_ty">#7A000000</color>
+    <color name="transparent_blac">#45000000</color>
+
+    <color name="transparent_bla_one">#00000000</color>
+    <color name="transparent_bla_two">#03000000</color>
+    <color name="transparent_bla_three">#05000000</color>
+    <color name="transparent_bla_four">#08000000</color>
+    <color name="transparent_bla_five">#0A000000</color>
+    <color name="transparent_bla_six">#0D000000</color>
+    <color name="transparent_bla_seven">#0F000000</color>
+    <color name="transparent_bla_eight">#12000000</color>
+    <color name="transparent_bla_nine">#14000000</color>
+    <color name="transparent_bla_ten">#17000000</color>
+
+    <color name="new_homeColor">#FF421D</color>
+    <color name="transparent_grey">#4f707070</color>
+    <color name="transparent_k">#f1f0f0f0</color>
+    <color name="locatebggr">#1cffffff</color>
+    <color name="locatebggrrrrr">#e0d3d3d3</color>
+    <color name="finder_ma">#62878787</color>
+    <color name="very_l_y">#c8ffffff</color>
+    <color name="very__gray">#d5d3d3d3</color>
+    <color name="very__gray_again_ali">#666666</color>
+    <color name="very__gray_more">#c8bebebe</color>
+    <color name="very__gray_ligter">#17bababa</color>
+    <color name="regidterback">#192561</color>
+    <color name="regidterbacknew">#487BDB</color>
+    <color name="tabcolor">#5C65CB</color>
+    <color name="registerbutton">#435198</color>
+
+    <color name="registerb">#2d000000</color>
+    <color name="registerb_noopacity">#3b6ac2</color>
+    <color name="gradient_bue">#1488CC</color>
+
+    <color name="whitelight">#f5f5f5</color>
+    <color name="whitelighht">#fcfcfc</color>
+
+
+    <color name="projgreencol">#71B502</color>
+    <!--<color name="grey">#666666</color>-->
+    <!--<color name="greynew">#6D6563</color>-->
+    <!--<color name="greynewone">#519C9D</color>-->
+    <!--<color name="greynewonetwo">#8C4B63</color>-->
+
+    <color name="grey">#666666</color>
+    <color name="greynew">#A05EC2</color>
+    <color name="greynewone">#F26722</color>
+    <color name="greynewonetwo">#00AFD0</color>
+
+
+
+
+    <color name="trans">#00ffffff</color>
+    <color name="greysix">#6A6A6A</color>
+    <color name="very_l_gray">#d5d9d8d8</color>
+    <color name="very_l_gray_one">#1c000000</color>
+    <color name="very_l_gray_more">#cccccc</color>
+    <color name="very_new_gr">#A0A0A0</color>
+    <color name="very_l_gray_more_trans">#c3bababa</color>
+
+    <color name="light_whited">#EBEBEB</color>
+    <color name="Green">#04BB88</color>
+    <color name="blue_1">#0EC5E3</color>
+    <color name="green3">#00A500</color>
+    <color name="separator">#D0D4D9</color>
+    <color name="red2">#ea5d85</color>
+    <color name="gray_btn_bg_r">#33000000</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+    <color name="blue_btn_bg_color">#ed8e8e</color>
+    <color name="green">#00cbca</color>
+    <color name="greencheck">#6AC259</color>
+
+    <color name="light_blue">#367AB9</color>
+    <color name="lighting">#666666</color>
+
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="ironko">#C5C5C6</color>
+    <color name="ironkook">#50ffffff</color>
+    <color name="whats_trend_col">#8BC53F</color>
+
+    <color name="opacity_two">#50ffffff</color>
+    <color name="dist_color">#5EC3CC</color>
+
+    <color name="textGray">#8B999F</color>
+    <color name="panel_2_light">#eeeeee</color>
+
+
+    <color name="colorFABb1">#F4F4F4</color>
+
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <!-- <color name="radio_button_unselected_color">@android:color/transparent</color> -->
+    <color name="light_grassy">#8b8b8b</color>
+
+    <color name="light_grassys">#50f8fdff</color>
+    <color name="light_grassysss">#99f7f7f7</color>
+    <color name="regiback">#41192561</color>
+    <color name="newcolo">#5C65CB</color>
+    <color name="newcolor">#487BDB</color>
+    <color name="newcolorsevene">#7E7E7E</color>
+    <color name="newcolor_transparent">#1e487bdb</color>
+    <color name="oldnewcolor">#747FFF</color>
+    <color name="newyello">#FFC843</color>
+    <color name="newyepie">#4D5490</color>
+    <color name="newyepieh">#AD393A</color>
+    <color name="neweyemaar">#36BEAA</color>
+    <color name="newyellopp">#f0f6bb2d</color>
+    <color name="newyellopping">#D53736</color>
+    <color name="newyelloppooo">#f050ffcf</color>
+    <color name="blue_new">#2857C9</color>
+    <color name="blue_new_light">#3961C0</color>
+    <color name="transparent_original">#00ffffff</color>
+    <color name="oranges">#5761ED</color>
+    <color name="orangeshg">#FFA700</color>
+    <color name="orangeshg_green">#20BE26</color>
+    <color name="light_blues_pastel">#00ACCE</color>
+
+
+
+
+    <color name="light_yellow_pastel">#F8CD12</color>
+    <color name="light_red_pestal">#F04E46</color>
+    <color name="DBDC8">#4DBDC8</color>
+    <color name="FF7777">#FF7777</color>
+
+</resources>

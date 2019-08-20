@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    android:clickable="true"
+    app:contentPaddingLeft="0dp"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:layout_gravity="bottom"
+    android:id="@+id/floor_bottom_sheet"
+    android:elevation="@dimen/_4sdp"
+    android:background="@color/transparent_original"
+    app:behavior_peekHeight="@dimen/_80sdp"
+    app:behavior_anchorOffset="@dimen/_200sdp"
+    app:layout_behavior="org.unyde.mapintegrationlib.util.viewpagerAdsCard.AnchorBottomSheetBehavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="@dimen/_6sdp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        android:id="@+id/lillili"
+
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/topcurtwo_steps"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/acc_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Floor"
+                android:textSize="@dimen/_13sdp"
+                android:layout_below="@+id/topcurtwo_steps"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/floor_bot_title"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Which floor do you want to view?"
+                android:textSize="@dimen/_8sdp"
+                android:layout_below="@+id/floor_bot_title"
+                android:textColor="@color/blackerki"
+                android:padding="@dimen/_2sdp"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/floor_bot_desc"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/greish"
+                android:id="@+id/line_floor_bot"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_below="@+id/floor_bot_desc"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:id="@+id/leftsegment2"
+                android:layout_alignParentEnd="true"
+                android:gravity= "end"
+                android:layout_below="@+id/line_floor_bot"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/transparent_original"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/leftsegment"
+                android:elevation="0dp"
+                android:layout_below="@+id/line_floor_bot"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/transparent_original"
+                android:layout_marginBottom="@dimen/_95sdp"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
