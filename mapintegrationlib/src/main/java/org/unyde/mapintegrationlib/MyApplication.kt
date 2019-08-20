@@ -2,9 +2,6 @@ package org.unyde.mapintegrationlib
 
 import android.app.Application
 import androidx.room.Room
-import com.polidea.rxandroidble2.LogConstants
-import com.polidea.rxandroidble2.LogOptions
-import com.polidea.rxandroidble2.RxBleClient
 import org.unyde.mapintegrationlib.database.MyDatabase
 
 class MyApplication : Application(){
@@ -21,15 +18,6 @@ class MyApplication : Application(){
             .allowMainThreadQueries()
             .build()
 
-        rxBleClient = RxBleClient.create(this)
-        RxBleClient.updateLogOptions(
-            LogOptions.Builder()
-            .setLogLevel(LogConstants.INFO)
-            .setMacAddressLogSetting(LogConstants.MAC_ADDRESS_FULL)
-            .setUuidsLogSetting(LogConstants.UUIDS_FULL)
-            .setShouldLogAttributeValues(true)
-            .build()
-        )
 
 
         INSTANCE = this
@@ -38,7 +26,6 @@ class MyApplication : Application(){
     }
 
     companion object {
-        lateinit var rxBleClient: RxBleClient
         var INSTANCE: MyApplication? = null
         private val DATABASE_NAME = "WOOGLYMAP.db"
 

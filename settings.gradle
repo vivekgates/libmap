@@ -1,1 +1,1 @@
-include ':app', ':mapintegrationlib', ':dagger-compiler-shadow', ':dagger-library-shadow', ':rxandroidble', ':mockrxandroidble'
+include ':app', ':mapintegrationlib'

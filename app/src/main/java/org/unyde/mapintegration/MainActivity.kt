@@ -1,28 +1,10 @@
 package org.unyde.mapintegration
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProviders
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import org.unyde.mapintegrationlib.ClusterMapActivity
-import org.unyde.mapintegrationlib.MapIntgrationMain
-import org.unyde.mapintegrationlib.blescan.BleScan
-import org.unyde.mapintegrationlib.blescan.BleScan.Companion.onScanStartClick
-import org.unyde.mapintegrationlib.blescan.ScanReceiver
-import org.unyde.mapintegrationlib.blescan.ScanReceiver.Companion.getScanObservable
-import org.unyde.mapintegrationlib.viewmodel.BleScandataViewModel
-import org.unyde.mapintegrationlib.viewmodel.ClusterDetailViewModel
 
 class MainActivity : FragmentActivity() {
 
-    private var mViewModel_cluster: BleScandataViewModel? = null
   //  var ble = BleScan(this@MainActivity)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +19,6 @@ class MainActivity : FragmentActivity() {
         }
 
 
-        mViewModel_cluster = ViewModelProviders.of(this@MainActivity).get(BleScandataViewModel::class.java!!)
-        mViewModel_cluster!!.init(this@MainActivity)
-        mViewModel_cluster!!.clusterDetails.observeForever { clusterDetail ->
 
            Log.i("mainActivity",""+clusterDetail.toString())*/
       //  MapIntgrationMain.downloadmap(this,"101")
