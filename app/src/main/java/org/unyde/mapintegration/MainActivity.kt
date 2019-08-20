@@ -43,8 +43,8 @@ class MainActivity : FragmentActivity() {
 
            Log.i("mainActivity",""+clusterDetail.toString())*/
       //  MapIntgrationMain.downloadmap(this,"101")
-      var store= MapIntgrationMain.getStoreDetails("FF11011C000650000003910011022800","101")
-      Log.i("Main",store.address)
+     // var store= MapIntgrationMain.getStoreDetails("FF11011C000650000003910011022800","101")
+     // Log.i("Main",store.address)
   }
 
 
