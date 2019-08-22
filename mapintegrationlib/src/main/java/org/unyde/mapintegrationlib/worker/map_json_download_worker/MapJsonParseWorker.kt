@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.navigation.navigation_cluster_data
 import org.unyde.mapintegrationlib.MyApplication
+import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.Cluster_Primary_Info
 import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.database.entity.PathNode_connet
@@ -21,6 +22,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
 
 
     override fun doWork(): Result {
+        var context=applicationContext
         val image_name = inputData.getString("Image_Name")
         val file_name = inputData.getString("file_name")
         val city = inputData.getString("city")
@@ -52,10 +54,10 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                 //   floor_name: String, floor_map: String,
                 //   floor_map_height: String, floor_map_width: String, default_location_site_id: String, default_location_site_name: String) {
 
-                var clusterPrimaryInfo = MyApplication.get()!!.db!!.clusterPrimaryInfo().getAll(n_c_d.cluster_id, floor_list.get(i).floor_level)
+                var clusterPrimaryInfo = DatabaseClient.getInstance(context)!!.db!!.clusterPrimaryInfo().getAll(n_c_d.cluster_id, floor_list.get(i).floor_level)
 
                 if (clusterPrimaryInfo.size > 0) {
-                    MyApplication.get()!!.db!!.clusterPrimaryInfo().delete(floor_list.get(i).floor_level, n_c_d.cluster_id)
+                    DatabaseClient.getInstance(context)!!.db!!.clusterPrimaryInfo().delete(floor_list.get(i).floor_level, n_c_d.cluster_id)
                     var cluster_primary_info = Cluster_Primary_Info(n_c_d.cluster_id.toInt(), n_c_d.cluster_name, n_c_d.cluster_orientation,
                         floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width, floor_list.get(i).default_siteid, floor_list.get(i).default_sitename)
 
@@ -63,7 +65,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                     /* var cluster_primary_info=Cluster_Primary_Info(n_c_d.cluster_id.toInt(),n_c_d.cluster_name,n_c_d.cluster_orientation,
                              floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width,"","")
      */
-                    MyApplication.get()!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
+                    DatabaseClient.getInstance(context)!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
                 } else {
                     var cluster_primary_info = Cluster_Primary_Info(n_c_d.cluster_id.toInt(), n_c_d.cluster_name, n_c_d.cluster_orientation,
                         floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width, floor_list.get(i).default_siteid, floor_list.get(i).default_sitename)
@@ -72,7 +74,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                     /* var cluster_primary_info=Cluster_Primary_Info(n_c_d.cluster_id.toInt(),n_c_d.cluster_name,n_c_d.cluster_orientation,
                              floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width,"","")
      */
-                    MyApplication.get()!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
+                    DatabaseClient.getInstance(context)!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
                 }
 
 
@@ -126,15 +128,15 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                     //  pathNode.cluster_orientation = "" + n_c_d.cluster_orientation
                     Pref_manager.setClusterOrientation(MyApplication.instance.applicationContext, "" + n_c_d.cluster_orientation)
 
-                    var store_for_deletion = MyApplication.get()!!.db!!.pathNodeList().getAllStoresForDeletion(pathNode.clustor_id, pathNode.site_id)
+                    var store_for_deletion = DatabaseClient.getInstance(context)!!.db!!.pathNodeList().getAllStoresForDeletion(pathNode.clustor_id, pathNode.site_id)
                     if (store_for_deletion.size > 0) {
                         for (x in store_for_deletion.indices) {
-                            MyApplication.get()!!.db!!.pathNodeList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
-                            MyApplication.get()!!.db!!.pathNodeConnectList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
+                            DatabaseClient.getInstance(context)!!.db!!.pathNodeList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
+                            DatabaseClient.getInstance(context)!!.db!!.pathNodeConnectList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
                         }
-                        MyApplication.get()!!.db!!.pathNodeList().addPathNode(pathNode)
+                        DatabaseClient.getInstance(context)!!.db!!.pathNodeList().addPathNode(pathNode)
                     } else {
-                        MyApplication.get()!!.db!!.pathNodeList().addPathNode(pathNode)
+                        DatabaseClient.getInstance(context)!!.db!!.pathNodeList().addPathNode(pathNode)
                     }
 
                     for (k in site_list.get(j).connection_list.indices) {
@@ -144,7 +146,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                         pathNode_connet.floor_level = "" + floor_list.get(i).floor_level
                         pathNode_connet.site_id = site_list.get(j).siteid.toString()
                         pathNode_connet.site_id_connect = site_list.get(j).connection_list.get(k).siteid.toString()
-                        MyApplication.get()!!.db!!.pathNodeConnectList().addPathNode_connect(pathNode_connet)
+                        DatabaseClient.getInstance(context)!!.db!!.pathNodeConnectList().addPathNode_connect(pathNode_connet)
                     }
                 }
 
