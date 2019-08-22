@@ -12,7 +12,7 @@ class DatabaseClient private constructor(private val mCtx: Context) {
 
         //creating the app database with Room database builder
         //MyToDos is the name of the database
-        db = Room.databaseBuilder(mCtx, MyDatabase::class.java, DATABASE_NAME).build()
+        db = Room.databaseBuilder(mCtx, MyDatabase::class.java, DATABASE_NAME).allowMainThreadQueries().build()
     }
 
     companion object {
