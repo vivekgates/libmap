@@ -24,6 +24,8 @@ class MapIntgrationMain {
 
     companion object {
         fun downloadmap(c: FragmentActivity, cluster_id: String) {
+
+            ApplicationContext.getInstance().init(c);
             mViewModel_cluster = ViewModelProviders.of(c).get(ClusterDetailViewModel::class.java!!)
             mViewModel_cluster!!.init(c, "28.554810", cluster_id)
             mViewModel_cluster!!.clusterDetails.observeForever { clusterDetail ->
