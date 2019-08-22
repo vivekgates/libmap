@@ -1,6 +1,7 @@
 package woogly.unyde.org.wooglyunyde.cluster
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,6 +12,7 @@ import com.google.gson.GsonBuilder
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.MyApplication
 import org.unyde.mapintegrationlib.R
+import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.CheckInCheckOut
 import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
@@ -42,26 +44,26 @@ class Store_In_Out private constructor()  {
     }
 
 
-    fun check_in(beacon_id: String, cluster_id: String):StoreInfo {
+    fun check_in(beacon_id: String, cluster_id: String,context: Context):StoreInfo {
 
         beacon = beacon_id
         cluster = cluster_id
         var storeDetail=StoreInfo()
         try {
-            if (!beacon_id.substring(4, 22).equals(Pref_manager.getCheckInStoreId(MyApplication.instance.applicationContext), ignoreCase = true)) {
-                //if (!NotificationUtils.isAppIsInBackground(MyApplication.instance.applicationContext)) {
+            if (!beacon_id.substring(4, 22).equals(Pref_manager.getCheckInStoreId(context), ignoreCase = true)) {
+                //if (!NotificationUtils.isAppIsInBackground(context)) {
 
-                if (Pref_manager.getCheckInStoreId(MyApplication.instance.applicationContext).isEmpty() || Pref_manager.getCheckInStoreId(MyApplication.instance.applicationContext).equals("", ignoreCase = true)) {
-                    Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, beacon_id.substring(4, 22))
-                    Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, beacon_id)
-                    storeDetail=showcard(beacon_id);
+                if (Pref_manager.getCheckInStoreId(context).isEmpty() || Pref_manager.getCheckInStoreId(context).equals("", ignoreCase = true)) {
+                    Pref_manager.setCheckInStoreId(context, beacon_id.substring(4, 22))
+                    Pref_manager.setCheckInBeaconId(context, beacon_id)
+                    storeDetail=showcard(beacon_id,context);
                 } else {
-                    // if (Helper.isConnectionAvailable(MyApplication.instance.applicationContext)) {
-                    check_out(Pref_manager.getCheckInBeaconId(MyApplication.instance.applicationContext), false)
-                   // Constants.storeBeaconMap.remove(Pref_manager.getCheckInBeaconId(MyApplication.instance.applicationContext))
-                    Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, beacon_id.substring(4, 22))
-                    Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, beacon_id)
-                    storeDetail=showcard(beacon_id);
+                    // if (Helper.isConnectionAvailable(context)) {
+                    check_out(Pref_manager.getCheckInBeaconId(context), false,context)
+                    Constants.storeBeaconMap.remove(Pref_manager.getCheckInBeaconId(context))
+                    Pref_manager.setCheckInStoreId(context, beacon_id.substring(4, 22))
+                    Pref_manager.setCheckInBeaconId(context, beacon_id)
+                    storeDetail=showcard(beacon_id,context);
                     // }
                 }
                 //}
@@ -73,20 +75,20 @@ class Store_In_Out private constructor()  {
     }
 
 
-    fun check_out(beacon_id: String, isLosted: Boolean) {
-        store_info = MyApplication.get()!!.db!!.pathNodeList().findById(beacon_id, cluster)
+    fun check_out(beacon_id: String, isLosted: Boolean,context:Context) {
+        store_info = DatabaseClient.getInstance(context)!!.db!!.pathNodeList().findById(beacon_id, cluster)
 
         if (store_info!!.size > 0) {
 
             if (store_info!!.get(0).store_type.toInt() == 1) {
                 if (isLosted) {
                     var checkOutData: CheckInCheckOut = CheckInCheckOut(beacon_id, 1, Pref_manager.currentTime, Pref_manager.date, "1", "1")
-                    MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-                    Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
-                   // Constants.storeBeaconMap.clear()
+                    DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
+                    Pref_manager.setStoreId(context, 0)
+                    Pref_manager.setCardStoreId(context, 0)
+                    Pref_manager.setCheckInStoreId(context, "")
+                    Pref_manager.setCheckInBeaconId(context, "")
+                    Constants.storeBeaconMap.clear()
                     floaterButtonVisibility(false, "sa", "", "", "", "","")
                     /*  if (addCurrentStore != null) {
                           addCurrentStore!!.addCurrentStoreButton(false, "sa", "")
@@ -95,42 +97,42 @@ class Store_In_Out private constructor()  {
                 } else {
                     Log.e("CheckOut", "" + beacon_id)
                     var checkOutData: CheckInCheckOut = CheckInCheckOut(beacon_id, 1, Pref_manager.currentTime, Pref_manager.date, "1", "1")
-                    MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-                    Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
-                   // Constants.storeBeaconMap.clear()
+                    DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
+                    Pref_manager.setStoreId(context, 0)
+                    Pref_manager.setCardStoreId(context, 0)
+                    Pref_manager.setCheckInStoreId(context, "")
+                    Pref_manager.setCheckInBeaconId(context, "")
+                    Constants.storeBeaconMap.clear()
                     floaterButtonVisibility(false, "sa", "", "", "", "","")
                 }
             } else if (store_info!!.get(0).store_type.toInt() == 4) {
                 var checkOutData: CheckInCheckOut = CheckInCheckOut(beacon_id, 1, Pref_manager.currentTime, Pref_manager.date, "1", "4")
-                MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
-                Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-                Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
-                //Constants.storeBeaconMap.clear()
+                DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
+                Pref_manager.setStoreId(context, 0)
+                Pref_manager.setCardStoreId(context, 0)
+                Pref_manager.setCheckInStoreId(context, "")
+                Pref_manager.setCheckInBeaconId(context, "")
+                Constants.storeBeaconMap.clear()
                 floaterButtonVisibility(false, "sa", "", "", "", "","")
 
             } else {
                 var checkOutData: CheckInCheckOut = CheckInCheckOut(beacon_id, 1, Pref_manager.currentTime, Pref_manager.date, "1", "10")
-                MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
-                Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-                Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
-                //Constants.storeBeaconMap.clear()
+                DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
+                Pref_manager.setStoreId(context, 0)
+                Pref_manager.setCardStoreId(context, 0)
+                Pref_manager.setCheckInStoreId(context, "")
+                Pref_manager.setCheckInBeaconId(context, "")
+                Constants.storeBeaconMap.clear()
                 floaterButtonVisibility(false, "sa", "", "", "", "","")
             }
         } else {
             var checkOutData: CheckInCheckOut = CheckInCheckOut(beacon_id, 1, Pref_manager.currentTime, Pref_manager.date, "1", "1")
-            MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
-            Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-            Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-            Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-            Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
-          //  Constants.storeBeaconMap.clear()
+            DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkOutData)
+            Pref_manager.setStoreId(context, 0)
+            Pref_manager.setCardStoreId(context, 0)
+            Pref_manager.setCheckInStoreId(context, "")
+            Pref_manager.setCheckInBeaconId(context, "")
+            Constants.storeBeaconMap.clear()
             floaterButtonVisibility(false, "sa", "", "", "", "","")
         }
 
@@ -149,21 +151,21 @@ class Store_In_Out private constructor()  {
     }
 
 
-    private fun showcard(beacon_id: String):StoreInfo {
+    private fun showcard(beacon_id: String,context:Context):StoreInfo {
 
         var storeDetail=StoreInfo()
 
-        if (Pref_manager.getOpenClusterSatus(MyApplication.INSTANCE!!.applicationContext)) {
-            if (!Pref_manager.isShowCard(MyApplication.instance.applicationContext)) {
+        if (Pref_manager.getOpenClusterSatus(context)) {
+            if (!Pref_manager.isShowCard(context)) {
 
-               /* if (Helper.isConnectionAvailable(MyApplication.instance.applicationContext)) {
+               /* if (Helper.isConnectionAvailable(context)) {
                     getStoreImpl = null
                     getStoreImpl = GetStoreDetailsImpl(this@Store_In_Out, "", beacon_id)
                     getStoreImpl!!.init()
                 }*/
             }
         } else {
-            store_info = MyApplication.get()!!.db!!.pathNodeList().findById(beacon_id, cluster)
+            store_info = DatabaseClient.getInstance(context)!!.db!!.pathNodeList().findById(beacon_id, cluster)
             if (store_info!!.size > 0) {
                 var store_name: String = store_info!!.get(0).store_name
                 var store_id: String = store_info!!.get(0).store_id
@@ -174,7 +176,7 @@ class Store_In_Out private constructor()  {
                 var cluster_id: String = store_info!!.get(0).clustor_id
                 if (store_info!!.get(0).store_type.toInt() == 1) {
                     var checkinData: CheckInCheckOut = CheckInCheckOut(beacon_id, 0, Pref_manager.currentTime, Pref_manager.date, "1", "1")
-                    MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
+                    DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
                     var phoneNumber1 = ""
 
                     storeDetail?.address = store_info!!.get(0).address
@@ -187,7 +189,7 @@ class Store_In_Out private constructor()  {
                     storeDetail?.store_name = store_info!!.get(0).store_name
                     storeDetail?.store_logo = store_info!!.get(0).store_logo
 
-                 /*   val notifyIntent = Intent(MyApplication.instance.applicationContext, LoginActivity::class.java)
+                 /*   val notifyIntent = Intent(context, LoginActivity::class.java)
                     val bundle = Bundle()
                     bundle.putString("STORE_ID", store_id)
 
@@ -196,11 +198,11 @@ class Store_In_Out private constructor()  {
                     notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     // Create the PendingIntent
                     val notifyPendingIntent = PendingIntent.getActivity(
-                            MyApplication.instance.applicationContext, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                            context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
                     )
 
-                    if (NotificationUtils.isAppIsInBackground(MyApplication.instance.applicationContext)) {
-                        if (Pref_manager.isNotificationOnOff(MyApplication.instance.applicationContext)) {
+                    if (NotificationUtils.isAppIsInBackground(context)) {
+                        if (Pref_manager.isNotificationOnOff(context)) {
                             if(cluster_id.equals("105"))
                             {
                                 handleDataMessage("Welcome to Home Expo", "You are at " + store_name, "", notifyPendingIntent)
@@ -215,21 +217,21 @@ class Store_In_Out private constructor()  {
                     }*/
 
 
-                    Pref_manager.saveToSharedPreferences(MyApplication.INSTANCE!!.applicationContext, System.currentTimeMillis(), "Offer in " + store_name, "New Offer for You!")
+                    Pref_manager.saveToSharedPreferences(context, System.currentTimeMillis(), "Offer in " + store_name, "New Offer for You!")
 
 
                     Log.e("CheckIn", "" + beacon_id)
                     floaterButtonVisibility(true, icon, store_name.substring(0, 1).toUpperCase(), store_name, address, phoneNumber1,beacon_id)
-                    Pref_manager.setStoreTimestamp(MyApplication.instance.applicationContext, System.currentTimeMillis())
-                    Pref_manager.setStoreIcon(MyApplication.instance.applicationContext!!, icon)
-                    Pref_manager.setStoreBeacon(MyApplication.instance.applicationContext!!, beacon_id)
-                    Pref_manager.setStoreBeaconName(MyApplication.instance.applicationContext!!, store_name)
-                    Pref_manager.setStoreBeaconAddress(MyApplication.instance.applicationContext!!, address)
-                    Pref_manager.setStoreBeaconCallNo(MyApplication.instance.applicationContext!!, phoneNumber1)
+                    Pref_manager.setStoreTimestamp(context, System.currentTimeMillis())
+                    Pref_manager.setStoreIcon(context!!, icon)
+                    Pref_manager.setStoreBeacon(context!!, beacon_id)
+                    Pref_manager.setStoreBeaconName(context!!, store_name)
+                    Pref_manager.setStoreBeaconAddress(context!!, address)
+                    Pref_manager.setStoreBeaconCallNo(context!!, phoneNumber1)
 
 
                   /*  if (!Cluster3DMap.mActionMode!!.equals(Cluster3DMap.IndoorMode.NAVIGATION)) {
-                        *//*var prodIn = Intent(MyApplication.INSTANCE!!.applicationContext, ProductPageWithSmallCard::class.java)
+                        *//*var prodIn = Intent(context, ProductPageWithSmallCard::class.java)
                         prodIn.putExtra("Store_name", store_name);
                         prodIn.putExtra("Store_address", address);
                         prodIn.putExtra("Store_id", store_id);
@@ -240,44 +242,44 @@ class Store_In_Out private constructor()  {
                         // MyApplication.INSTANCE!!.applicationContext.startActivity(prodIn)
                     }
 */
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, store_info!!.get(0).store_id.toInt())
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, store_info!!.get(0).store_id.toInt())
+                    Pref_manager.setCardStoreId(context, store_info!!.get(0).store_id.toInt())
+                    Pref_manager.setStoreId(context, store_info!!.get(0).store_id.toInt())
                 } else if (store_info!!.get(0).store_type.toInt() == 4) {
                     var checkinData: CheckInCheckOut = CheckInCheckOut(beacon_id, 0, Pref_manager.currentTime, Pref_manager.date, "1", "4")
-                    MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
-                    if (Pref_manager.isParked(MyApplication.instance.applicationContext) == false) {
+                    DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
+                    if (Pref_manager.isParked(context) == false) {
                         if (addParking != null) {
                             addParking!!.addParking()
                         }
                     }
                     floaterButtonVisibility(false, "sa", "", "", "", "",beacon_id)
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setStoreDetails(MyApplication.instance.applicationContext, "")
+                    Pref_manager.setCardStoreId(context, 0)
+                    Pref_manager.setStoreId(context, 0)
+                    Pref_manager.setStoreDetails(context, "")
                 } else {
                     var checkinData: CheckInCheckOut = CheckInCheckOut(beacon_id, 0, Pref_manager.currentTime, Pref_manager.date, "1", "10")
-                    MyApplication.get()!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
+                    DatabaseClient.getInstance(context)!!.db!!.checkInCheckOut().addCheckinCheckOutData(checkinData)
                     floaterButtonVisibility(false, "sa", "", "", "", "",beacon_id)
                     /* if (addCurrentStore != null) {
                          addCurrentStore!!.addCurrentStoreButton(false, "sa", "")
                      }*/
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setStoreDetails(MyApplication.instance.applicationContext, "")
+                    Pref_manager.setCardStoreId(context, 0)
+                    Pref_manager.setStoreId(context, 0)
+                    Pref_manager.setStoreDetails(context, "")
                 }
 
 
             } else {
 
-                if (Helper.isConnectionAvailable(MyApplication.instance.applicationContext)) {
+                if (Helper.isConnectionAvailable(context)) {
                    /* getStoreImpl = null
                     getStoreImpl = GetStoreDetailsImpl(this@Store_In_Out, "", beacon_id)
                     getStoreImpl!!.init()*/
                 } else {
-                    Pref_manager.setStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCardStoreId(MyApplication.instance.applicationContext, 0)
-                    Pref_manager.setCheckInStoreId(MyApplication.instance.applicationContext, "")
-                    Pref_manager.setCheckInBeaconId(MyApplication.instance.applicationContext, "")
+                    Pref_manager.setStoreId(context, 0)
+                    Pref_manager.setCardStoreId(context, 0)
+                    Pref_manager.setCheckInStoreId(context, "")
+                    Pref_manager.setCheckInBeaconId(context, "")
                 }
 
 
@@ -320,10 +322,10 @@ class Store_In_Out private constructor()  {
 
 
 
-    fun handleDataMessage(title: String, message: String, timestamp: String, pendingIntent: PendingIntent) {
+    fun handleDataMessage(title: String, message: String, timestamp: String, pendingIntent: PendingIntent,context:Context) {
 
         try {
-            val notification = NotificationUtils.getNotificationBuilder(MyApplication.instance.applicationContext)
+            val notification = NotificationUtils.getNotificationBuilder(context)
                     .setSmallIcon(R.drawable.ic_my_location_black_24dp)
                     .setContentTitle(if (TextUtils.isEmpty(title)) "Woogly" else title)
                     .setContentText(message)
@@ -332,7 +334,7 @@ class Store_In_Out private constructor()  {
                     .setAutoCancel(true)
                     .build()
             val id = System.currentTimeMillis().toInt()
-            NotificationUtils.showNotification(MyApplication.instance.applicationContext, notification, timestamp, R.id.text_notification_id)
+            NotificationUtils.showNotification(context, notification, timestamp, R.id.text_notification_id)
         } catch (e: Exception) {
             Log.e("Store_in_out", "Exception: " + e.message)
         }

@@ -17,6 +17,9 @@ package org.unyde.mapintegrationlib.util;
 import android.bluetooth.BluetoothManager;
 import android.os.ParcelUuid;
 import org.unyde.mapintegrationlib.InternalNavigation.model.Object3DData;
+import org.unyde.mapintegrationlib.cluster.model.ClustorBeacon;
+import org.unyde.mapintegrationlib.cluster.model.Device;
+import org.unyde.mapintegrationlib.cluster.model.NearBeacon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +41,12 @@ public class Constants {
 
 
 
- /* public static ArrayList<FloorCountPojo> distict_floor_store_count_array = new ArrayList<FloorCountPojo>();
+ // public static ArrayList<FloorCountPojo> distict_floor_store_count_array = new ArrayList<FloorCountPojo>();
 
   public static Map<String, Device> deviceToBeaconMap = new ConcurrentHashMap<>();
   public static Map<String, Device> nearBeaconMap = new ConcurrentHashMap<>();
   public static Map<String, NearBeacon> storeBeaconMap = new ConcurrentHashMap<>();
-  public static Map<String, ClustorBeacon> clustorBeaconMap = new ConcurrentHashMap<>();*/
+  public static Map<String, ClustorBeacon> clustorBeaconMap = new ConcurrentHashMap<>();
   public  static Map<String, String> beaconCommandMap = new ConcurrentHashMap<>();
 
 

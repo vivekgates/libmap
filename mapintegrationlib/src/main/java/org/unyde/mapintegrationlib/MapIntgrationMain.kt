@@ -131,7 +131,7 @@ class MapIntgrationMain {
         }
 
 
-        fun getStoreDetails(site_id: String, cluster_id: String): StoreInfo {
+        fun getStoreDetails(site_id: String, cluster_id: String,context:Context): StoreInfo {
           /*  var storeInfo= StoreInfo()
             var store_info = MyApplication.get()!!.db!!.pathNodeList().findById(site_id, cluster_id)
             if (store_info!!.size > 0) {
@@ -149,7 +149,7 @@ class MapIntgrationMain {
                 }
 
             }*/
-            var storeInfo=Store_In_Out.getInstance().check_in(site_id,cluster_id)
+            var storeInfo=Store_In_Out.getInstance().check_in(site_id,cluster_id,context)
 
 
             return storeInfo!!
@@ -159,32 +159,6 @@ class MapIntgrationMain {
     }
 
 
-    /* fun s(c: Activity, cluster_id: String) {
-
-         mViewModel_cluster!!.init(c, "28.554810", cluster_id)
-         mViewModel_cluster!!.clusterDetails.observeForever { clusterDetail ->
-
-             if (clusterDetail.data.size > 0) {
-                 for (i in 0 until clusterDetail.data.size) {
-
-                     for (j in 0 until clusterDetail.data.get(i).clusterFloorDetailsList!!.size) {
-                         var cluster_id = clusterDetail.data.get(i).clusterFloorDetailsList!!.get(j).cluster_id.toString()
-                         var url_map = clusterDetail.data.get(i).clusterFloorDetailsList!!.get(j).floor_map.toString()
-                         var url_json = clusterDetail.data.get(i).clusterFloorDetailsList!!.get(j).floor_json_file.toString()
-                         startMapDownloadWorker(c,"Noida", cluster_id, url_map, url_json,"MAP"+cluster_id + "Download" + j)
-                         //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
-                     }
-
-                 }
-
-             } else {
-
-
-             }
-
-         }
-
-     }*/
 
 
 }

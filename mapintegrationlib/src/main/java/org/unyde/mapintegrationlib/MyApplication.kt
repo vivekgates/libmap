@@ -6,22 +6,22 @@ import org.unyde.mapintegrationlib.database.MyDatabase
 
 class MyApplication : Application(){
 
-    var db: MyDatabase? = null
+    //var db: MyDatabase? = null
 
 
 
     override fun onCreate() {
         super.onCreate()
-        db = Room.databaseBuilder(applicationContext,
+      /*  db = Room.databaseBuilder(applicationContext,
              MyDatabase::class.java, DATABASE_NAME
         )
             .allowMainThreadQueries()
-            .build()
+            .build()*/
 
 
 
         INSTANCE = this
-        var pahNodeDao = INSTANCE!!.db!!.pathNodeList().findClusterOrientation("101")
+        ///var pahNodeDao = INSTANCE!!.db!!.pathNodeList().findClusterOrientation("101")
 
     }
 
