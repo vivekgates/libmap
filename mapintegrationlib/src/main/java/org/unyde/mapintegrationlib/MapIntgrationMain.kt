@@ -14,6 +14,7 @@ import org.unyde.mapintegrationlib.worker.map_file_download_worker.FileUnzipWork
 import org.unyde.mapintegrationlib.worker.map_file_download_worker.MapFileDownloadWorker
 import org.unyde.mapintegrationlib.worker.map_json_download_worker.JsonFileDownloadWorker
 import org.unyde.mapintegrationlib.worker.map_json_download_worker.MapJsonParseWorker
+import woogly.unyde.org.wooglyunyde.cluster.Store_In_Out
 
 
 private var mViewModel_cluster: ClusterDetailViewModel? = null
@@ -131,7 +132,7 @@ class MapIntgrationMain {
 
 
         fun getStoreDetails(site_id: String, cluster_id: String): StoreInfo {
-            var storeInfo= StoreInfo()
+          /*  var storeInfo= StoreInfo()
             var store_info = MyApplication.get()!!.db!!.pathNodeList().findById(site_id, cluster_id)
             if (store_info!!.size > 0) {
                 if (store_info!!.get(0).store_type.toInt() == 1) {
@@ -147,7 +148,8 @@ class MapIntgrationMain {
                     storeInfo?.store_logo = store_info!!.get(0).store_logo
                 }
 
-            }
+            }*/
+            var storeInfo=Store_In_Out.getInstance().check_in(site_id,cluster_id)
 
 
             return storeInfo!!

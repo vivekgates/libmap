@@ -1,7 +1,9 @@
 package org.unyde.mapintegration
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import org.unyde.mapintegrationlib.MapIntgrationMain
 
 class MainActivity : FragmentActivity() {
 
@@ -21,8 +23,9 @@ class MainActivity : FragmentActivity() {
 
 
            Log.i("mainActivity",""+clusterDetail.toString())*/
-      //  MapIntgrationMain.downloadmap(this,"101")
-     // var store= MapIntgrationMain.getStoreDetails("FF11011C000650000003910011022800","101")
+       // MapIntgrationMain.downloadmap(this,"101")
+//        var store= MapIntgrationMain.getStoreDetails("FF11011C000650000003910011022800","101")
+     //  var store= MapIntgrationMain.getStoreDetails("FF11011C0006500000030B0011022800","101")
      // Log.i("Main",store.address)
   }
 

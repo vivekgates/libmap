@@ -74,6 +74,8 @@ public class Constants {
  public static final int DESTINATION = 13;
  public static final int LIFT = 14;
 
+ public static final int NOTIFICATION_ID = 100;
+ public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
 
 }

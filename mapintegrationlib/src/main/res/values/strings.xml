@@ -61,4 +61,6 @@
     <string name="tedpermission_setting">Setting</string>
     <string name="tedpermission_close">Close</string>
     <string name="tedpermission_confirm">Confirm</string>
+    <string name="notification_channel_id" translatable="false">payloads</string>
+    <string name="notification_channel_name">Woogly</string>
 </resources>
