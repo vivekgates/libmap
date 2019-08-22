@@ -126,7 +126,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
 
 
                     //  pathNode.cluster_orientation = "" + n_c_d.cluster_orientation
-                    Pref_manager.setClusterOrientation(MyApplication.instance.applicationContext, "" + n_c_d.cluster_orientation)
+                    Pref_manager.setClusterOrientation(ApplicationContext.get(), "" + n_c_d.cluster_orientation)
 
                     var store_for_deletion = DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeList().getAllStoresForDeletion(pathNode.clustor_id, pathNode.site_id)
                     if (store_for_deletion.size > 0) {
