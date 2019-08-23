@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.work.*
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
+import org.unyde.mapintegrationlib.viewmodel.MallFloorListViewModel
 import org.unyde.mapintegrationlib.worker.helper.LiveDataHelper
 import org.unyde.mapintegrationlib.worker.map_file_download_worker.FileUnzipWorker
 import org.unyde.mapintegrationlib.worker.map_file_download_worker.MapFileDownloadWorker
@@ -18,12 +19,13 @@ import woogly.unyde.org.wooglyunyde.cluster.Store_In_Out
 
 
 private var mViewModel_cluster: ClusterDetailViewModel? = null
+private var mViewModel_clusterList: MallFloorListViewModel? = null
 private var mWorkManager: WorkManager? = null
 
 class MapIntgrationMain {
 
     companion object {
-        fun downloadmap(c: FragmentActivity, cluster_id: String) {
+       /* fun downloadmap(c: FragmentActivity, cluster_id: String) {
 
             ApplicationContext.getInstance().init(c);
             mViewModel_cluster = ViewModelProviders.of(c).get(ClusterDetailViewModel::class.java!!)
@@ -50,6 +52,45 @@ class MapIntgrationMain {
                             )
                             //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
                         }
+
+                    }
+
+                } else {
+
+
+                }
+
+            }
+
+        }*/
+
+        fun downloadmap(c: FragmentActivity, cluster_id: String) {
+
+            ApplicationContext.getInstance().init(c);
+            mViewModel_clusterList = ViewModelProviders.of(c).get(MallFloorListViewModel::class.java!!)
+            mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
+            mViewModel_clusterList!!.mallFloorList.observeForever { clusterDetail ->
+
+                if (clusterDetail.data!!.floors!!.size > 0) {
+                    for (i in 0 until clusterDetail.data!!.floors!!.size) {
+
+                       // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
+                            var cluster_id =
+                                clusterDetail.data!!.floors!!.get(i).clusterId!!
+                            var url_map =
+                                clusterDetail.data!!.floors!!.get(i).floorMap.toString()
+                            var url_json =
+                                clusterDetail.data!!.floors!!.get(i).floorJson.toString()
+                            startMapDownloadWorker(
+                                c,
+                                "Noida",
+                                cluster_id.toString(),
+                                url_map,
+                                url_json,
+                                "MAP" + cluster_id + "Download" + i
+                            )
+                            //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
+                       // }
 
                     }
 
