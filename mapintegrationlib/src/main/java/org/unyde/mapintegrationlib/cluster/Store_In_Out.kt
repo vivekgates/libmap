@@ -8,8 +8,10 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.google.gson.GsonBuilder
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
+import org.unyde.mapintegrationlib.MapIntgrationMain
 import org.unyde.mapintegrationlib.MyApplication
 import org.unyde.mapintegrationlib.R
 import org.unyde.mapintegrationlib.database.DatabaseClient
@@ -153,10 +155,15 @@ class Store_In_Out private constructor()  {
 
     private fun showcard(beacon_id: String,context:Context):StoreInfo {
 
+        MapIntgrationMain.downloadmap(context as FragmentActivity,cluster!!)
+
         var storeDetail=StoreInfo()
 
         if (Pref_manager.getOpenClusterSatus(context)) {
             if (!Pref_manager.isShowCard(context)) {
+
+
+
 
                /* if (Helper.isConnectionAvailable(context)) {
                     getStoreImpl = null
@@ -165,6 +172,7 @@ class Store_In_Out private constructor()  {
                 }*/
             }
         } else {
+
             store_info = DatabaseClient.getInstance(context)!!.db!!.pathNodeList().findById(beacon_id, cluster)
             if (store_info!!.size > 0) {
                 var store_name: String = store_info!!.get(0).store_name
@@ -217,7 +225,7 @@ class Store_In_Out private constructor()  {
                     }*/
 
 
-                    Pref_manager.saveToSharedPreferences(context, System.currentTimeMillis(), "Offer in " + store_name, "New Offer for You!")
+                 //   Pref_manager.saveToSharedPreferences(context, System.currentTimeMillis(), "Offer in " + store_name, "New Offer for You!")
 
 
                     Log.e("CheckIn", "" + beacon_id)

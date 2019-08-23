@@ -72,16 +72,18 @@ class MapIntgrationMain {
             mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
             mViewModel_clusterList!!.mallFloorList.observeForever { clusterDetail ->
 
-                if (clusterDetail.data!!.floors!!.size > 0) {
-                    for (i in 0 until clusterDetail.data!!.floors!!.size) {
+                if (clusterDetail.data!!.status!!.equals("1"))
+                {
+                    if (clusterDetail.data!!.floors!!.size > 0) {
+                        for (i in 0 until clusterDetail.data!!.floors!!.size) {
 
-                       // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
+                            // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
                             var cluster_id =
                                 clusterDetail.data!!.floors!!.get(i).clusterId!!
                             var url_map =ApiClient.imageUrl+
                                     clusterDetail.data!!.floors!!.get(i).floorMap.toString()
                             var url_json =ApiClient.imageUrl+
-                                clusterDetail.data!!.floors!!.get(i).floorJson.toString()
+                                    clusterDetail.data!!.floors!!.get(i).floorJson.toString()
                             startMapDownloadWorker(
                                 c,
                                 "Noida",
@@ -91,14 +93,21 @@ class MapIntgrationMain {
                                 "MAP" + cluster_id + "Download" + i
                             )
                             //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
-                       // }
+                            // }
+
+                        }
+
+                    } else {
+
 
                     }
-
-                } else {
-
+                }
+                else
+                {
 
                 }
+
+
 
             }
 
