@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProviders
 import com.google.gson.GsonBuilder
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.MapIntgrationMain
@@ -18,10 +19,12 @@ import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.CheckInCheckOut
 import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
+import org.unyde.mapintegrationlib.network.ApiClient
 import org.unyde.mapintegrationlib.util.Constants
 import org.unyde.mapintegrationlib.util.Helper
 import org.unyde.mapintegrationlib.util.NotificationUtils
 import org.unyde.mapintegrationlib.util.Pref_manager
+import org.unyde.mapintegrationlib.viewmodel.MallFloorListViewModel
 
 
 class Store_In_Out private constructor()  {
@@ -155,7 +158,54 @@ class Store_In_Out private constructor()  {
 
     private fun showcard(beacon_id: String,context:Context):StoreInfo {
 
-        MapIntgrationMain.downloadmap(context as FragmentActivity,cluster!!)
+
+        var mViewModel_clusterList = MallFloorListViewModel()
+        mViewModel_clusterList!!.init(context, "28.554810", "105")
+        mViewModel_clusterList!!.mallFloorList.observeForever { clusterDetail ->
+
+            if (clusterDetail.data!!.status!!.equals("1"))
+            {
+                if (clusterDetail.data!!.floors!!.size > 0) {
+                    for (i in 0 until clusterDetail.data!!.floors!!.size) {
+
+                        // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
+                        var cluster_id =
+                            clusterDetail.data!!.floors!!.get(i).clusterId!!
+                        var url_map = ApiClient.imageUrl+
+                                clusterDetail.data!!.floors!!.get(i).floorMap.toString()
+                        var url_json = ApiClient.imageUrl+
+                                clusterDetail.data!!.floors!!.get(i).floorJson.toString()
+                        MapIntgrationMain.startMapDownloadWorker(
+
+                            "Noida",
+                            cluster_id.toString(),
+                            url_map,
+                            url_json,
+                            "MAP" + cluster_id + "Download" + i
+                        )
+                        //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
+                        // }
+
+                    }
+
+                } else {
+
+
+                }
+            }
+            else
+            {
+
+            }
+
+
+
+        }
+
+
+
+
+
 
         var storeDetail=StoreInfo()
 

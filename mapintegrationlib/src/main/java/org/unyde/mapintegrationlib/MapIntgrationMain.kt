@@ -85,7 +85,7 @@ class MapIntgrationMain {
                             var url_json =ApiClient.imageUrl+
                                     clusterDetail.data!!.floors!!.get(i).floorJson.toString()
                             startMapDownloadWorker(
-                                c,
+
                                 "Noida",
                                 cluster_id.toString(),
                                 url_map,
@@ -114,7 +114,6 @@ class MapIntgrationMain {
         }
 
         fun startMapDownloadWorker(
-            c: Activity,
             city: String,
             mall_id: String,
             url: String,
@@ -178,7 +177,7 @@ class MapIntgrationMain {
 
             LiveDataHelper.getInstance().observePercentage()
                 .observeForever {
-                    Toast.makeText(c, it.toString(), Toast.LENGTH_LONG).show()
+                    //Toast.makeText(c, it.toString(), Toast.LENGTH_LONG).show()
                 }
 
         }
