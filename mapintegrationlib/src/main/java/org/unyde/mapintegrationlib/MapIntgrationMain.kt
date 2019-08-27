@@ -128,7 +128,7 @@ class MapIntgrationMain {
 
                                 val isMapUpdateAvailable = Helper.dateComarison(
                                     floor_data.floor_map_date,
-                                    clusterDetail.data!!.floors!!.get(i).floorMapDate.toString()
+                                    floor_map_date
                                 )
 
                                 if (isMapUpdateAvailable) {
@@ -143,11 +143,11 @@ class MapIntgrationMain {
 
                                 val isJsonUpdateAvailable = Helper.dateComarison(
                                     floor_data.floor_json_date,
-                                    clusterDetail.data!!.floors!!.get(i).floorJsonDate.toString()
+                                    floor_json_date
                                 )
 
                                 if (isJsonUpdateAvailable) {
-                                    startMapFileDownloadWorker(
+                                    startJSONDownloadWorker(
                                         "Noida",
                                         cluster_id.toString(),
                                         floor_number,
@@ -157,7 +157,7 @@ class MapIntgrationMain {
                                 }
                                 val isDataUpdateAvailable = Helper.dateComarison(
                                     floor_data.floor_date,
-                                    clusterDetail.data!!.floors!!.get(i).floorDate.toString()
+                                   floor_date
                                 )
 
                                 if (isDataUpdateAvailable) {
