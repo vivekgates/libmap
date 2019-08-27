@@ -87,8 +87,7 @@ class MapIntgrationMain {
                                     clusterDetail.data!!.floors!!.get(i).floorMap.toString()
                             var url_json = ApiClient.imageUrl +
                                     clusterDetail.data!!.floors!!.get(i).floorJson.toString()
-                            var floor_number = ApiClient.imageUrl +
-                                    clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
+                            var floor_number = clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
 
                             var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
                                 cluster_id.toString(),
