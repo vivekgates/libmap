@@ -10,6 +10,9 @@ interface MallMapMainDao {
     @Query("SELECT * FROM mall_map_main WHERE cluster_id LIKE :cluster")
     fun all(cluster: String): List<MallMapMain>
 
+    @Query("SELECT * FROM mall_map_main WHERE(isMapDownloaded=0 or isJsonDownloaded=0) and cluster_id=:cluster")
+    fun downlaodedAll(cluster: String): List<MallMapMain>
+
 
     @Query("SELECT * FROM mall_map_main WHERE cluster_id LIKE :cluster and floor_number= :floor_number")
     fun floorData(cluster: String,floor_number: String): MallMapMain
@@ -38,6 +41,9 @@ interface MallMapMainDao {
 
     @Query("SELECT * FROM mall_map_main WHERE  floor_map LIKE :id LIMIT 1")
     fun getDataPathImage(id: String): List<MallMapMain>
+
+
+
 
 
 //    @Query("SELECT * FROM mall_map_main  WHERE ally_exist = 'Pair'")
