@@ -25,13 +25,13 @@ public class MallFloorList {
     private String floorJson;
     @SerializedName("floor_map_date")
     @Expose
-    private Object floorMapDate;
+    private String floorMapDate;
     @SerializedName("floor_json_date")
     @Expose
-    private Object floorJsonDate;
+    private String floorJsonDate;
     @SerializedName("floor_date")
     @Expose
-    private Object floorDate;
+    private String floorDate;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -84,29 +84,6 @@ public class MallFloorList {
         this.floorJson = floorJson;
     }
 
-    public Object getFloorMapDate() {
-        return floorMapDate;
-    }
-
-    public void setFloorMapDate(Object floorMapDate) {
-        this.floorMapDate = floorMapDate;
-    }
-
-    public Object getFloorJsonDate() {
-        return floorJsonDate;
-    }
-
-    public void setFloorJsonDate(Object floorJsonDate) {
-        this.floorJsonDate = floorJsonDate;
-    }
-
-    public Object getFloorDate() {
-        return floorDate;
-    }
-
-    public void setFloorDate(Object floorDate) {
-        this.floorDate = floorDate;
-    }
 
     public Integer getStatus() {
         return status;
@@ -117,4 +94,27 @@ public class MallFloorList {
     }
 
 
+    public String getFloorMapDate() {
+        return floorMapDate;
+    }
+
+    public void setFloorMapDate(String floorMapDate) {
+        this.floorMapDate = floorMapDate;
+    }
+
+    public String getFloorJsonDate() {
+        return floorJsonDate;
+    }
+
+    public void setFloorJsonDate(String floorJsonDate) {
+        this.floorJsonDate = floorJsonDate;
+    }
+
+    public String getFloorDate() {
+        return floorDate;
+    }
+
+    public void setFloorDate(String floorDate) {
+        this.floorDate = floorDate;
+    }
 }

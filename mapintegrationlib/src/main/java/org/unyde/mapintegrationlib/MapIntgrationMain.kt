@@ -88,6 +88,36 @@ class MapIntgrationMain {
                             var url_json = ApiClient.imageUrl +
                                     clusterDetail.data!!.floors!!.get(i).floorJson.toString()
                             var floor_number = clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
+                            var floor_map_date = clusterDetail.data!!.floors!!.get(i).floorMapDate
+                            var floor_json_date = clusterDetail.data!!.floors!!.get(i).floorJsonDate
+                            var floor_date = clusterDetail.data!!.floors!!.get(i).floorDate
+
+                            if(floor_map_date!=null)
+                            {
+
+                            }
+                            else
+                            {
+                                floor_map_date=""  
+                            }
+
+                            if(floor_json_date!=null)
+                            {
+
+                            }
+                            else
+                            {
+                                floor_json_date=""
+                            }
+
+                            if(floor_date!=null)
+                            {
+
+                            }
+                            else
+                            {
+                                floor_date=""
+                            }
 
                             var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
                                 cluster_id.toString(),
@@ -147,15 +177,10 @@ class MapIntgrationMain {
                                     "",
                                     0,
                                     0,
-                                    (if (clusterDetail.data!!.floors!!.get(i).floorMapDate!! != null) clusterDetail.data!!.floors!!.get(
-                                        i
-                                    ).floorMapDate!! else "") as String,
-                                    (if (clusterDetail.data!!.floors!!.get(i).floorMapDate != null) clusterDetail.data!!.floors!!.get(
-                                        i
-                                    ).floorMapDate else "") as String,
-                                    (if (clusterDetail.data!!.floors!!.get(i).floorMapDate != null) clusterDetail.data!!.floors!!.get(
-                                        i
-                                    ).floorMapDate else "") as String
+                                    floor_map_date ,
+                                   floor_json_date,
+                                   floor_date
+
                                 )
 
                                 DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.addfilePath(mallMap)
