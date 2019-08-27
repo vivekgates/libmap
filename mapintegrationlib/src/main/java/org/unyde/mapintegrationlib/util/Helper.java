@@ -363,6 +363,21 @@ public class Helper {
             out.write(buffer, 0, read);
         }
     }
+
+    public static Boolean dateComarison( String oldDate,  String newDate) {
+        Boolean isUpdateAvailabe = false;
+        if (newDate.compareTo(oldDate) < 0) {
+            isUpdateAvailabe = false;
+        } else if (newDate.compareTo(oldDate) > 0) {
+            isUpdateAvailabe = true;
+        } else {
+            isUpdateAvailabe = false;
+        }
+
+        return isUpdateAvailabe;
+    }
+
+
 }
 
 

@@ -7,6 +7,8 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.unyde.mapintegrationlib.ApplicationContext
+import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.worker.helper.LiveDataHelper
 import java.io.*
 import java.net.SocketTimeoutException
@@ -28,6 +30,7 @@ class JsonFileDownloadWorker(private val mContext: Context, workerParameters: Wo
         val url = inputData.getString("json")
         val city = inputData.getString("city")
         val mall_id = inputData.getString("Mall_Id")
+        val floor_number = inputData.getString("floor_number")
         var spilted = url!!.split("/".toRegex()).reversed().dropLastWhile({ it.isEmpty() }).toTypedArray()
         try {
             val myDir = applicationContext.getExternalFilesDir(null)
@@ -65,10 +68,9 @@ class JsonFileDownloadWorker(private val mContext: Context, workerParameters: Wo
             while (byteRead != -1) {
                 total += byteRead.toLong() //total = total + len1
                 val percent = (total * 100 / lengthOfFile).toInt()
-                liveDataHelper!!.updatePercentage(percent)
+
                 outStream.write(buf, 0, byteRead)
                 byteRead = `in`.read(buf)
-
             }
             `in`.close()
             outStream.close()
@@ -76,8 +78,11 @@ class JsonFileDownloadWorker(private val mContext: Context, workerParameters: Wo
             outputData = Data.Builder().putString("Image_Name", path + "/")
                     .putString("file_name", path + "/" + spilted[0])
                     .putString("city", city)
+                    .putString("floor_number", floor_number)
                     .putString("Mall_Id", mall_id).build()
 
+            DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.mallMapMain()!!.update_isJsonDownloaded(mall_id!!,floor_number!!)
+            liveDataHelper!!.updatePercentage(100)
         } catch (e: Exception) {
             return Result.failure()
             e.printStackTrace()

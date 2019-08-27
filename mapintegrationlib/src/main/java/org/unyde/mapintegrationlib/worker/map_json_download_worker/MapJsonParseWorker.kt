@@ -27,6 +27,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
         val file_name = inputData.getString("file_name")
         val city = inputData.getString("city")
         val mall_id = inputData.getString("Mall_Id")
+        val floor_number = inputData.getString("floor_number")
 
         var json: String? = null
         var gson: Gson? = null

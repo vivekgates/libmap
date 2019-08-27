@@ -18,6 +18,7 @@ class FileUnzipWorker(context: Context, workerParams: WorkerParameters) : Worker
         val file_name = inputData.getString("file_name")
         val city = inputData.getString("city")
         val mall_id = inputData.getString("Mall_Id")
+        val floor_number = inputData.getString("floor_number")
         _zipFile= File(file_name)
 
         try {

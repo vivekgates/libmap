@@ -11,6 +11,10 @@ interface MallMapMainDao {
     fun all(cluster: String): List<MallMapMain>
 
 
+    @Query("SELECT * FROM mall_map_main WHERE cluster_id LIKE :cluster and floor_number= :floor_number")
+    fun floorData(cluster: String,floor_number: String): MallMapMain
+
+
 
     @Query("SELECT * FROM mall_map_main WHERE cluster_id = :cluster and isJsonDownloaded=0 LIMIT 1")
     fun file_json(cluster: String): List<MallMapMain>
@@ -48,12 +52,12 @@ interface MallMapMainDao {
     fun update_isMapNotDownloaded(floor_json_file: String,temp_floor_map_file: String)
 
 
-    @Query("UPDATE mall_map_main SET isJsonDownloaded = 1 WHERE floor_json_file = :floor_json_file")
-    fun update_isJsonDownloaded(floor_json_file: String)
+    @Query("UPDATE mall_map_main SET isJsonDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_isJsonDownloaded(cluster: String,floor_number: String)
 
 
-    @Query("UPDATE mall_map_main SET isMapDownloaded = 1 WHERE floor_map = :floor_json_file")
-    fun update_isMapDownloaded(floor_json_file: String)
+    @Query("UPDATE mall_map_main SET isMapDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_isMapDownloaded(cluster: String,floor_number: String)
 
 
 
