@@ -75,7 +75,7 @@ class MapIntgrationMain {
             mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
             mViewModel_clusterList!!.mallFloorList.observeForever { clusterDetail ->
 
-                if (clusterDetail.data!!.status!!.equals("1")) {
+                if (clusterDetail.data!!.status == 1) {
                     if (clusterDetail.data!!.floors!!.size > 0) {
                         for (i in 0 until clusterDetail.data!!.floors!!.size) {
 
