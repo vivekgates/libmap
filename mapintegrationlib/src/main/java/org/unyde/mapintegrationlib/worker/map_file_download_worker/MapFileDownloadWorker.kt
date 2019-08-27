@@ -76,7 +76,7 @@ class MapFileDownloadWorker(private val mContext: Context, workerParameters: Wor
                 .putString("floor_number", floor_number)
                 .putString("Mall_Id", mall_id).build()
 
-            DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.mallMapMain()!!.update_isMapDownloaded(mall_id!!,floor_number!!)
+            DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.mallMapMain()!!.update_isMapDownloaded(mall_id!!,floor_number!!)
 
             liveDataHelper!!.updatePercentage(50)
 

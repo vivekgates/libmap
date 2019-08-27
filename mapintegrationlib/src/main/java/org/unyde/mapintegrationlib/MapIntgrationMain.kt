@@ -98,7 +98,7 @@ class MapIntgrationMain {
                             }
                             else
                             {
-                                floor_map_date=""  
+                                floor_map_date=""
                             }
 
                             if(floor_json_date!=null)
