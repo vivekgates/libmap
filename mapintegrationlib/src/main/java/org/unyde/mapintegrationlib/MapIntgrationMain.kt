@@ -92,31 +92,22 @@ class MapIntgrationMain {
                             var floor_json_date = clusterDetail.data!!.floors!!.get(i).floorJsonDate
                             var floor_date = clusterDetail.data!!.floors!!.get(i).floorDate
 
-                            if(floor_map_date!=null)
-                            {
+                            if (floor_map_date != null) {
 
-                            }
-                            else
-                            {
-                                floor_map_date=""
+                            } else {
+                                floor_map_date = ""
                             }
 
-                            if(floor_json_date!=null)
-                            {
+                            if (floor_json_date != null) {
 
-                            }
-                            else
-                            {
-                                floor_json_date=""
+                            } else {
+                                floor_json_date = ""
                             }
 
-                            if(floor_date!=null)
-                            {
+                            if (floor_date != null) {
 
-                            }
-                            else
-                            {
-                                floor_date=""
+                            } else {
+                                floor_date = ""
                             }
 
                             var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
@@ -131,7 +122,25 @@ class MapIntgrationMain {
                                     floor_map_date
                                 )
 
-                                if (isMapUpdateAvailable) {
+                                if (floor_data.isMapDownloaded == 1) {
+                                    if (isMapUpdateAvailable) {
+                                        DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_mapDate(
+                                            cluster_id.toString(),
+                                            floor_number, floor_map_date
+                                        )
+                                        startMapFileDownloadWorker(
+                                            "Noida",
+                                            cluster_id.toString(),
+                                            floor_number,
+                                            url_map,
+                                            "MAP" + cluster_id + "Download" + i
+                                        )
+                                    }
+                                } else {
+                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_mapDate(
+                                        cluster_id.toString(),
+                                        floor_number, floor_map_date
+                                    )
                                     startMapFileDownloadWorker(
                                         "Noida",
                                         cluster_id.toString(),
@@ -141,12 +150,33 @@ class MapIntgrationMain {
                                     )
                                 }
 
+
                                 val isJsonUpdateAvailable = Helper.dateComarison(
                                     floor_data.floor_json_date,
                                     floor_json_date
                                 )
 
-                                if (isJsonUpdateAvailable) {
+
+                                if (floor_data.isJsonDownloaded == 1) {
+                                    if (isJsonUpdateAvailable) {
+                                        DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_jsonDate(
+                                            cluster_id.toString(),
+                                            floor_number, floor_json_date
+                                        )
+
+                                        startJSONDownloadWorker(
+                                            "Noida",
+                                            cluster_id.toString(),
+                                            floor_number,
+                                            url_json,
+                                            "MAP" + cluster_id + "Download" + i
+                                        )
+                                    }
+                                } else {
+                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_jsonDate(
+                                        cluster_id.toString(),
+                                        floor_number, floor_json_date
+                                    )
                                     startJSONDownloadWorker(
                                         "Noida",
                                         cluster_id.toString(),
@@ -155,9 +185,11 @@ class MapIntgrationMain {
                                         "MAP" + cluster_id + "Download" + i
                                     )
                                 }
+
+
                                 val isDataUpdateAvailable = Helper.dateComarison(
                                     floor_data.floor_date,
-                                   floor_date
+                                    floor_date
                                 )
 
                                 if (isDataUpdateAvailable) {
@@ -177,9 +209,9 @@ class MapIntgrationMain {
                                     "",
                                     0,
                                     0,
-                                    floor_map_date ,
-                                   floor_json_date,
-                                   floor_date
+                                    floor_map_date,
+                                    floor_json_date,
+                                    floor_date
 
                                 )
 
@@ -278,7 +310,6 @@ class MapIntgrationMain {
 
             // Actually start the work
             continuation.enqueue()
-
 
 
         }

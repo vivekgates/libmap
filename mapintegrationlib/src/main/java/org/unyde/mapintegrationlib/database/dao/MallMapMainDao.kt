@@ -14,6 +14,24 @@ interface MallMapMainDao {
     fun downlaodedAll(cluster: String): List<MallMapMain>
 
 
+
+    @Query("UPDATE mall_map_main SET isJsonDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_isJsonDownloaded(cluster: String,floor_number: String)
+
+
+    @Query("UPDATE mall_map_main SET isMapDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_isMapDownloaded(cluster: String,floor_number: String)
+
+
+    @Query("UPDATE mall_map_main SET floor_json_date = :floor_json_date WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_jsonDate(cluster: String,floor_number: String,floor_json_date: String)
+
+    @Query("UPDATE mall_map_main SET floor_map_date = :floor_map_date WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_mapDate(cluster: String,floor_number: String,floor_map_date: String)
+
+
+
+
     @Query("SELECT * FROM mall_map_main WHERE cluster_id LIKE :cluster and floor_number= :floor_number")
     fun floorData(cluster: String,floor_number: String): MallMapMain
 
@@ -58,12 +76,7 @@ interface MallMapMainDao {
     fun update_isMapNotDownloaded(floor_json_file: String,temp_floor_map_file: String)
 
 
-    @Query("UPDATE mall_map_main SET isJsonDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
-    fun update_isJsonDownloaded(cluster: String,floor_number: String)
 
-
-    @Query("UPDATE mall_map_main SET isMapDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
-    fun update_isMapDownloaded(cluster: String,floor_number: String)
 
 
 
