@@ -78,52 +78,67 @@ class MapIntgrationMain {
                 if (clusterDetail.data!!.status == 1) {
                     if (clusterDetail.data!!.floors!!.size > 0) {
                         for (i in 0 until clusterDetail.data!!.floors!!.size) {
+                            try
+                            {
 
 
-                            // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
-                            var cluster_id =
-                                clusterDetail.data!!.floors!!.get(i).clusterId!!
-                            var url_map = ApiClient.imageUrl +
-                                    clusterDetail.data!!.floors!!.get(i).floorMap.toString()
-                            var url_json = ApiClient.imageUrl +
-                                    clusterDetail.data!!.floors!!.get(i).floorJson.toString()
-                            var floor_number = clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
-                            var floor_map_date = clusterDetail.data!!.floors!!.get(i).floorMapDate
-                            var floor_json_date = clusterDetail.data!!.floors!!.get(i).floorJsonDate
-                            var floor_date = clusterDetail.data!!.floors!!.get(i).floorDate
+                                // for (j in 0 until clusterDetail.data!!.get(i).clusterFloorDetailsList!!.size) {
+                                var cluster_id =
+                                    clusterDetail.data!!.floors!!.get(i).clusterId!!
+                                var url_map = ApiClient.imageUrl +
+                                        clusterDetail.data!!.floors!!.get(i).floorMap.toString()
+                                var url_json = ApiClient.imageUrl +
+                                        clusterDetail.data!!.floors!!.get(i).floorJson.toString()
+                                var floor_number = clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
+                                var floor_map_date = clusterDetail.data!!.floors!!.get(i).floorMapDate
+                                var floor_json_date = clusterDetail.data!!.floors!!.get(i).floorJsonDate
+                                var floor_date = clusterDetail.data!!.floors!!.get(i).floorDate
 
-                            if (floor_map_date != null) {
+                                if (floor_map_date != null) {
 
-                            } else {
-                                floor_map_date = ""
-                            }
+                                } else {
+                                    floor_map_date = ""
+                                }
 
-                            if (floor_json_date != null) {
+                                if (floor_json_date != null) {
 
-                            } else {
-                                floor_json_date = ""
-                            }
+                                } else {
+                                    floor_json_date = ""
+                                }
 
-                            if (floor_date != null) {
+                                if (floor_date != null) {
 
-                            } else {
-                                floor_date = ""
-                            }
+                                } else {
+                                    floor_date = ""
+                                }
 
-                            var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
-                                cluster_id.toString(),
-                                floor_number
-                            )
-
-                            if (floor_data != null) {
-
-                                val isMapUpdateAvailable = Helper.dateComarison(
-                                    floor_data.floor_map_date,
-                                    floor_map_date
+                                var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
+                                    cluster_id.toString(),
+                                    floor_number
                                 )
 
-                                if (floor_data.isMapDownloaded == 1) {
-                                    if (isMapUpdateAvailable) {
+                                if (floor_data != null) {
+
+                                    val isMapUpdateAvailable = Helper.dateComarison(
+                                        floor_data.floor_map_date,
+                                        floor_map_date
+                                    )
+
+                                    if (floor_data.isMapDownloaded == 1) {
+                                        if (isMapUpdateAvailable) {
+                                            DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_mapDate(
+                                                cluster_id.toString(),
+                                                floor_number, floor_map_date
+                                            )
+                                            startMapFileDownloadWorker(
+                                                "Noida",
+                                                cluster_id.toString(),
+                                                floor_number,
+                                                url_map,
+                                                "MAP" + cluster_id + "Download" + i
+                                            )
+                                        }
+                                    } else {
                                         DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_mapDate(
                                             cluster_id.toString(),
                                             floor_number, floor_map_date
@@ -136,34 +151,34 @@ class MapIntgrationMain {
                                             "MAP" + cluster_id + "Download" + i
                                         )
                                     }
-                                } else {
-                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_mapDate(
-                                        cluster_id.toString(),
-                                        floor_number, floor_map_date
+
+
+                                    val isJsonUpdateAvailable = Helper.dateComarison(
+                                        floor_data.floor_json_date,
+                                        floor_json_date
                                     )
-                                    startMapFileDownloadWorker(
-                                        "Noida",
-                                        cluster_id.toString(),
-                                        floor_number,
-                                        url_map,
-                                        "MAP" + cluster_id + "Download" + i
-                                    )
-                                }
 
 
-                                val isJsonUpdateAvailable = Helper.dateComarison(
-                                    floor_data.floor_json_date,
-                                    floor_json_date
-                                )
+                                    if (floor_data.isJsonDownloaded == 1) {
+                                        if (isJsonUpdateAvailable) {
+                                            DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_jsonDate(
+                                                cluster_id.toString(),
+                                                floor_number, floor_json_date
+                                            )
 
-
-                                if (floor_data.isJsonDownloaded == 1) {
-                                    if (isJsonUpdateAvailable) {
+                                            startJSONDownloadWorker(
+                                                "Noida",
+                                                cluster_id.toString(),
+                                                floor_number,
+                                                url_json,
+                                                "MAP" + cluster_id + "Download" + i
+                                            )
+                                        }
+                                    } else {
                                         DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_jsonDate(
                                             cluster_id.toString(),
                                             floor_number, floor_json_date
                                         )
-
                                         startJSONDownloadWorker(
                                             "Noida",
                                             cluster_id.toString(),
@@ -172,64 +187,57 @@ class MapIntgrationMain {
                                             "MAP" + cluster_id + "Download" + i
                                         )
                                     }
-                                } else {
-                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.update_jsonDate(
-                                        cluster_id.toString(),
-                                        floor_number, floor_json_date
+
+
+                                    val isDataUpdateAvailable = Helper.dateComarison(
+                                        floor_data.floor_date,
+                                        floor_date
                                     )
-                                    startJSONDownloadWorker(
+
+                                    if (isDataUpdateAvailable) {
+
+                                    }
+                                } else {
+
+                                    val mallMap = MallMapMain(
+                                        clusterDetail.data!!.floors!!.get(i).id!!,
+                                        clusterDetail.data!!.floors!!.get(i).clusterId!!,
+                                        clusterDetail.data!!.floors!!.get(i).floorNumber!!.toInt(),
+                                        clusterDetail.data!!.floors!!.get(i).status!!,
+                                        clusterDetail.data!!.floors!!.get(i).floorAlias!!,
+                                        clusterDetail.data!!.floors!!.get(i).floorMap!!,
+                                        clusterDetail.data!!.floors!!.get(i).floorJson!!,
+                                        "",
+                                        "",
+                                        0,
+                                        0,
+                                        floor_map_date,
+                                        floor_json_date,
+                                        floor_date
+
+                                    )
+
+                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.addfilePath(mallMap)
+
+                                    startMapDownloadWorker(
                                         "Noida",
                                         cluster_id.toString(),
                                         floor_number,
+                                        url_map,
                                         url_json,
                                         "MAP" + cluster_id + "Download" + i
                                     )
                                 }
 
 
-                                val isDataUpdateAvailable = Helper.dateComarison(
-                                    floor_data.floor_date,
-                                    floor_date
-                                )
+                                //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
+                                // }
+                            }
+                            catch(e:Exception)
+                            {
 
-                                if (isDataUpdateAvailable) {
-
-                                }
-                            } else {
-
-                                val mallMap = MallMapMain(
-                                    clusterDetail.data!!.floors!!.get(i).id!!,
-                                    clusterDetail.data!!.floors!!.get(i).clusterId!!,
-                                    clusterDetail.data!!.floors!!.get(i).floorNumber!!.toInt(),
-                                    clusterDetail.data!!.floors!!.get(i).status!!,
-                                    clusterDetail.data!!.floors!!.get(i).floorAlias!!,
-                                    clusterDetail.data!!.floors!!.get(i).floorMap!!,
-                                    clusterDetail.data!!.floors!!.get(i).floorJson!!,
-                                    "",
-                                    "",
-                                    0,
-                                    0,
-                                    floor_map_date,
-                                    floor_json_date,
-                                    floor_date
-
-                                )
-
-                                DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.addfilePath(mallMap)
-
-                                startMapDownloadWorker(
-                                    "Noida",
-                                    cluster_id.toString(),
-                                    floor_number,
-                                    url_map,
-                                    url_json,
-                                    "MAP" + cluster_id + "Download" + i
-                                )
                             }
 
-
-                            //  startMapJsonDownloadWorker("Noida", cluster_id, url_json, "JSON"+cluster_id + "Download" + j)
-                            // }
 
                         }
 
