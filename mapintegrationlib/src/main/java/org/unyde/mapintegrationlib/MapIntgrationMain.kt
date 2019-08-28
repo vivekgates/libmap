@@ -244,6 +244,7 @@ class MapIntgrationMain {
                 .putString("json", url_json)
                 .putString("city", city)
                 .putString("Mall_Id", mall_id)
+                .putString("floor_number", floor_number)
                 .build()
 
 
