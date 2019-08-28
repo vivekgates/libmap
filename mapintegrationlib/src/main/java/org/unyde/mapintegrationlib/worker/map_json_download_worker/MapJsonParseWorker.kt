@@ -55,10 +55,10 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                 //   floor_name: String, floor_map: String,
                 //   floor_map_height: String, floor_map_width: String, default_location_site_id: String, default_location_site_name: String) {
 
-                var clusterPrimaryInfo = DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.clusterPrimaryInfo().getAll(n_c_d.cluster_id, floor_list.get(i).floor_level)
+                var clusterPrimaryInfo = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.clusterPrimaryInfo().getAll(n_c_d.cluster_id, floor_list.get(i).floor_level)
 
                 if (clusterPrimaryInfo.size > 0) {
-                    DatabaseClient.getInstance( ApplicationContext.get())!!.db!!.clusterPrimaryInfo().delete(floor_list.get(i).floor_level, n_c_d.cluster_id)
+                    DatabaseClient.getInstance( ApplicationContext.get().applicationContext)!!.db!!.clusterPrimaryInfo().delete(floor_list.get(i).floor_level, n_c_d.cluster_id)
                     var cluster_primary_info = Cluster_Primary_Info(n_c_d.cluster_id.toInt(), n_c_d.cluster_name, n_c_d.cluster_orientation,
                         floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width, floor_list.get(i).default_siteid, floor_list.get(i).default_sitename)
 
@@ -66,7 +66,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                     /* var cluster_primary_info=Cluster_Primary_Info(n_c_d.cluster_id.toInt(),n_c_d.cluster_name,n_c_d.cluster_orientation,
                              floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width,"","")
      */
-                    DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
+                    DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
                 } else {
                     var cluster_primary_info = Cluster_Primary_Info(n_c_d.cluster_id.toInt(), n_c_d.cluster_name, n_c_d.cluster_orientation,
                         floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width, floor_list.get(i).default_siteid, floor_list.get(i).default_sitename)
@@ -75,7 +75,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                     /* var cluster_primary_info=Cluster_Primary_Info(n_c_d.cluster_id.toInt(),n_c_d.cluster_name,n_c_d.cluster_orientation,
                              floor_list.get(i).floor_level, floor_list.get(i).floor_name, floor_list.get(i).floor_map, floor_list.get(i).map_height, floor_list.get(i).map_width,"","")
      */
-                    DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
+                    DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.clusterPrimaryInfo().addClusterPrimaryInfo(cluster_primary_info)
                 }
 
 
@@ -127,17 +127,17 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
 
 
                     //  pathNode.cluster_orientation = "" + n_c_d.cluster_orientation
-                    Pref_manager.setClusterOrientation(ApplicationContext.get(), "" + n_c_d.cluster_orientation)
+                    Pref_manager.setClusterOrientation(ApplicationContext.get().applicationContext, "" + n_c_d.cluster_orientation)
 
-                    var store_for_deletion = DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeList().getAllStoresForDeletion(pathNode.clustor_id, pathNode.site_id)
+                    var store_for_deletion = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().getAllStoresForDeletion(pathNode.clustor_id, pathNode.site_id)
                     if (store_for_deletion.size > 0) {
                         for (x in store_for_deletion.indices) {
-                            DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
-                            DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeConnectList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
+                            DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
+                            DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeConnectList().deletebyClusterIdAndSiteId(store_for_deletion.get(x).clustor_id, store_for_deletion.get(x).site_id)
                         }
-                        DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeList().addPathNode(pathNode)
+                        DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().addPathNode(pathNode)
                     } else {
-                        DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeList().addPathNode(pathNode)
+                        DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().addPathNode(pathNode)
                     }
 
                     for (k in site_list.get(j).connection_list.indices) {
@@ -147,7 +147,7 @@ class MapJsonParseWorker(context: Context, workerParams: WorkerParameters) : Wor
                         pathNode_connet.floor_level = "" + floor_list.get(i).floor_level
                         pathNode_connet.site_id = site_list.get(j).siteid.toString()
                         pathNode_connet.site_id_connect = site_list.get(j).connection_list.get(k).siteid.toString()
-                        DatabaseClient.getInstance(ApplicationContext.get())!!.db!!.pathNodeConnectList().addPathNode_connect(pathNode_connet)
+                        DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeConnectList().addPathNode_connect(pathNode_connet)
                     }
                 }
 

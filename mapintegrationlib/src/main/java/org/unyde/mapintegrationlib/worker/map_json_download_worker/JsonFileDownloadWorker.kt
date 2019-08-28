@@ -82,7 +82,7 @@ class JsonFileDownloadWorker(private val mContext: Context, workerParameters: Wo
                     .putString("Mall_Id", mall_id).build()
 
             DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.mallMapMain()!!.update_isJsonDownloaded(mall_id!!,floor_number!!)
-            liveDataHelper!!.updatePercentage(100)
+            liveDataHelper!!.updatePercentage(mall_id!!.toInt())
         } catch (e: Exception) {
             return Result.failure()
             e.printStackTrace()
