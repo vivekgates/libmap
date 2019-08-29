@@ -9,16 +9,20 @@ import java.lang.Float
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import org.unyde.mapintegrationlib.ApplicationContext
 import org.unyde.mapintegrationlib.InternalNavigation.demo.MainSceneLoader
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
+import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Marker_Internal_Nav
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview.RouteLayer
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelRenderer
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView
+import org.unyde.mapintegrationlib.database.DatabaseClient
+import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.interfaces.FloorClickListner
 import org.unyde.mapintegrationlib.util.Constants
 
 
-class Cluster3DMap(internal var fragment: AppCompatActivity, internal var glView: ModelSurfaceView, var callback: SceneLoader.Callback, var floor_pop_list: RecyclerView, var floor_pop_list2: RecyclerView, var floorClickListner: FloorClickListner, var calorieCallback: CalorieStepsCallback?, var clusterId: String) {
+class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView: ModelSurfaceView, var callback: SceneLoader.Callback, var floor_pop_list: RecyclerView, var floor_pop_list2: RecyclerView, var floorClickListner: FloorClickListner, var calorieCallback: CalorieStepsCallback?, var clusterId: String) {
 
 
     var renderer: ModelRenderer? = null
@@ -27,7 +31,7 @@ class Cluster3DMap(internal var fragment: AppCompatActivity, internal var glView
     val paramUri: Uri? = null
     val paramType: Int = -1
     var init_scene_animation: Boolean = true
-   // internal var dbNode: List<PathNode>? = null
+    internal var dbNode: List<PathNode>? = null
     private var destination_beacon_site_id: String? = null
     private var destination_store_name: String? = null
     private var destination_floor_level: String? = null
@@ -52,9 +56,9 @@ class Cluster3DMap(internal var fragment: AppCompatActivity, internal var glView
         mActionMode = IndoorMode.NORMAL
         routeLayer = RouteLayer()
 
-        scene = MainSceneLoader(fragment, paramUri, paramType, glView, callback, clusterId)
+        scene = MainSceneLoader(activity, paramUri, paramType, glView, callback, clusterId)
         scene!!.init()
-        renderer = ModelRenderer(glView, fragment.applicationContext)
+        renderer = ModelRenderer(glView, activity.applicationContext)
 
     }
 
@@ -89,6 +93,180 @@ class Cluster3DMap(internal var fragment: AppCompatActivity, internal var glView
             e.printStackTrace()
         }
     }
+
+
+    fun set_I_m_here_Markers(marker_i_m_here: ArrayList<Marker_Internal_Nav>) {
+
+        val handler2 = Handler(Looper.getMainLooper())
+        handler2.postDelayed({
+             scene!!.setImHereMarker(marker_i_m_here)
+        }, 1)
+    }
+
+
+    fun getDirection(source_beacon_id: String, destination_beacon_id: String, source_beacon_floor: String) {
+        // remove_obj_by_class("pin");
+        // mActionMode = IndoorMode.DIRECTION
+        try {
+            show3DMap(source_beacon_floor!!.toInt())
+            // setStoreMarkers(source_beacon_floor!!.toInt())
+            temp_connection_list_source = HashMap()
+            temp_connection_list_destination = HashMap()
+            destination_data(destination_beacon_id)
+            getConnectionList(source_beacon_floor!!.toInt())
+            routeLayer!!.node_connection_list = temp_connection_list_source
+            routeLayer!!.setGraph();
+
+            if (source_beacon_floor!!.toInt() == destination_floor_level!!.toInt()) {
+
+                routeLayer!!.getpathforsame_floor(source_beacon_floor, source_beacon_id, destination_beacon_id)
+
+            } else {
+                setConnectionList_dest(destination_floor_level!!.toInt())
+                routeLayer!!.node_connection_list_dest = temp_connection_list_destination
+                routeLayer!!.setGraph1()
+                val liftnodelist_source = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findLiftnodeByFloor(source_beacon_floor, "Lift",clusterId)
+                val liftnodelist_dest = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findLiftnodeByFloor(destination_floor_level, "Lift",clusterId)
+                routeLayer!!.getpathfordifferent_floor(source_beacon_floor, source_beacon_id, liftnodelist_source, liftnodelist_dest, destination_beacon_id, destination_floor_level)
+
+            }
+            val distict_floor_array = ArrayList<String>()
+            distict_floor_array!!.add(source_beacon_floor)
+            distict_floor_array!!.add(destination_floor_level!!)
+            scene!!.distict_floor_array=distict_floor_array
+            show3DMapNavigation(source_beacon_floor!!.toInt())
+        } catch (e: Exception) {
+            if(!source_beacon_id.equals(destination_beacon_id))
+            {
+                Log.e("Cluster3DMapDirection", e.message)
+                calorieCallback!!.onCalorieSteps("","", null, null, null)
+            }
+
+        }
+
+
+    }
+
+    private fun destination_data(destination_beacon_id: String) {
+
+        try {
+            dbNode = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findById(destination_beacon_id,clusterId)
+            if (dbNode != null && dbNode!!.size != 0) {
+                destination_beacon_site_id = dbNode!!.get(0).getSite_id()
+                destination_store_name = dbNode!!.get(0).getStore_name()
+                destination_cordinate_x = dbNode!!.get(0).getSite_map_coord_x()
+                destination_cordinate_y = dbNode!!.get(0).getSite_map_coord_y()
+                destination_cordinate_z = dbNode!!.get(0).getSite_map_coord_z()
+                destination_floor_level = dbNode!!.get(0).getFloor_level()
+            }
+        } catch (e: Exception) {
+
+        }
+
+
+    }
+
+    private fun getConnectionList(floor_level: Int) {
+        try {
+            val node = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findByFloor_level(floor_level,clusterId)
+
+            val nodeConnection = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeConnectList().findByFloorLevel(floor_level,clusterId)
+            temp_connection_list_source!!.clear()
+            for (i in nodeConnection.indices) {
+                val key = nodeConnection[i].site_id
+                if (temp_connection_list_source!!.containsKey(key)) {
+                    val temp_list = temp_connection_list_source!![key]
+                    (temp_list!! as java.util.ArrayList).add(nodeConnection[i].site_id_connect)
+                    temp_connection_list_source!![key] = temp_list
+                } else {
+                    val temp_list = java.util.ArrayList<String>()
+                    temp_list.add(nodeConnection[i].site_id_connect)
+                    temp_connection_list_source!![key] = temp_list
+                }
+            }
+        } catch (e: Exception) {
+
+        }
+
+
+    }
+
+
+    private fun setConnectionList_dest(floor_level: Int) {
+        try {
+            val nodeConnection =DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeConnectList().findByFloorLevel(floor_level,clusterId)
+            temp_connection_list_destination!!.clear()
+            for (i in nodeConnection.indices) {
+                val key = nodeConnection[i].site_id
+                if (temp_connection_list_destination!!.containsKey(key)) {
+                    val temp_list = temp_connection_list_destination!![key]
+                    (temp_list!! as java.util.ArrayList).add(nodeConnection[i].site_id_connect)
+                    temp_connection_list_destination!![key] = temp_list
+
+                } else {
+                    val temp_list = java.util.ArrayList<String>()
+                    temp_list.add(nodeConnection[i].site_id_connect)
+                    temp_connection_list_destination!![key] = temp_list
+                }
+            }
+        } catch (e: Exception) {
+
+        }
+
+    }
+
+    fun show3DMapNavigation(floor: Int?) {
+        try {
+            var allNode: List<PathNode>
+
+            val allMarker = ArrayList<Marker_Internal_Nav>()
+
+            routeLayer!!.path_node_array = routeLayer!!.selected_floor_path_mapping[Integer.parseInt(floor.toString())]!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+
+            for (i in 0 until routeLayer!!.path_node_array!!.size) {
+                allNode = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList().findById(routeLayer!!.path_node_array[i],clusterId)
+                if (allNode!!.size > 0) {
+                    // allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!))
+                    allMarker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_x != "") allNode!!.get(0).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_y != "") allNode!!.get(0).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (allNode!!.get(0).site_map_coord_z != "") allNode!!.get(0).site_map_coord_z else "0")!!, allNode!!.get(0).store_id!!, allNode!!.get(0).floor_name!!, allNode!!.get(0).site_id!!, allNode!!.get(0).store_name))
+                }
+            }
+            scene!!.draw_path(allMarker)
+
+            var path_node_array_1: Array<String>? = null
+            if (routeLayer!!.selected_floor_path_mapping.size > 0) {
+                for ((k, v) in routeLayer!!.selected_floor_path_mapping) {
+                    println("$k = $v")
+                    path_node_array_1 = "$v"!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+                }
+                path_node_array=path_node_array_1
+            }
+
+
+            var totCalorie = routeLayer!!.tot_calorie.toInt()
+            var totSteps = routeLayer!!.tot_steps
+            var instruction_list = routeLayer!!.instruction_list
+            var instruction_site_list = routeLayer!!.instruction_site_list
+            var instruction_direction_list = routeLayer!!.instruction_direction_list
+            calorieCallback!!.onCalorieSteps(totCalorie.toString(), totSteps.toString(), instruction_list, instruction_site_list, instruction_direction_list)
+            if (mActionMode == IndoorMode.DIRECTION) {
+                // scene!!.set_directional_camera_trigger()
+            } else if (mActionMode == IndoorMode.NAVIGATION) {
+                scene!!.setthirdpersoncamera()
+            }
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Clauste3D", ""+e.message)
+            calorieCallback!!.onCalorieSteps("","", null, null, null)
+
+        }
+    }
+
+
+
+
+
 /*
     fun show3DMapNavigation(floor: Int?) {
         try {
@@ -146,20 +324,7 @@ class Cluster3DMap(internal var fragment: AppCompatActivity, internal var glView
     }
 
 
-    fun set_I_m_here_Markers(marker_i_m_here: ArrayList<Marker_Internal_Nav>) {
 
-        val handler2 = Handler(Looper.getMainLooper())
-       // Log.e("Cluster3dMap", "I m here" )
-        handler2.postDelayed({
-            scene!!.setImHereMarker(marker_i_m_here)
-        }, 1)
-
-
-*//*
-        Handler().postDelayed({
-            scene!!.setImHereMarker(marker_i_m_here)
-        }, 1)*//*
-    }
 
 
     fun setStoreMarkers(floor: Int) {

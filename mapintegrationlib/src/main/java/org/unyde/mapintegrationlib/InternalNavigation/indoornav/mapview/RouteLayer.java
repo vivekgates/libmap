@@ -10,6 +10,7 @@ import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.graph.Gr
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.graph.HipsterGraph;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.model.problem.SearchProblem;
 import org.unyde.mapintegrationlib.R;
+import org.unyde.mapintegrationlib.database.entity.PathNode;
 import org.unyde.mapintegrationlib.util.Constants;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class RouteLayer extends MapBaseLayer {
     }
 
 
-  /*  public void getpathfordifferent_floor(String source_floor_level, String source_site_id, List<PathNode> source_floor_connector_node_list, List<PathNode> destination_floor_connector_node_list, String destination_site_id, String destination_floor_level) {
+    public void getpathfordifferent_floor(String source_floor_level, String source_site_id, List<PathNode> source_floor_connector_node_list, List<PathNode> destination_floor_connector_node_list, String destination_site_id, String destination_floor_level) {
 
         try {
             List<String> return_splitted_path;
@@ -124,7 +125,7 @@ public class RouteLayer extends MapBaseLayer {
         }
 
 
-    }*/
+    }
 
 
     public void getpathforsame_floor(String source_floor_level, String source_site, String destination_site) {
