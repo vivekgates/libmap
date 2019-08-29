@@ -2,9 +2,12 @@ package org.unyde.mapintegrationlib
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
@@ -52,6 +55,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     private var leftsegment: RecyclerView? = null
     private var leftsegment2: RecyclerView? = null
     var progressDialog: ProgressDialog? = null
+    internal var w: Window? = null
 
     ////////////////////////Map
     var store_info: List<PathNode>? = null
@@ -71,11 +75,17 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     private var shownFloorMap: String? = null
     private var marker_i_m_here = ArrayList<Marker_Internal_Nav>()
     internal var locateNode: List<PathNode>? = null
+
     ////////////////////////////////
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cluster_map)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            w = getWindow();
+            w?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
 
         ///////////from Other Activity
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
