@@ -101,7 +101,8 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         cluster_id = getIntent().getStringExtra("cluster_id")
         isViaBeacon = getIntent().getBooleanExtra("isViaBeacon", false)
         ////////////////////////////
-
+        leftsegment = findViewById(R.id.leftsegment)
+        leftsegment2 = findViewById(R.id.leftsegment2)
         Constants.i_m_here_marker = null
         floor = source_floor_level_i_m_here!!.toInt()
         shownFloorMap = floor.toString()
