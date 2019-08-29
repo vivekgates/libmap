@@ -107,10 +107,10 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         shownFloorMap = floor.toString()
 
 
-        progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
+     /*   progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
-        progressDialog!!.show()
+        progressDialog!!.show()*/
 
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
@@ -209,9 +209,9 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     override fun onStoreClick(store_id: String?, isParking: Boolean?) {
         try {
             is_Map_Loaded = true
-            if (progressDialog!!.isShowing) {
+           /* if (progressDialog!!.isShowing) {
                 progressDialog!!.dismiss()
-            }
+            }*/
             if (isParking!!) {
             } else {
                 if (store_id.equals("", true)) {
