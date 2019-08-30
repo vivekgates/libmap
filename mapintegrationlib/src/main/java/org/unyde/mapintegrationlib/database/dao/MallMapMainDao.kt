@@ -22,6 +22,9 @@ interface MallMapMainDao {
     @Query("UPDATE mall_map_main SET isMapDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")
     fun update_isMapDownloaded(cluster: String,floor_number: String)
 
+    @Query("UPDATE mall_map_main SET local_pathImage = :local_pathImage WHERE cluster_id = :cluster and floor_number= :floor_number")
+    fun update_local_map_path(cluster: String,floor_number: String,local_pathImage: String)
+
 
     @Query("UPDATE mall_map_main SET floor_json_date = :floor_json_date WHERE cluster_id = :cluster and floor_number= :floor_number")
     fun update_jsonDate(cluster: String,floor_number: String,floor_json_date: String)

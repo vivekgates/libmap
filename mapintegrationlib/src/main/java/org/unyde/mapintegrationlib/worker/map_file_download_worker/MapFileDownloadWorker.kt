@@ -78,6 +78,9 @@ class MapFileDownloadWorker(private val mContext: Context, workerParameters: Wor
 
             DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.mallMapMain()!!.update_isMapDownloaded(mall_id!!,floor_number!!)
 
+            var imagePath=path + "/" +spilted[0].replace(".zip",".png")
+            DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.mallMapMain()!!.update_local_map_path(mall_id!!,floor_number!!,imagePath)
+
             liveDataHelper!!.updatePercentage(mall_id!!.toInt())
 
         } catch (e: Exception) {

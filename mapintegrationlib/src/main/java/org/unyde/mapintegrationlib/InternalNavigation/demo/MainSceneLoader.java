@@ -6,10 +6,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import org.unyde.mapintegrationlib.ApplicationContext;
 import org.unyde.mapintegrationlib.InternalNavigation.android.ContentUtils;
 import org.unyde.mapintegrationlib.InternalNavigation.model.Object3DData;
 import org.unyde.mapintegrationlib.InternalNavigation.services.Object3DBuilder;
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView;
+import org.unyde.mapintegrationlib.database.DatabaseClient;
+import org.unyde.mapintegrationlib.database.entity.MallMapMain;
 import org.unyde.mapintegrationlib.util.Constants;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class MainSceneLoader extends SceneLoader {
     public float[][] pin_pointer = {{-1, 5, 0}, {0, .5f, 0}};
 
     Callback callaback;
-   // private List<FilePathListMainDevice> add_data;
+    private List<MallMapMain> add_data;
     String clusterId;
     public MainSceneLoader(AppCompatActivity fragment) {
         super(fragment);
@@ -73,6 +76,24 @@ public class MainSceneLoader extends SceneLoader {
                             scene_bg_plane = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/back_plane.obj"));
                             scene_bg_plane.setPosition(new float[]{0f, -.1f, 0f});
                             Constants.floor_bg = scene_bg_plane;
+
+                            add_data = DatabaseClient.Companion.getInstance(ApplicationContext.get().getApplicationContext()).getDb().mallMapMain().all(clusterId);
+                            for (int j = 0; j < add_data.size(); j++) {
+
+                                try {
+                                    Object3DData obj_parking2_floor = Object3DBuilder.loadV5(parent, Uri.parse(add_data.get(j).getLocal_pathImage()));
+                                    obj_parking2_floor.centerAndScale(28.0f);
+                                    obj_parking2_floor.setobjClass(add_data.get(j).getFloor_alias());
+                                    obj_parking2_floor.setId(add_data.get(j).getFloor_alias());
+                                    obj_parking2_floor.setIndex(add_data.get(j).getFloor_number());
+                                    obj_parking2_floor.setPath( add_data.get(j).getLocal_pathImage());
+                                    Constants.floor_model.add(obj_parking2_floor);
+                                    addObject(obj_parking2_floor);
+                                } catch (Exception e) {
+                                    Log.e("MAINSCENELOADER", "" + e.getMessage());
+                                }
+
+                            }
 
 
                             Log.e("MAINSCENELOADER_FI", "Finish");
