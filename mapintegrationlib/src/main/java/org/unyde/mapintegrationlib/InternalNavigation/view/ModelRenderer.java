@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
+import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap;
 import org.unyde.mapintegrationlib.InternalNavigation.android.GLUtil;
 import org.unyde.mapintegrationlib.InternalNavigation.animation.Animator;
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader;
@@ -129,7 +130,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         // INFO: Set the camera position (View matrix)
         // The camera has 3 vectors (the position, the vector where we are looking at, and the up position (sky)
         SceneLoader scene = null;
-      //////////////////////  scene = Cluster3DMap.Companion.getScene();
+        scene = Cluster3DMap.Companion.getScene();
        /* if (Cluster3DMap.Companion.getScene() != null) {
             scene = Cluster3DMap.Companion.getScene();
         } else if (Cluster3DLocateMapFragment.Companion.getScene() != null) {
@@ -155,7 +156,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             float bottom = -top;
             float left = ratio * bottom;
             float right = ratio * top;
-           // Matrix.frustumM(modelProjectionMatrix, 0, -ratio, ratio, -1, 1, getNear(), getFar());
+            // Matrix.frustumM(modelProjectionMatrix, 0, -ratio, ratio, -1, 1, getNear(), getFar());
             Matrix.frustumM(modelProjectionMatrix, 0, left, right, bottom,top, getNear(), getFar());
 
 
@@ -197,7 +198,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 		glText.draw( "The End.", 50, 150 + glText.getCharHeight() );  // Draw Test String
 		glText.end();*/
         SceneLoader scene = null;
-      ////////////////////////////////  scene = Cluster3DMap.Companion.getScene();
+        scene = Cluster3DMap.Companion.getScene();
        /* if (Cluster3DMapFragment.Companion.getScene() != null) {
             scene = Cluster3DMapFragment.Companion.getScene();
         } else if (Cluster3DLocateMapFragment.Companion.getScene() != null) {
