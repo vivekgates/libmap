@@ -22,7 +22,7 @@ import org.unyde.mapintegrationlib.interfaces.FloorClickListner
 import org.unyde.mapintegrationlib.util.Constants
 
 
-class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView: ModelSurfaceView, var callback: SceneLoader.Callback, var floor_pop_list: RecyclerView, var floor_pop_list2: RecyclerView, var floorClickListner: FloorClickListner, var calorieCallback: CalorieStepsCallback?, var clusterId: String) {
+class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView: ModelSurfaceView, var callback: SceneLoader.Callback, var floor_pop_list: RecyclerView, var floorClickListner: FloorClickListner, var calorieCallback: CalorieStepsCallback?, var clusterId: String) {
 
 
     var renderer: ModelRenderer? = null

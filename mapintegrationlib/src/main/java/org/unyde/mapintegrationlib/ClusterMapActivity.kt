@@ -102,7 +102,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         isViaBeacon = getIntent().getBooleanExtra("isViaBeacon", false)
         ////////////////////////////
         leftsegment = findViewById(R.id.leftsegment)
-        leftsegment2 = findViewById(R.id.leftsegment2)
+        //leftsegment2 = findViewById(R.id.leftsegment2)
         Constants.i_m_here_marker = null
         floor = source_floor_level_i_m_here!!.toInt()
         shownFloorMap = floor.toString()
@@ -115,7 +115,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
 
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
-        cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!, leftsegment2!!, this, this, cluster_id!!)
+        cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!,  this, this, cluster_id!!)
         cluster3DMap!!.init()
 
 
