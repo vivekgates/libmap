@@ -236,7 +236,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     }
 
     override fun onStoreChange() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.e("3D locate", "On Store Chnage")
     }
 
     override fun onCalorieSteps(
@@ -246,7 +246,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         instruction_site_list: MutableList<String>?,
         instruction_direction_list: MutableList<Int>?
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.e("3D locate", "On Calorie Chnage")
     }
 
     private fun All_Locate() {
