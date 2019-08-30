@@ -222,7 +222,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                     } else {
                         cluster3DMap!!.show3DMap(source_floor_level_i_m_here!!.toInt())
                     }
-                    All_Locate()
+                   // All_Locate()
 
 
                 } else {
