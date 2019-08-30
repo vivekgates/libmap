@@ -1,0 +1,23 @@
+# This file uses centimeters as units for non-parametric coordinates.
+
+mtllib pointer_shadow_patch.mtl
+g shadow_patch1:default1
+v 0.125241 0.713838 0.121990
+v -0.126652 0.713838 0.121990
+v 0.125241 0.713838 -0.129901
+v -0.126652 0.713838 -0.129901
+vt 0.001992 0.001992
+vt 0.001992 0.998008
+vt 0.998008 0.001992
+vt 0.998008 0.998008
+vn 0.000000 1.000000 0.000000
+vn 0.000000 1.000000 0.000000
+vn 0.000000 1.000000 0.000000
+vn 0.000000 1.000000 0.000000
+vn 0.000000 1.000000 0.000000
+vn 0.000000 1.000000 0.000000
+s off
+g shadow_patch1:group shadow_patch1:pasted__group shadow_patch1:pasted__pasted__polySurface9 shadow_patch1:polySurface9 shadow_patch1:polySurface1 group
+usemtl shadow_patch1:pasted__pasted__lambert4SG
+f 1/1/1 3/2/2 2/3/3
+f 3/2/4 4/4/5 2/3/6

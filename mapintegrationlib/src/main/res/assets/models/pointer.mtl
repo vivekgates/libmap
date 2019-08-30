@@ -1,0 +1,19 @@
+newmtl pointer01:pasted__lambert2SG
+illum 4
+Kd 0.95 0.95 0.95
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl pointer01:pasted__lambert3SG
+illum 4
+Kd 0.45 0.48 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl shadow_patch:lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd pointer_shadow.png
+Ni 1.00
