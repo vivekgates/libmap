@@ -65,6 +65,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var isViaBeacon: Boolean? = false
     internal var sourcedbNode_i_m_here: List<PathNode>? = null
     var cluster_id: String? = null
+    var mall_name: String? = null
     var floor_list: List<MallMapMain>? = null
     private var floor: Int = 0
     private val Current_floor = ArrayList<Int>()
@@ -99,6 +100,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         destination_store_address = intent.getStringExtra("destination_store_address")
         destination_store = intent.getIntExtra("destination_store_id", 0)
         cluster_id = getIntent().getStringExtra("cluster_id")
+        mall_name = getIntent().getStringExtra("mall_name")
         isViaBeacon = getIntent().getBooleanExtra("isViaBeacon", false)
         ////////////////////////////
         leftsegment = findViewById(R.id.leftsegment)
