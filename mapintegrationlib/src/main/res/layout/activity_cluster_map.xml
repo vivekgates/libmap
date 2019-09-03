@@ -274,7 +274,7 @@
                             android:gravity="center"
                             android:drawablePadding="@dimen/_4sdp"
                             android:textColor="@color/blackerki"
-                            android:id="@+id/store_name_txt"
+                            android:id="@+id/store_address_txt"
                     />
 
                 </LinearLayout>

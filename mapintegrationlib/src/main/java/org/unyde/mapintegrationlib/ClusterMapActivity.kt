@@ -95,7 +95,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var start_prev_text : TextView?=null
     var destinationtxt : TextView ?=null
     var brands_name : TextView ?=null
-    var store_name_txt : TextView ?=null
+    var store_address_txt : TextView ?=null
     var topcurtwo_steps : ImageView ?=null
     var bottom_sheet_3d_steps : RelativeLayout?=null
     var startback : LinearLayout?=null
@@ -117,7 +117,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         next_step_btn = findViewById(R.id.next_step_btn)
         destinationtxt = findViewById(R.id.destinationtxt)
         brands_name = findViewById(R.id.brands_name)
-        store_name_txt = findViewById(R.id.store_name_txt)
+        store_address_txt = findViewById(R.id.store_address_txt)
         bottom_sheet_3d_steps = findViewById(R.id.bottom_sheet_3d_steps)
         topcurtwo_steps = findViewById(R.id.topcurtwo_steps)
         bottom_card_v = findViewById(R.id.bottom_card_v)
@@ -134,11 +134,11 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         nav_bottomsheet_steps?.isDisableExpanded = true
         ////////////////////
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             w = getWindow();
             w?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-
+*/
         ///////////from Other Activity
         source_beacon_siteid_i_m_here = intent.getStringExtra("source_site_id")
         source_floor_level_i_m_here = intent.getStringExtra("source_floor")
@@ -148,7 +148,9 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         dest_floor_level = intent.getStringExtra("destination_floor_level")
         destination_floor = intent.getStringExtra("destination_floor_level")
         destination_store_name = intent.getStringExtra("destination_store_name")
+        brands_name!!.text=""+destination_store_name
         destination_store_address = intent.getStringExtra("destination_store_address")
+        store_address_txt!!.text=destination_store_address
         destination_store = intent.getIntExtra("destination_store_id", 0)
         cluster_id = getIntent().getStringExtra("cluster_id")
         mall_name = getIntent().getStringExtra("mall_name")
