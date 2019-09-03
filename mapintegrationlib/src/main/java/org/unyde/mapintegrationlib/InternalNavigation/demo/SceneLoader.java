@@ -872,8 +872,8 @@ public class SceneLoader implements LoaderTask.Callback {
             Object3DData obj53 = null;
             obj53 = Object3DBuilder.buildplanemall2V4(IOUtils.read(opena));
             obj53.setPosition(new float[]{0, 0, 0});
-            Float width = Float.parseFloat("200");
-            Float height = Float.parseFloat("200");
+            Float width = Float.parseFloat("3.84");
+            Float height = Float.parseFloat("2.333");
             obj53.setScale(new float[]{width, .01f, height});
             addObject(obj53);
             opena.close();
