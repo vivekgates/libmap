@@ -136,7 +136,7 @@
                     android:layout_below="@+id/line_top">
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/instruction_list"
+                        android:id="@+id/instruction_list_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/white"

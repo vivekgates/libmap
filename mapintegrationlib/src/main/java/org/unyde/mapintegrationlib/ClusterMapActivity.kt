@@ -2,6 +2,9 @@ package org.unyde.mapintegrationlib
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,10 +18,12 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.balysv.materialripple.MaterialRippleLayout
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.steps_bottom_sheet.*
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Marker_Internal_Nav
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView
+import org.unyde.mapintegrationlib.adapter.StepsInstructionAdapter
 import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.MallMapMain
 import org.unyde.mapintegrationlib.database.entity.PathNode
@@ -30,7 +35,7 @@ import java.lang.Float
 import java.util.ArrayList
 
 class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.Callback,
-    Cluster3DMap.CalorieStepsCallback {
+    Cluster3DMap.CalorieStepsCallback, SensorEventListener {
 
 
     ///////////////Source Beacon
@@ -96,7 +101,10 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var startback : LinearLayout?=null
     var bottom_card_v : CardView?=null
     var nav_bottomsheet_steps: AnchorBottomSheetBehavior<View>? = null
-
+    var instruction_list: MutableList<String>? = null
+    var instruction_site_list: MutableList<String>? = null
+    var instruction_direction_list: MutableList<Int>? = null
+    var stepsInstructionRecyclerAdapter: StepsInstructionAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -363,7 +371,25 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         instruction_site_list: MutableList<String>?,
         instruction_direction_list: MutableList<Int>?
     ) {
-        Log.e("3D locate", "On Calorie Chnage")
+        try {
+
+            if (calorie.equals("")) {
+               // Pref_manager.customToastNew(this@Cluster3DLocateMapActivity, "No Result Found", "")
+               // d_nav_linear!!.visibility = View.GONE
+               // nav_bottomsheet?.setState(BottomSheetBehavior.STATE_HIDDEN);
+            } else {
+                this.instruction_list = instruction_list
+                this.instruction_site_list = instruction_site_list
+                this.instruction_direction_list = instruction_direction_list
+                stepsInstructionRecyclerAdapter = StepsInstructionAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@ClusterMapActivity)
+                instruction_list_recyclerview?.setAdapter(stepsInstructionRecyclerAdapter)
+                stepsInstructionRecyclerAdapter!!.notifyDataSetChanged()
+            }
+
+
+        } catch (e: Exception) {
+
+        }
     }
 
     private fun All_Locate() {
@@ -403,6 +429,17 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
 
     }
 
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
 
+    override fun onSensorChanged(event: SensorEvent?) {
+        try {
+            val degree = Math.round(event!!.values[0]).toFloat()
+            Cluster3DMap.scene!!.orientation = degree;
+        } catch (e: Exception) {
+
+        }
+
+    }
 
 }
