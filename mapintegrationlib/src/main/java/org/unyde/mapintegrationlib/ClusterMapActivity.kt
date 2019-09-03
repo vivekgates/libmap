@@ -106,6 +106,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var instruction_site_list: MutableList<String>? = null
     var instruction_direction_list: MutableList<Int>? = null
     var stepsInstructionRecyclerAdapter: StepsInstructionAdapter? = null
+    var instruction_list_recyclerview: RecyclerView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,6 +124,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         topcurtwo_steps = findViewById(R.id.topcurtwo_steps)
         bottom_card_v = findViewById(R.id.bottom_card_v)
         startback = findViewById(R.id.startback)
+        instruction_list_recyclerview = findViewById(R.id.instruction_list_recyclerview)
 
 
 
