@@ -136,6 +136,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         startback = findViewById(R.id.startback)
         back_button = findViewById(R.id.back_button)
         instruction_list_recyclerview = findViewById(R.id.instruction_list_recyclerview)
+        leftsegment = findViewById(R.id.leftsegment)
         card_expand = findViewById(R.id.card_expand)
         open_floor = findViewById(R.id.open_floor)
 
