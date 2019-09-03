@@ -2,6 +2,7 @@ package org.unyde.mapintegrationlib
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.drawable.InsetDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -15,7 +16,9 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balysv.materialripple.MaterialRippleLayout
 import com.google.gson.GsonBuilder
@@ -24,6 +27,7 @@ import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Marker_Internal_Nav
 import org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView
+import org.unyde.mapintegrationlib.adapter.FlorsRecAdapter
 import org.unyde.mapintegrationlib.adapter.StepsInstructionAdapter
 import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.MallMapMain
@@ -107,6 +111,11 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var instruction_direction_list: MutableList<Int>? = null
     var stepsInstructionRecyclerAdapter: StepsInstructionAdapter? = null
     var instruction_list_recyclerview: RecyclerView? = null
+    ///////Floor Open
+    var open_floor: RelativeLayout? = null
+    var card_expand: CardView? = null
+    var ATTRS: IntArray? = null
+    var current_flor: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +134,8 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         bottom_card_v = findViewById(R.id.bottom_card_v)
         startback = findViewById(R.id.startback)
         instruction_list_recyclerview = findViewById(R.id.instruction_list_recyclerview)
+        card_expand = findViewById(R.id.card_expand)
+        open_floor = findViewById(R.id.open_floor)
 
 
 
@@ -159,13 +170,41 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         mall_name = getIntent().getStringExtra("mall_name")
         isViaBeacon = getIntent().getBooleanExtra("isViaBeacon", false)
         ////////////////////////////
-        leftsegment = findViewById(R.id.leftsegment)
+
         //leftsegment2 = findViewById(R.id.leftsegment2)
         Constants.i_m_here_marker = null
         floor = source_floor_level_i_m_here!!.toInt()
         shownFloorMap = floor.toString()
 
+        ATTRS = intArrayOf(android.R.attr.listDivider)
 
+        val a = obtainStyledAttributes(ATTRS)
+        val divider = a.getDrawable(0)
+        val inset = resources.getDimensionPixelSize(R.dimen._4sdp)
+        val insetDivider = InsetDrawable(divider, resources.getDimensionPixelSize(R.dimen._35sdp), 0, inset, 0)
+        a.recycle()
+        val itemDecorfloor = DividerItemDecoration(this@ClusterMapActivity, DividerItemDecoration.VERTICAL)
+        itemDecorfloor.setDrawable(insetDivider)
+        leftsegment = findViewById(R.id.leftsegment)
+        floor_list =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.mallMapMain().getFloor(cluster_id!!);
+
+        if (!(floor_list!!.size == 0)) {
+            for (i in 0 until floor_list!!.size) {
+                floor_data_list.add("" + floor_list!!.get(i).floor_alias)
+                if (floor_list!!.get(i).floor_number.equals(floor)) {
+                    Current_floor.add(1)
+                    current_flor = floor
+                } else {
+                    Current_floor.add(0)
+
+                }
+            }
+        }
+
+
+        leftsegment?.layoutManager = LinearLayoutManager(this@ClusterMapActivity, RecyclerView.VERTICAL, false)
+        leftsegment?.adapter = FlorsRecAdapter(this@ClusterMapActivity!!, floor_list, current_flor, Current_floor, this)
+        leftsegment?.addItemDecoration(itemDecorfloor)
      /*   progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
@@ -334,6 +373,41 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     }
 
     override fun onFloorItemClick(pos: Int) {
+        try {
+            floor = floor_list!!.get(pos).floor_number
+            shownFloorMap = floor.toString()
+            Cluster3DMap.scene!!.destination_floor_number=""
+            if(!shownFloorMap.equals(source_floor))
+            {
+                Cluster3DMap.scene!!.destination_floor_number = floor.toString()
+            }
+            else
+            {
+                if(!source_floor.equals(destination_floor))
+                {
+                    Cluster3DMap.scene!!.destination_floor_number = floor.toString()
+                }
+
+            }
+
+
+            if (Cluster3DMap.mActionMode!!.equals(Cluster3DMap.IndoorMode.DIRECTION)) {
+                cluster3DMap!!.show3DMap(floor)
+
+                if (shownFloorMap.equals(source_floor_level_i_m_here) || shownFloorMap.equals(dest_floor_level)) {
+                    //cluster3DMap!!.setStoreMarkers(floor)
+                   // cluster3DMap!!.show3DMapNavigation(floor)
+                }
+
+
+            } else if (Cluster3DMap.mActionMode!!.equals(Cluster3DMap.IndoorMode.NORMAL)) {
+                cluster3DMap!!.show3DMap(floor)
+
+            }
+
+        } catch (e: Exception) {
+
+        }
 
     }
 

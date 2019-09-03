@@ -299,7 +299,7 @@
                 app:cardElevation="@dimen/_3sdp"
                 android:layout_marginRight="@dimen/_8sdp"
                 app:cardCornerRadius="@dimen/_5sdp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_height="wrap_content">
@@ -349,7 +349,7 @@
             app:cardElevation="0dp"
             app:cardCornerRadius="@dimen/_3sdp"
             android:layout_gravity="end"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/card_expand"
             android:layout_marginTop="@dimen/_62sdp"
             android:layout_marginRight="@dimen/_9sdp"
