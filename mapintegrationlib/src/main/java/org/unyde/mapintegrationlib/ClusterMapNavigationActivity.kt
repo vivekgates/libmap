@@ -39,7 +39,7 @@ import org.unyde.mapintegrationlib.util.viewpagerAdsCard.AnchorBottomSheetBehavi
 import java.lang.Float
 import java.util.ArrayList
 
-class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.Callback,
+class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, SceneLoader.Callback,
     Cluster3DMap.CalorieStepsCallback, SensorEventListener {
 
 
@@ -178,14 +178,14 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         floor = source_floor_level_i_m_here!!.toInt()
         shownFloorMap = floor.toString()
 
-        ATTRS = intArrayOf(android.R.attr.listDivider)
+       /* ATTRS = intArrayOf(android.R.attr.listDivider)
 
         val a = obtainStyledAttributes(ATTRS)
         val divider = a.getDrawable(0)
         val inset = resources.getDimensionPixelSize(R.dimen._4sdp)
         val insetDivider = InsetDrawable(divider, resources.getDimensionPixelSize(R.dimen._35sdp), 0, inset, 0)
         a.recycle()
-        val itemDecorfloor = DividerItemDecoration(this@ClusterMapActivity, DividerItemDecoration.VERTICAL)
+        val itemDecorfloor = DividerItemDecoration(this@ClusterMapNavigationActivity, DividerItemDecoration.VERTICAL)
         itemDecorfloor.setDrawable(insetDivider)
         leftsegment = findViewById(R.id.leftsegment)
         floor_list =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.mallMapMain().getFloor(cluster_id!!);
@@ -203,14 +203,14 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         }
 
 
-        leftsegment?.layoutManager = LinearLayoutManager(this@ClusterMapActivity, RecyclerView.VERTICAL, false)
-        leftsegment?.adapter = FlorsRecAdapter(this@ClusterMapActivity!!, floor_list, current_flor, Current_floor, this)
-        leftsegment?.addItemDecoration(itemDecorfloor)
+        leftsegment?.layoutManager = LinearLayoutManager(this@ClusterMapNavigationActivity, RecyclerView.VERTICAL, false)
+        leftsegment?.adapter = FlorsRecAdapter(this@ClusterMapNavigationActivity!!, floor_list, current_flor, Current_floor, this)
+        leftsegment?.addItemDecoration(itemDecorfloor)*/
      /*   progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
         progressDialog!!.show()*/
-        instruction_list_recyclerview?.setLayoutManager(GridLayoutManager(this@ClusterMapActivity, 1, RecyclerView.VERTICAL, false))
+        instruction_list_recyclerview?.setLayoutManager(GridLayoutManager(this@ClusterMapNavigationActivity, 1, RecyclerView.VERTICAL, false))
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
         cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!,  this, this, cluster_id!!)
@@ -229,7 +229,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                 nav_bottomsheet_steps!!.isDisableExpanded = false
             }
             else{
-                Toast.makeText(this@ClusterMapActivity,"Previous", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ClusterMapNavigationActivity,"Previous", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -463,7 +463,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                 this.instruction_list = instruction_list
                 this.instruction_site_list = instruction_site_list
                 this.instruction_direction_list = instruction_direction_list
-                stepsInstructionRecyclerAdapter = StepsInstructionAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@ClusterMapActivity)
+                stepsInstructionRecyclerAdapter = StepsInstructionAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@ClusterMapNavigationActivity)
                 instruction_list_recyclerview?.setAdapter(stepsInstructionRecyclerAdapter)
                 stepsInstructionRecyclerAdapter!!.notifyDataSetChanged()
             }
