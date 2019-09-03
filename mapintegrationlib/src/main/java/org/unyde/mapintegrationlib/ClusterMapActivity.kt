@@ -15,6 +15,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balysv.materialripple.MaterialRippleLayout
 import com.google.gson.GsonBuilder
@@ -167,7 +168,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
         progressDialog!!.show()*/
-
+        instruction_list_recyclerview?.setLayoutManager(GridLayoutManager(this@ClusterMapActivity, 1, RecyclerView.VERTICAL, false))
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
         cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!,  this, this, cluster_id!!)
