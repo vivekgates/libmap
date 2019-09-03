@@ -6,9 +6,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.*
+import androidx.cardview.widget.CardView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.balysv.materialripple.MaterialRippleLayout
 import com.google.gson.GsonBuilder
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
@@ -20,6 +25,7 @@ import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.interfaces.FloorClickListner
 import org.unyde.mapintegrationlib.util.Constants
 import org.unyde.mapintegrationlib.util.Pref_manager
+import org.unyde.mapintegrationlib.util.viewpagerAdsCard.AnchorBottomSheetBehavior
 import java.lang.Float
 import java.util.ArrayList
 
@@ -78,10 +84,47 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     internal var locateNode: List<PathNode>? = null
 
     ////////////////////////////////
+    var start_prevbtn : MaterialRippleLayout?=null
+    var next_step_btn : MaterialRippleLayout ?=null
+    var start_prev_image : ImageView?=null
+    var start_prev_text : TextView?=null
+    var destinationtxt : TextView ?=null
+    var brands_name : TextView ?=null
+    var store_name_txt : TextView ?=null
+    var topcurtwo_steps : ImageView ?=null
+    var bottom_sheet_3d_steps : RelativeLayout?=null
+    var startback : LinearLayout?=null
+    var bottom_card_v : CardView?=null
+    var nav_bottomsheet_steps: AnchorBottomSheetBehavior<View>? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cluster_map)
+
+        start_prevbtn = findViewById(R.id.start_prevbtn)
+        start_prev_text = findViewById(R.id.start_prev_text)
+        start_prev_image = findViewById(R.id.start_prev_image)
+        next_step_btn = findViewById(R.id.next_step_btn)
+        destinationtxt = findViewById(R.id.destinationtxt)
+        brands_name = findViewById(R.id.brands_name)
+        store_name_txt = findViewById(R.id.store_name_txt)
+        bottom_sheet_3d_steps = findViewById(R.id.bottom_sheet_3d_steps)
+        topcurtwo_steps = findViewById(R.id.topcurtwo_steps)
+        bottom_card_v = findViewById(R.id.bottom_card_v)
+        startback = findViewById(R.id.startback)
+
+
+
+        ///////////////////////////
+
+        nav_bottomsheet_steps = AnchorBottomSheetBehavior.from(bottom_sheet_3d_steps)
+        nav_bottomsheet_steps?.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+        nav_bottomsheet_steps?.peekHeight = 0
+        nav_bottomsheet_steps?.isHideable = true
+        nav_bottomsheet_steps?.isDisableExpanded = true
+        ////////////////////
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             w = getWindow();
@@ -119,6 +162,78 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
 
         cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!,  this, this, cluster_id!!)
         cluster3DMap!!.init()
+
+        start_prevbtn!!.setOnClickListener {
+
+            if (start_prev_text!!.text.toString().trim().equals("START")){
+                next_step_btn!!.visibility = View.VISIBLE
+                start_prev_text!!.setText("PREV STEP")
+                start_prev_image!!.setImageResource(R.drawable.ic_arrow_left)
+                startback!!.setBackgroundResource(R.drawable.bg_gradient_new_up_cornor)
+                nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
+                nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+                nav_bottomsheet_steps!!.isHideable = false
+                nav_bottomsheet_steps!!.isDisableExpanded = false
+            }
+            else{
+                Toast.makeText(this@ClusterMapActivity,"Previous", Toast.LENGTH_SHORT).show()
+            }
+
+
+
+        }
+
+
+        nav_bottomsheet_steps!!.addBottomSheetCallback(object : AnchorBottomSheetBehavior.BottomSheetCallback(){
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                when (newState) {
+                    AnchorBottomSheetBehavior.STATE_HIDDEN -> {
+
+                    }
+                    AnchorBottomSheetBehavior.STATE_EXPANDED -> {
+                        ViewCompat.animate(bottom_card_v!!).translationY(bottom_card_v!!.height.toFloat() + 50f).start()
+                    }
+                    AnchorBottomSheetBehavior.STATE_COLLAPSED -> {
+
+                        ViewCompat.animate(bottom_card_v!!).translationY(0f).start()
+
+
+                    }
+                    AnchorBottomSheetBehavior.STATE_DRAGGING -> {
+                        Log.e("hidden_steps", "dragging")
+
+                    }
+                    AnchorBottomSheetBehavior.STATE_SETTLING -> {
+                        Log.e("hidden_steps", "setting")
+                    }
+                    AnchorBottomSheetBehavior.STATE_ANCHORED -> {
+                        ViewCompat.animate(bottom_card_v!!).translationY(bottom_card_v!!.height.toFloat() + 50f).start()
+
+                    }
+                }
+
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: kotlin.Float) {
+
+
+
+            }
+
+        })
+
+        topcurtwo_steps!!.setOnClickListener {
+
+            if (nav_bottomsheet_steps!!.state == AnchorBottomSheetBehavior.STATE_COLLAPSED){
+                nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_EXPANDED
+            }
+            else{
+                nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+            }
+
+        }
+
 
 
     }
@@ -224,7 +339,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                     } else {
                         cluster3DMap!!.show3DMap(source_floor_level_i_m_here!!.toInt())
                     }
-                   // All_Locate()
+                    All_Locate()
 
 
                 } else {
