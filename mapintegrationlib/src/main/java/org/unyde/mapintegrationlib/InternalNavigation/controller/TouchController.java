@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap;
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader;
 import org.unyde.mapintegrationlib.InternalNavigation.math.Math3DUtils;
 import org.unyde.mapintegrationlib.InternalNavigation.model.Camera;
@@ -189,7 +190,7 @@ public class TouchController {
 
             // SceneLoader scene = Cluster3DLocateMapFragment.Companion.getScene();
             SceneLoader scene = null;
-            ///////////////////////////////////////////scene = Cluster3DMap.Companion.getScene();
+            scene = Cluster3DMap.Companion.getScene();
           /*  if (Cluster3DMapFragment.Companion.getScene() != null) {
                 scene = Cluster3DMapFragment.Companion.getScene();
             } else if (Cluster3DLocateMapFragment.Companion.getScene() != null) {
@@ -200,7 +201,7 @@ public class TouchController {
             }
             else
             {
-               // scene.processTouch(x1, y1);
+                // scene.processTouch(x1, y1);
             }
         }
 
@@ -208,7 +209,7 @@ public class TouchController {
         if (touchDelay > 1) {
             // INFO: Process gesture
             SceneLoader scene = null;
-            ///////////////////////////////////////////scene = Cluster3DMap.Companion.getScene();
+            scene = Cluster3DMap.Companion.getScene();
             //SceneLoader scene = Cluster3DLocateMapFragment.Companion.getScene();
             scene.processMove(dx1, dy1);
             Log.e("Tag", String.valueOf(dx1) + "," + String.valueOf(dy1));
@@ -305,8 +306,7 @@ public class TouchController {
                 float[] front = new float[]{xLookDirection, yLookDirection, zLookDirection};
                 float[] right = Math3DUtils.crossProduct(up, front);
 
-               //float scroll_speed = camera.yPos*Cluster3DMap.Companion. getPan_value();
-               float scroll_speed = camera.yPos;
+                float scroll_speed = camera.yPos* Cluster3DMap.Companion. getPan_value();
             /*
                 float scroll_speed = camera.yPos*2.0f;
                 if(Cluster3DMap.Companion.getMActionMode() == Cluster3DMap.IndoorMode.DIRECTION)
@@ -357,12 +357,12 @@ public class TouchController {
                     Log.i("Cam Distance", String.valueOf(cam_distance));
                     for(int i = 0;i<scene.created_pin.size();i++)
                     {
-                       /// float[] prev_pos =new float[] {scene.created_pin.get(i).getPositionX(),scene.created_pin.get(i).getPositionY(),scene.created_pin.get(i).getPositionZ()};
+                        /// float[] prev_pos =new float[] {scene.created_pin.get(i).getPositionX(),scene.created_pin.get(i).getPositionY(),scene.created_pin.get(i).getPositionZ()};
                         //scene.created_pin.get(i).setScale(new float[]{(float) cam_distance/3.6f,(float)cam_distance/3.6f,(float)cam_distance/3.6f});
                         //scene.created_pin.get(i).centerAndScale(new float[]{(float) cam_distance/2.5f,(float)cam_distance/2.5f,(float)cam_distance/2.5f},prev_pos);
                         //scene.created_pin.get(i).centerAndScale((float)cam_distance/2.5f,prev_pos);
-                       // float[] temp_position = scene.created_pin.get(i).getPosition();
-                       // scene.created_pin.get(i).position =new float[]{temp_position[0]+(float)(cam_distance/9f),temp_position[1]+(float)(cam_distance/9f),temp_position[2]+(float)(cam_distance/9f)};
+                        // float[] temp_position = scene.created_pin.get(i).getPosition();
+                        // scene.created_pin.get(i).position =new float[]{temp_position[0]+(float)(cam_distance/9f),temp_position[1]+(float)(cam_distance/9f),temp_position[2]+(float)(cam_distance/9f)};
                     }
 
 
