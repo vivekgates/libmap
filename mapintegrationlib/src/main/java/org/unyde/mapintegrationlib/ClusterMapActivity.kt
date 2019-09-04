@@ -102,10 +102,10 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         floors_recycler?.layoutManager = LinearLayoutManager(this@ClusterMapActivity, RecyclerView.VERTICAL, false)
         floors_recycler?.adapter = FlorsRecAdapter(this@ClusterMapActivity!!, floor_list, current_flor, Current_floor, this)
         floors_recycler?.addItemDecoration(itemDecorfloor)
-     /*   progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
+        progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
-        progressDialog!!.show()*/
+        progressDialog!!.show()
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
         cluster3DMap = Cluster3DMap(this, gLView!!, this, floors_recycler!!,  this, this, cluster_id!!)
@@ -132,6 +132,9 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
 
     override fun onStoreClick(store_id: String?, isParking: Boolean?) {
         try {
+            if (progressDialog!!.isShowing) {
+                progressDialog!!.dismiss()
+            }
             is_Map_Loaded = true
             cluster3DMap!!.show3DMap(0)
         } catch (e: Exception) {
