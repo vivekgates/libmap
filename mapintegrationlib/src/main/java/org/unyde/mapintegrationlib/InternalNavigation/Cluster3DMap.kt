@@ -264,6 +264,47 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
     }
 
 
+    fun setStoreMarkers(floor: Int) {
+        try {
+           /* var marker = ArrayList<Marker_Internal_Nav>()
+            marker!!.clear()
+            if (mActionMode == IndoorMode.NORMAL) {
+
+                val floor_data = MyApplication.get()!!.db!!.floor_data().findById(floor)
+                if (!(floor_data.size == 0)) {
+                    for (i in 0 until floor_data.size) {
+                        marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (floor_data.get(i).cordinate_x != "") floor_data.get(i).cordinate_x else "0")!!, java.lang.Float.valueOf(if (floor_data.get(i).cordinate_y != "") floor_data.get(i).cordinate_y else "0")!!, java.lang.Float.valueOf(if (floor_data.get(i).cordinate_z != "") floor_data.get(i).cordinate_z else "0")!!, "" + floor_data.get(i).store_id, "N", floor_data.get(i).site_id, ""))
+                    }
+                }
+
+
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    scene!!.setMarker(marker, floor)
+                }, 100)
+
+                *//*      Handler().postDelayed({
+
+                      }, 100)
+      *//*
+            } else if (mActionMode == IndoorMode.DIRECTION || mActionMode == IndoorMode.NAVIGATION) {
+
+                val handler1 = Handler(Looper.getMainLooper())
+
+                handler1.postDelayed({
+                    scene!!.setMarker(marker, floor)
+                }, 100)
+                *//* Handler().postDelayed({
+                     scene!!.setMarker(marker, floor)
+                 }, 100)*//*
+            }*/
+
+
+        } catch (e: Exception) {
+            Log.e("Cluster3DMap:", "" + e.message)
+        }
+    }
+
 
 
 
