@@ -221,7 +221,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
 
             try {
-
+                Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
                 if (start_prev_text!!.text.toString().trim().equals("START")){
                     next_step_btn!!.visibility = View.VISIBLE
                     start_prev_text!!.setText("PREV STEP")
@@ -235,10 +235,10 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                 else{
                     Toast.makeText(this@ClusterMapNavigationActivity,"Previous", Toast.LENGTH_SHORT).show()
                 }
-                Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
+
                 if (isViaBeacon!!) {
-                    if (shownFloorMap!!.toInt() != Pref_manager.getFloor_Level(MyApplication.instance.applicationContext)) {
-                        floor = Pref_manager.getFloor_Level(MyApplication.instance.applicationContext)
+                    if (shownFloorMap!!.toInt() != Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)) {
+                        floor = Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)
                         Cluster3DMap.scene!!.destination_floor_number = source_floor
                         cluster3DMap!!.show3DMap(floor)
                         cluster3DMap!!.setStoreMarkers(floor)
