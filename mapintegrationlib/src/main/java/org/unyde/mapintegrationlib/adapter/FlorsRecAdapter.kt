@@ -61,18 +61,8 @@ class FlorsRecAdapter(internal var context: Context
 
             }
 
-            if (row_index == flor_list!!.get(position).floor_number) {
 
-                holder.numcard.setBackgroundResource(R.drawable.acc_blue_border_ki)
-                holder.flor_num_txt.setTextColor(Color.WHITE)
-                holder.flor_name_txt.setTextColor(context.resources.getColor(R.color.black))
-            } else {
 
-                holder.numcard.setBackgroundResource(R.drawable.acc_white_border_ki)
-                holder.flor_num_txt.setTextColor(Color.BLACK)
-                holder.flor_name_txt.setTextColor(context.resources.getColor(R.color.base))
-            }
-          /*
 
             if (flor_list!!.get(position).floor_number < 1) {
 
@@ -100,12 +90,25 @@ class FlorsRecAdapter(internal var context: Context
                     holder.flor_name_txt.setText( " "+flor_list!!.get(position).floor_alias)
                 }
 
-*//*
+/*
                 holder.flor_num_txt.setText("" + flor_list!!.get(position).floor_number)
-                holder.flor_name_txt.setText( " "+flor_list!!.get(position).floor_alias)*//*
+                holder.flor_name_txt.setText( " "+flor_list!!.get(position).floor_alias)*/
             }
 
-            if (selected_floor == 101) {
+            if (row_index == flor_list!!.get(position).floor_number) {
+
+                holder.numcard.setBackgroundResource(R.drawable.acc_blue_border_ki)
+                holder.flor_num_txt.setTextColor(Color.WHITE)
+                holder.flor_name_txt.setTextColor(context.resources.getColor(R.color.black))
+            } else {
+
+                holder.numcard.setBackgroundResource(R.drawable.acc_white_border_ki)
+                holder.flor_num_txt.setTextColor(Color.BLACK)
+                holder.flor_name_txt.setTextColor(context.resources.getColor(R.color.base))
+            }
+
+            
+        /*    if (selected_floor == 101) {
 
                 if (Current_floor.get(position) == 1) {
                     holder.numcard.setBackgroundResource(R.drawable.acc_blue_border_ki)
