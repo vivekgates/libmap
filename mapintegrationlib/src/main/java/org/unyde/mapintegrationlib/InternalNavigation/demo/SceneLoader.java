@@ -231,8 +231,8 @@ public class SceneLoader implements LoaderTask.Callback {
         this.paramType = paramType;
         this.gLView = gLView;
         this.callback = callback;
-        // marker = new ArrayList<Marker_Internal_Nav>();
-        // marker_i_m_here = new ArrayList<Marker_Internal_Nav>();
+         marker = new ArrayList<Marker_Internal_Nav>();
+         marker_i_m_here = new ArrayList<Marker_Internal_Nav>();
         this.clusterId = clusterId;
 
         // initial_orientation=initial_orientation;
@@ -347,7 +347,7 @@ public class SceneLoader implements LoaderTask.Callback {
     }
 
 
-  /*  public void setMarker(List<Marker_Internal_Nav> marker, Integer floor) {
+    public void setMarker(List<Marker_Internal_Nav> marker, Integer floor) {
 
         this.marker = marker;
         try {
@@ -355,7 +355,7 @@ public class SceneLoader implements LoaderTask.Callback {
             ContentUtils.provideAssets(parent, clusterId);
             created_pin.clear();
             created_pin_pos.clear();
-            *//*Object3DData obj41 = Object3DBuilder.buildplane3V4(Constants.char_byte_data.get('!'));
+            /*Object3DData obj41 = Object3DBuilder.buildplane3V4(Constants.char_byte_data.get('!'));
             obj41.setPosition(new float[]{.88f,.1f,.682f});
             obj41.setobjClass("name");
             obj41.setScale(new float[]{7.15f,.13f,7.15f});
@@ -371,9 +371,9 @@ public class SceneLoader implements LoaderTask.Callback {
             obj43.setPosition(new float[]{-.432f,.1f,-1.535f});
             obj43.setobjClass("name");
             obj43.setScale(new float[]{8.85f,.13f,5.15f});
-            addObject(obj43);*//*
+            addObject(obj43);*/
 
-     *//*Object3DData marker11 = null;
+            /*Object3DData marker11 = null;
             marker11 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/hall9n10_storename_plane.obj"));
             //marker11.setPosition(new float[]{-4.5f, .1f,0});
             marker11.setScale(new float[]{.175f,.175f,.175f});
@@ -396,7 +396,7 @@ public class SceneLoader implements LoaderTask.Callback {
             //marker11.centerAndScale(1f);
             marker13.setobjClass("name");
             addObject(marker13);
-            *//*
+            */
 
             //  InputStream open =  ContentUtils.getInputStream(Uri.parse("models/h.jpg"));
 
@@ -415,7 +415,7 @@ public class SceneLoader implements LoaderTask.Callback {
             //addObject(obj4);
             //openp.close();
 
-            *//*if (Pref_manager.Companion.getCheckInClusterStoreId(MyApplication.Companion.getInstance().getApplicationContext()).startsWith("011C00065")) {
+            /*if (Pref_manager.Companion.getCheckInClusterStoreId(MyApplication.Companion.getInstance().getApplicationContext()).startsWith("011C00065")) {
 
                 Object3DData marker11 = null;
                 if (floor == 0) {
@@ -444,27 +444,27 @@ public class SceneLoader implements LoaderTask.Callback {
                 marker11.setobjClass("name");
                 addObject(marker11);
             }
-*//*
+*/
             // compass loaded  vivek
 
-            *//*Object3DData obj53 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
+            /*Object3DData obj53 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
             obj53.centerAndScale(1);
             obj53.setColor(new float[]{1.0f, 1.0f, 1f, 1.0f});
             obj53.setId("compass1");
             addObject(obj53);
 
-            compass_obj = obj53; *//*
-     *//*Constants.popupbg= Object3DBuilder.buildplanepopupV4(Constants.char_byte_data.get("popup"));
+            compass_obj = obj53; */
+            /*Constants.popupbg= Object3DBuilder.buildplanepopupV4(Constants.char_byte_data.get("popup"));
             Constants.popupbg.setPosition(new float[]{0,.2f,0});
             Constants.popupbg.setobjClass("popup");
             Constants.popupbg.setId("popupbg");
-            addObject(Constants.popupbg);*//*
+            addObject(Constants.popupbg);*/
             //Object3DData obj4 = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("hotspot_icon"));
             Constants.popupbg = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("pin_selected"));
             Constants.popupbg.setPosition(new float[]{0, .2f, 0});
             Constants.popupbg.setobjClass("pin_green");
             Constants.popupbg.setId("pin_green");
-           // addObject(Constants.popupbg);
+            // addObject(Constants.popupbg);
 
             Object3DData marker1111 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/environment_cylinder.obj"));
             //marker1111.setPosition(new float[]{0,50,0});
@@ -476,10 +476,10 @@ public class SceneLoader implements LoaderTask.Callback {
             //marker1111.getMaterials().materials.get("lambert2SG").setD(.8f);
             //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
 
-        *//*    if (marker.size() > 0) {
+            if (marker.size() > 0) {
                 for (int i = 0; i < marker.size(); i++) {
                     if (marker.get(i).getFloor_name().equalsIgnoreCase("N")) {
-                        *//**//*Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
+                        /*Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
                         marker1.centerAndScale(1);
                         marker1.setColor(new float[]{1.0f, 1.0f, 1f, 1.0f});
                         marker1.setId("compass1");
@@ -487,18 +487,18 @@ public class SceneLoader implements LoaderTask.Callback {
                         created_pin.add(marker1);
                         created_pin.add(marker1);
                         created_pin_pos.add(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
-*//**//*
+*/
                         Object3DData marker1_boundingbox = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/storemarker_plane.obj"));
                         marker1_boundingbox.setPosition(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
                         marker1_boundingbox.setobjClass("pin_cube");
                         marker1_boundingbox.setId(marker.get(i).getSite_id());
-                       // addObject(marker1_boundingbox);
+                        // addObject(marker1_boundingbox);
 
-                        *//**//*Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/storemarker.obj"));
+                        /*Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/storemarker.obj"));
                         marker1.setPosition(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
                         marker1.setobjClass("pin");
                         marker1.setId(marker.get(i).getSite_id() + "_marker");
-                        addObject(marker1);*//**//*
+                        addObject(marker1);*/
                         Object3DData obj4 = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("hotspot_icon"));
                         obj4.setPosition(new float[]{marker.get(i).getX(), .2f, marker.get(i).getZ()});
                         obj4.setobjClass("pin");
@@ -521,19 +521,19 @@ public class SceneLoader implements LoaderTask.Callback {
                         //marker1.setScale(new float[]{2,2,1});
                         //marker1.setPosition(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
 
-                      *//**//*  int temp_count = created_pin.size();
+                      /*  int temp_count = created_pin.size();
                         int temp_count1 = gLView.getModelRenderer().boundingBoxes.size();
                         //Log.w("Warn",)
                         System.out.print(temp_count);
                         System.out.print(temp_count1);
-*//**//*
-     *//**//* Object3DData marker2 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/pointer_shadow_patch.obj"));
+*/
+                       /* Object3DData marker2 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/pointer_shadow_patch.obj"));
                         marker2.centerAndScale(.1f);
                         marker2.setPosition(new float[]{marker.get(i).getX(), .1f, marker.get(i).getZ()});
                         marker2.setobjClass("pin");
                         marker2.setId(marker.get(i).getSite_id());
                         created_pin.add(marker2);
-                        addObject(marker2);*//**//*
+                        addObject(marker2);*/
                     } else if (marker.get(i).getFloor_name().equalsIgnoreCase("P")) {
                         Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/parking_car.obj"));
                         marker1.centerAndScale(.2f);
@@ -545,21 +545,21 @@ public class SceneLoader implements LoaderTask.Callback {
                         created_pin_pos.add(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
 
 
-                        *//**//*Object3DData marker2 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/pointer_shadow_patch.obj"));
+                        /*Object3DData marker2 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/pointer_shadow_patch.obj"));
                         //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
                         marker2.centerAndScale(.1f);
                         marker2.setPosition(new float[]{marker.get(i).getX(), .1f, marker.get(i).getZ()});
                         marker2.setobjClass("parking");
                         marker2.setId(marker.get(i).getSite_id());
                         created_pin.add(marker2);
-                        addObject(marker2);*//**//*
+                        addObject(marker2);*/
                     }
 
 
                 }
                 //pin_drop_anim_status = true;
                 //pin_drop_timer_status = true;
-            }*//*
+            }
 
 
         } catch (Exception ex) {
@@ -567,7 +567,7 @@ public class SceneLoader implements LoaderTask.Callback {
             Log.e("Scene Loader", "setMarker: " + ex.getMessage());
 
         }
-    }*/
+    }
 
     public void draw_plane(float pos_x, float pos_z, String text, float scale) {
        /* Object3DData obj4 = Object3DBuilder.buildplaneV4(Constants.char_byte_data.get('O'));
@@ -809,7 +809,7 @@ public class SceneLoader implements LoaderTask.Callback {
     }
 
 
-   /* public void animate_foot(float timer) {
+    public void animate_foot(float timer) {
         try {
             if (timer <= 1) {
                 if (path_pos_index + 1 < path_pos_scene.size() - 1) {
@@ -830,7 +830,7 @@ public class SceneLoader implements LoaderTask.Callback {
 
         }
 
-    }*/
+    }
 
     public void set_transparency(Object3DData o3d_data, float val) {
 
@@ -1028,7 +1028,9 @@ public class SceneLoader implements LoaderTask.Callback {
     public void setthirdpersoncamera() {
         try {
             // Camera current floor source
-            if (path_pos_scene.size() > 1) {
+           /* if (path_pos_scene.size() > 1)
+
+            {
                 float[] current_floor_source = new float[]{path_pos_scene.get(0).x, path_pos_scene.get(0).y, path_pos_scene.get(0).z};
 
                 int last_index = path_pos_scene.size() - 1;
@@ -1052,7 +1054,7 @@ public class SceneLoader implements LoaderTask.Callback {
                 target_camera_position = new float[]{current_floor_source[0] - resultant_vector[0] * 2, current_floor_source[1] + 1.5f, current_floor_source[2] - resultant_vector[2] * 2};
                 camera_transition_status = true;
                 camera_transition_timer = 0;
-            }
+            }*/
             // Constants.i_m_here_marker.getId()
             //third_person_camera_status = false;
             int selected_index = -1;
@@ -1107,7 +1109,9 @@ public class SceneLoader implements LoaderTask.Callback {
 
             }
 
-            if (path_pos_scene.size() > 1) {
+            /*if (path_pos_scene.size() > 1)
+
+            {
                 float[] current_floor_source = new float[]{path_pos_scene.get(0).x, path_pos_scene.get(0).y, path_pos_scene.get(0).z};
 
                 int last_index = path_pos_scene.size() - 1;
@@ -1131,12 +1135,15 @@ public class SceneLoader implements LoaderTask.Callback {
                 target_camera_position = new float[]{current_floor_source[0] - resultant_vector[0] * 2, current_floor_source[1] + 2.5f, current_floor_source[2] - resultant_vector[2] * 2};
                 camera_transition_status = true;
                 camera_transition_timer = 0;
-            }
+            }*/
 
         } catch (Exception e) {
             Log.e("SceneLoader", "+" + e.getMessage());
         }
 
+        //Camera current floor destination
+
+        //path_pos_scene.get(0).
     }
 
     public Camera getCamera() {
@@ -1191,7 +1198,9 @@ public class SceneLoader implements LoaderTask.Callback {
             }
 
 
-            if (marker_transition_status && Constants.i_m_here_marker != null) {
+
+            if(marker_transition_status && Constants.i_m_here_marker != null)
+            {
                 iamhere_transition();
             }
 
@@ -1273,14 +1282,14 @@ public class SceneLoader implements LoaderTask.Callback {
             }
 
 
-          /*  if (path_pos_scene != null && animate_foot_status) {
+            if (path_pos_scene != null && animate_foot_status) {
                 animate_foot_timer += .02f;
                 animate_foot(animate_foot_timer);
                 if (src_pin != null && path_pos_scene != null && path_pos_scene.size() > 0) {
 //int index =(int)Math.floor(animate_foot_timer)%path_pos_scene.size();
 //.setPosition(new float[]{path_pos_scene.get(path_pos_index).x, .1f, path_pos_scene.get(path_pos_index).z});
                 }
-            }*/
+            }
             if (camera_animation1_status) {
                 run_camera_animation1();
             }
@@ -1644,7 +1653,7 @@ public class SceneLoader implements LoaderTask.Callback {
                 camera.yUp = 1;
                 camera.zUp = 0;*/
                 camera.xPos = lerp(source_camera_position2[0], Constants.i_m_here_marker.getPositionX(), camera_animation2_timer);
-                camera.yPos = lerp(camera.yPos, 7, camera_animation2_timer);
+                camera.yPos = lerp(camera.yPos,7, camera_animation2_timer);
                 camera.xView = lerp(source_camera_view_position2[0], target_camera_view_position2[0], camera_animation2_timer);
 
                 //camera.zPos = lerp(source_camera_position2[2],Constants.i_m_here_marker.getPositionZ(), camera_animation2_timer);
