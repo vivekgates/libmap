@@ -52,7 +52,7 @@ class FlorsRecAdapter(internal var context: Context
                 }
                 else
                 {
-                    row_index = position;
+                    row_index = flor_list!!.get(position).floor_number;
                     notifyDataSetChanged()
                     floorClickListner.onFloorItemClick(position)
                 }
@@ -107,7 +107,7 @@ class FlorsRecAdapter(internal var context: Context
                 holder.flor_name_txt.setTextColor(context.resources.getColor(R.color.base))
             }
 
-            
+
         /*    if (selected_floor == 101) {
 
                 if (Current_floor.get(position) == 1) {
