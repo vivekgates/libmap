@@ -68,6 +68,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         mall_name = getIntent().getStringExtra("mall_name")
         mall_text = findViewById(R.id.mall_name)
         mall_address_txt = findViewById(R.id.mall_address_txt)
+        back_button = findViewById(R.id.back_button)
         floors_recycler = findViewById(R.id.floors_recycler)
         ////////////////////////////
 
