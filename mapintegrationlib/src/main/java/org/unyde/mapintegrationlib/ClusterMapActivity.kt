@@ -49,6 +49,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     internal var w: Window? = null
     var cluster_id: String? = null
     var mall_name: String? = null
+    var mall_address: String? = null
     var floor_list: List<MallMapMain>? = null
     private var floor: Int = 0
     private val Current_floor = ArrayList<Int>()
@@ -66,8 +67,11 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         setContentView(R.layout.activity_cluster_full_map)
         cluster_id = getIntent().getStringExtra("cluster_id")
         mall_name = getIntent().getStringExtra("mall_name")
+        mall_address = getIntent().getStringExtra("mall_address")
         mall_text = findViewById(R.id.mall_name)
+        mall_text!!.text=mall_name
         mall_address_txt = findViewById(R.id.mall_address_txt)
+        mall_address_txt!!.text=mall_address
         back_button = findViewById(R.id.back_button)
         floors_recycler = findViewById(R.id.floors_recycler)
         ////////////////////////////
