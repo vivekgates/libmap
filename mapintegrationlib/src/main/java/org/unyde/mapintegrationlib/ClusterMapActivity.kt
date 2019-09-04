@@ -102,7 +102,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         floors_recycler?.layoutManager = LinearLayoutManager(this@ClusterMapActivity, RecyclerView.VERTICAL, false)
         floors_recycler?.adapter = FlorsRecAdapter(this@ClusterMapActivity!!, floor_list, current_flor, Current_floor, this)
         floors_recycler?.addItemDecoration(itemDecorfloor)
-        progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
+        progressDialog = ProgressDialog(this@ClusterMapActivity);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
         progressDialog!!.show()
