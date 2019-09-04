@@ -210,10 +210,10 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         leftsegment?.layoutManager = LinearLayoutManager(this@ClusterMapNavigationActivity, RecyclerView.VERTICAL, false)
         leftsegment?.adapter = FlorsRecAdapter(this@ClusterMapNavigationActivity!!, floor_list, current_flor, Current_floor, this)
         leftsegment?.addItemDecoration(itemDecorfloor)*/
-     /*   progressDialog = ProgressDialog(ApplicationContext.get().applicationContext);
+        progressDialog = ProgressDialog(this@ClusterMapNavigationActivity);
         progressDialog!!.setCancelable(false)
         progressDialog!!.setMessage("Loading Map")
-        progressDialog!!.show()*/
+        progressDialog!!.show()
         instruction_list_recyclerview?.setLayoutManager(GridLayoutManager(this@ClusterMapNavigationActivity, 1, RecyclerView.VERTICAL, false))
         gLView = findViewById(R.id.glView) as ModelSurfaceView
 
@@ -451,9 +451,9 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     override fun onStoreClick(store_id: String?, isParking: Boolean?) {
         try {
             is_Map_Loaded = true
-           /* if (progressDialog!!.isShowing) {
+            if (progressDialog!!.isShowing) {
                 progressDialog!!.dismiss()
-            }*/
+            }
             if (isParking!!) {
             } else {
                 if (store_id.equals("", true)) {
