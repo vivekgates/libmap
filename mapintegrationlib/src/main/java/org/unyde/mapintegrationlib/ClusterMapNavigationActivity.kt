@@ -1,11 +1,13 @@
 package org.unyde.mapintegrationlib
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -116,13 +118,14 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var open_floor: RelativeLayout? = null
     var card_expand: CardView? = null
     var ATTRS: IntArray? = null
+    internal var mSensorManager: SensorManager? = null
     var current_flor: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cluster_map)
-
+        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         start_prevbtn = findViewById(R.id.start_prevbtn)
         start_prev_text = findViewById(R.id.start_prev_text)
         start_prev_image = findViewById(R.id.start_prev_image)
@@ -551,6 +554,28 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             Cluster3DMap.scene!!.orientation = degree;
         } catch (e: Exception) {
 
+        }
+
+    }
+    override fun onPause() {
+        super.onPause()
+        try {
+            mSensorManager!!.unregisterListener(this)
+        } catch (e: Exception) {
+
+        }
+
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            mSensorManager!!.registerListener(this, mSensorManager!!.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                SensorManager.SENSOR_DELAY_GAME)
+        } catch (e: Exception) {
+            Log.e("Cluster3DNavigation", "" + e.message)
         }
 
     }
