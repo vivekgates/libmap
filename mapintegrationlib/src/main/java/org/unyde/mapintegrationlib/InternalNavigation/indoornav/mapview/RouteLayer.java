@@ -215,6 +215,7 @@ public class RouteLayer extends MapBaseLayer {
                 //instruction_list.add("Your Location");
                 //instruction_direction_list.add("0");
 
+
             }
             else if(i==site_list_array.length-1)
             {
@@ -249,8 +250,8 @@ public class RouteLayer extends MapBaseLayer {
         instruction_site_list.add(site1);
         float[] src_coord = get_node_coordinate(site1);
         float[] dest_coord = get_node_coordinate(site2);
-        float delta_x = dest_coord[0] - src_coord[0];
-        float delta_z = dest_coord[2] - src_coord[2];
+        float delta_x = (dest_coord[0]) - (src_coord[0]);
+        float delta_z = (dest_coord[2]) - (src_coord[2]);
         float delta_y = 0;
 
 
