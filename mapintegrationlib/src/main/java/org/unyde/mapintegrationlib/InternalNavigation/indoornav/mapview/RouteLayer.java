@@ -3,6 +3,7 @@ package org.unyde.mapintegrationlib.InternalNavigation.indoornav.mapview;
 import android.graphics.*;
 import android.util.Log;
 import android.view.MotionEvent;
+import org.unyde.mapintegrationlib.ApplicationContext;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.Path_node;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.algorithm.Hipster;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.graph.GraphBuilder;
@@ -10,8 +11,10 @@ import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.graph.Gr
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.graph.HipsterGraph;
 import org.unyde.mapintegrationlib.InternalNavigation.indoornav.hipster.model.problem.SearchProblem;
 import org.unyde.mapintegrationlib.R;
+import org.unyde.mapintegrationlib.database.DatabaseClient;
 import org.unyde.mapintegrationlib.database.entity.PathNode;
 import org.unyde.mapintegrationlib.util.Constants;
+import org.unyde.mapintegrationlib.util.Helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +66,7 @@ public class RouteLayer extends MapBaseLayer {
     public boolean multifloor_status = false;
     public boolean src_floor_status = false;
 
+    String TAG="RouteLayer";
 
     public HashMap<String, List<String>> node_connection_list, node_connection_list_dest;
 
@@ -121,7 +125,7 @@ public class RouteLayer extends MapBaseLayer {
             }
             setshortestpathofsrcanddestfloor(source_floor_level, destination_floor_level);
         } catch (Exception e) {
-            Log.e("Route Layer", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
 
@@ -192,7 +196,7 @@ public class RouteLayer extends MapBaseLayer {
 
         tot_calorie = calories_val + calories_val1;
         tot_steps= (int) calories_calculation(splited_path_source.get(selected_index_of_splitted_path))[1]+(int) calories_calculation(splited_path_dest.get(selected_index_of_splitted_path))[1];
-        Log.e("Route Layer", "setshortestpathofsrcanddestfloor: " + selected_floor_path_mapping.size());
+        Log.e(TAG, "setshortestpathofsrcanddestfloor: " + selected_floor_path_mapping.size());
 
 
     }
@@ -208,13 +212,12 @@ public class RouteLayer extends MapBaseLayer {
         for(int i=0;i<site_list_array.length;i++)
         {
             //instruction_site_list.add(site_list_array[i]);
-           // instruction_direction_list.add(Integer.toString(rand.nextInt(6 - 1) + 1));
+            // instruction_direction_list.add(Integer.toString(rand.nextInt(6 - 1) + 1));
             if(i==0)
             {
                 generate_dynamic_instruction_initial(site_list_array[i],site_list_array[i+1]);
                 //instruction_list.add("Your Location");
                 //instruction_direction_list.add("0");
-
 
             }
             else if(i==site_list_array.length-1)
@@ -235,23 +238,23 @@ public class RouteLayer extends MapBaseLayer {
             }
             else
             {
-               generate_dynamic_instruction_intermediate(site_list_array[i-1],site_list_array[i],site_list_array[i+1]);
+                generate_dynamic_instruction_intermediate(site_list_array[i-1],site_list_array[i],site_list_array[i+1]);
                 //instruction_list.add("Head Straight");
                 //instruction_direction_list.add("1");
-               // Math
+                // Math
             }
 
         }
     }
 
 
-    public void generate_dynamic_instruction_initial(String site1, String site2)
+    public void generate_dynamic_instruction_initial(String site1,String site2)
     {
         instruction_site_list.add(site1);
         float[] src_coord = get_node_coordinate(site1);
         float[] dest_coord = get_node_coordinate(site2);
-        float delta_x = (dest_coord[0]) - (src_coord[0]);
-        float delta_z = (dest_coord[2]) - (src_coord[2]);
+        float delta_x = dest_coord[0] - src_coord[0];
+        float delta_z = dest_coord[2] - src_coord[2];
         float delta_y = 0;
 
 
@@ -265,7 +268,7 @@ public class RouteLayer extends MapBaseLayer {
 
         //angle
         float var1 = (base_vector[0]*generated_vector[0])+(base_vector[2]*generated_vector[2]);
-        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))* Math.sqrt((generated_vector[0]*generated_vector[0])+(generated_vector[2]*generated_vector[2])));
+        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))*Math.sqrt((generated_vector[0]*generated_vector[0])+(generated_vector[2]*generated_vector[2])));
 
         double angla = Math.acos(var1/var2);
         double angle_degree = Math.toDegrees(angla);
@@ -355,7 +358,7 @@ public class RouteLayer extends MapBaseLayer {
 
     }
 
-    public void generate_dynamic_instruction_intermediate(String prev_site1, String site1, String site2)
+    public void generate_dynamic_instruction_intermediate(String prev_site1,String site1,String site2)
     {
 
         float[] prev_src_coord = get_node_coordinate(prev_site1);
@@ -389,14 +392,14 @@ public class RouteLayer extends MapBaseLayer {
         //angle
         //float var1 = (base_vector[0]*next_vector[0])+(base_vector[2]*next_vector[2]); //cos
         float var1 = (base_vector[0]*next_vector[2])-(base_vector[2]*next_vector[0]);
-        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))* Math.sqrt((next_vector[0]*next_vector[0])+(next_vector[2]*next_vector[2])));
+        float var2 = (float)(Math.sqrt((base_vector[0]*base_vector[0])+(base_vector[2]*base_vector[2]))*Math.sqrt((next_vector[0]*next_vector[0])+(next_vector[2]*next_vector[2])));
 
         double angla = Math.asin(var1/var2);
         double angle_degree = Math.toDegrees(angla);
-       // instruction_list.add("Turn Left"+angle_degree);
-       System.out.println(""+angle_degree);
+        // instruction_list.add("Turn Left"+angle_degree);
+        System.out.println(""+angle_degree);
 
-       if(angle_degree>=0)
+        if(angle_degree>=0)
         {
             if(angle_degree<=20 && !sequential_straight_status)
             {
@@ -507,7 +510,8 @@ public class RouteLayer extends MapBaseLayer {
 
     public float[] get_node_coordinate(String site_id) {
         float node_x = 0, node_y = 0, node_z = 0;
-       /* List<PathNode> node = MyApplication.Companion.get().getDb().pathNodeList().findById(site_id, String.valueOf(Helper.hex2decimal(site_id.substring(8,13).toString())));
+        //List<PathNode> node = MyApplication.Companion.get().getDb().pathNodeList().findById(site_id, String.valueOf(Helper.hex2decimal(site_id.substring(8,13).toString())));
+        List<PathNode> node = DatabaseClient.Companion.getInstance(ApplicationContext.get().getApplicationContext()).getDb().pathNodeList().findById(site_id, String.valueOf(Helper.hex2decimal(site_id.substring(8,13).toString())));
         if (node != null && node.size() != 0) {
 
 
@@ -515,7 +519,7 @@ public class RouteLayer extends MapBaseLayer {
             node_y = Float.valueOf(node.get(0).getSite_map_coord_y());
             node_z = Float.valueOf(node.get(0).getSite_map_coord_z());
 
-        }*/
+        }
 
         float[] temp = new float[]{node_x, node_y, node_z};
 
