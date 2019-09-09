@@ -120,6 +120,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var ATTRS: IntArray? = null
     internal var mSensorManager: SensorManager? = null
     var current_flor: Int = 0
+    var instruction_count: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -220,44 +221,63 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         cluster3DMap = Cluster3DMap(this, gLView!!, this, leftsegment!!,  this, this, cluster_id!!)
         cluster3DMap!!.init()
 
+        next_step_btn!!.setOnClickListener {
+
+           if(instruction_count<=instruction_site_list!!.size)
+           {
+               Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
+               instruction_count++
+           }
+
+        }
+
+
         start_prevbtn!!.setOnClickListener {
+
+            if(instruction_count>=0)
+            {
+                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
+                instruction_count--
+            }
 
 
             try {
-                Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
+
                 if (start_prev_text!!.text.toString().trim().equals("START")){
-                    /*next_step_btn!!.visibility = View.VISIBLE
-                    start_prev_text!!.setText("PREV STEP")
-                    start_prev_image!!.setImageResource(R.drawable.ic_arrow_left)
-                    startback!!.setBackgroundResource(R.drawable.bg_gradient_new_up_cornor)
-                    nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
-                    nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
-                    nav_bottomsheet_steps!!.isHideable = false
-                    nav_bottomsheet_steps!!.isDisableExpanded = false*/
+                    /*  Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
+                      next_step_btn!!.visibility = View.VISIBLE
+                      start_prev_text!!.setText("PREV STEP")
+                      start_prev_image!!.setImageResource(R.drawable.ic_arrow_left)
+                      startback!!.setBackgroundResource(R.drawable.bg_gradient_new_up_cornor)
+                      nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
+                      nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+                      nav_bottomsheet_steps!!.isHideable = false
+                      nav_bottomsheet_steps!!.isDisableExpanded = false*/
+                    if (isViaBeacon!!) {
+                        if (shownFloorMap!!.toInt() != Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)) {
+                            floor = Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)
+                            Cluster3DMap.scene!!.destination_floor_number = source_floor
+                            cluster3DMap!!.show3DMap(floor)
+                            cluster3DMap!!.setStoreMarkers(floor)
+                            cluster3DMap!!.show3DMapNavigation(floor)
+                            shownFloorMap = floor.toString()
+                        } else {
+                            getDirection()
+                            // Cluster3DMap.scene!!.setthirdpersoncamera()
+                        }
+                    } else {
+                        if(!shownFloorMap.equals(source_floor))
+                        {
+                            Cluster3DMap.scene!!.destination_floor_number = source_floor
+                        }
+                        getDirection()
+                    }
                 }
                 else{
                     Toast.makeText(this@ClusterMapNavigationActivity,"Previous", Toast.LENGTH_SHORT).show()
                 }
 
-                if (isViaBeacon!!) {
-                    if (shownFloorMap!!.toInt() != Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)) {
-                        floor = Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)
-                        Cluster3DMap.scene!!.destination_floor_number = source_floor
-                        cluster3DMap!!.show3DMap(floor)
-                        cluster3DMap!!.setStoreMarkers(floor)
-                        cluster3DMap!!.show3DMapNavigation(floor)
-                        shownFloorMap = floor.toString()
-                    } else {
-                        getDirection()
-                        // Cluster3DMap.scene!!.setthirdpersoncamera()
-                    }
-                } else {
-                    if(!shownFloorMap.equals(source_floor))
-                    {
-                        Cluster3DMap.scene!!.destination_floor_number = source_floor
-                    }
-                    getDirection()
-                }
+
 
             } catch (e: Exception) {
 
