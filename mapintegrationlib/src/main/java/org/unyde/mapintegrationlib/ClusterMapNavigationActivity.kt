@@ -223,9 +223,9 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
         next_step_btn!!.setOnClickListener {
 
-           if(instruction_count<=instruction_site_list!!.size)
+           if(instruction_count<=instruction_list!!.size)
            {
-               Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
+               Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
            }
 
@@ -236,7 +236,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
             if(instruction_count>=0)
             {
-                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
+                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                 instruction_count--
             }
 
