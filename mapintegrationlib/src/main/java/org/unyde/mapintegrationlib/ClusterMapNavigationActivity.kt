@@ -230,10 +230,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                     start_prev_text!!.setText("PREV STEP")
                     start_prev_image!!.setImageResource(R.drawable.ic_arrow_left)
                     startback!!.setBackgroundResource(R.drawable.bg_gradient_new_up_cornor)
-                    nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
-                    nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
-                    nav_bottomsheet_steps!!.isHideable = false
-                    nav_bottomsheet_steps!!.isDisableExpanded = false
+
                 }
                 else{
                     Toast.makeText(this@ClusterMapNavigationActivity,"Previous", Toast.LENGTH_SHORT).show()
@@ -517,6 +514,10 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             Cluster3DMap.scene!!.destination_floor_number=source_floor
             getDirection()
             source_data_i_m_here(source_beacon_siteid_i_m_here!!)
+            nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
+            nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+            nav_bottomsheet_steps!!.isHideable = false
+            nav_bottomsheet_steps!!.isDisableExpanded = false
 
         }
 
