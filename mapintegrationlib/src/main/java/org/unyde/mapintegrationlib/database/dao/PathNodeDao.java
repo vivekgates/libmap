@@ -19,6 +19,9 @@ public interface PathNodeDao {
     @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id")
     List<PathNode> getAll(String cluster_id);
 
+    @Query("SELECT * FROM pathnode WHERE site_id = :site_id")
+    List<PathNode> getCordinates(String site_id);
+
 
 
     @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and store_type!='10' and site_type='Primary' order by floor_level,store_name ")

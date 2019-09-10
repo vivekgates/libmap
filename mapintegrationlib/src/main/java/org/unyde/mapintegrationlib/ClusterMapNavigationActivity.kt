@@ -223,8 +223,14 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
         next_step_btn!!.setOnClickListener {
 
-           if(instruction_count<=instruction_list!!.size)
+           if(instruction_count<instruction_list!!.size)
            {
+               var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
+                   .getCordinates(instruction_site_list!!.get(instruction_count))
+               if(cordinate.size>0)
+               {
+
+               }
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
            }
@@ -236,6 +242,12 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
             if(instruction_count>=0)
             {
+                var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
+                    .getCordinates(instruction_site_list!!.get(instruction_count))
+                if(cordinate.size>0)
+                {
+
+                }
                 Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                 instruction_count--
             }
