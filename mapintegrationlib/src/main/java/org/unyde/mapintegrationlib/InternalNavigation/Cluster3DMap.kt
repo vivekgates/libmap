@@ -95,6 +95,12 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
     }
 
 
+    fun instruction_path( x:kotlin.Float, y:kotlin.Float, z:kotlin.Float) {
+
+        scene!!.create_instruction_path(x,y,z)
+    }
+
+
     fun set_I_m_here_Markers(marker_i_m_here: ArrayList<Marker_Internal_Nav>) {
 
         val handler2 = Handler(Looper.getMainLooper())

@@ -229,7 +229,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    .getCordinates(instruction_site_list!!.get(instruction_count))
                if(cordinate.size>0)
                {
-
+                   cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat())
                }
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
@@ -246,7 +246,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                     .getCordinates(instruction_site_list!!.get(instruction_count))
                 if(cordinate.size>0)
                 {
-
+                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat())
                 }
                 Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_site_list!!.get(instruction_count)+""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                 instruction_count--
