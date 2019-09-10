@@ -1894,8 +1894,9 @@ public class SceneLoader implements LoaderTask.Callback {
         //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
         marker1.centerAndScale(.3f);
         marker1.setPosition(new float[]{x, y, z});
-        marker1.setobjClass("path_src_marker");
-        marker1.setId("source_pin");
+        delete_object_by_class("instruction_marker");
+        marker1.setobjClass("instruction_marker");
+        marker1.setId("instruction_marker");
         addObject(marker1);
         // created_pin.add(marker1);
     }
