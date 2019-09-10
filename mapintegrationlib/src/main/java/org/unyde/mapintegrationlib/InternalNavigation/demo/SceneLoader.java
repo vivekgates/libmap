@@ -1890,7 +1890,7 @@ public class SceneLoader implements LoaderTask.Callback {
 
 
     public void create_instruction_path(float x,float y,float z) {
-        Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("models/pin_cube.obj"));
+        Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("models/path_arrow.obj"));
         //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
         marker1.centerAndScale(.3f);
         marker1.setPosition(new float[]{x, y, z});
