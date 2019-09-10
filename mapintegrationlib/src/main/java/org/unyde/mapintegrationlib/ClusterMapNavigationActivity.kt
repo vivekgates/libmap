@@ -252,7 +252,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             if(instruction_count>=0)
             {
                 var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
-                    .getCordinates(instruction_site_list!!.get(instruction_count))
+                    .getCordinates(instruction_site_list!!.get(instruction_count-1))
                 if(cordinate.size>0)
                 {
                     if(cordinate.get(0).floor_level.equals(shownFloorMap))
