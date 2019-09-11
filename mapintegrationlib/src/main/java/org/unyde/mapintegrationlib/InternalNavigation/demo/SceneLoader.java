@@ -902,6 +902,7 @@ public class SceneLoader implements LoaderTask.Callback {
         source_camera_position1 = new float[]{camera.xPos, camera.yPos, camera.zPos};
         //target_camera_animation1_position = new float[]{0, 5f, -8};
         target_camera_animation1_position = new float[]{x, camera.yPos, z};
+        target_camera_view = new float[]{x,y, z};
     }
 
     boolean camera_transition_status = false;
@@ -1577,6 +1578,10 @@ public class SceneLoader implements LoaderTask.Callback {
         try {
             if (camera_move_timer <= 1) {
                 camera_move_timer += .02f;
+                camera.xView = lerp(camera.xView, target_camera_view[0], camera_move_timer);
+                camera.yView = lerp(camera.yView, target_camera_view[1], camera_move_timer);
+                camera.zView = lerp(camera.zView, target_camera_view[2], camera_move_timer);
+
                 camera.xPos = lerp(source_camera_position1[0], target_camera_animation1_position[0], camera_move_timer);
                 camera.yPos = lerp(source_camera_position1[1], target_camera_animation1_position[1], camera_move_timer);
                 camera.zPos = lerp(source_camera_position1[2], target_camera_animation1_position[2], camera_move_timer);
