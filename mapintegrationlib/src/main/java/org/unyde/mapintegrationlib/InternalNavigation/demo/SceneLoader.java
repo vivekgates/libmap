@@ -173,6 +173,8 @@ public class SceneLoader implements LoaderTask.Callback {
 
     public boolean camera_animation1_status = false;
     public float camera_animation1_timer = 0;
+    public float camera_move_timer = 0;
+    public boolean camera_move_status = false;
     float[] target_camera_animation1_position;
     public float[] source_camera_position1;
 
@@ -895,8 +897,8 @@ public class SceneLoader implements LoaderTask.Callback {
 
     public void set_camera_move(float x,float y,float z) {
         //camera.set_camera(0, 10, 0, 0, 0, 1, 0, 1, 0);
-        camera_animation1_status = true;
-        camera_animation1_timer = 0;
+        camera_move_status = true;
+        camera_move_timer =0;
         source_camera_position1 = new float[]{camera.xPos, camera.yPos, camera.zPos};
         //target_camera_animation1_position = new float[]{0, 5f, -8};
         target_camera_animation1_position = new float[]{x, y, z};
@@ -1301,6 +1303,10 @@ public class SceneLoader implements LoaderTask.Callback {
             if (camera_animation1_status) {
                 run_camera_animation1();
             }
+            if(camera_move_status)
+            {
+                run_camera_animation_move();
+            }
 
             if (camera_animation2_status) {
                 run_camera_animation2();
@@ -1566,6 +1572,36 @@ public class SceneLoader implements LoaderTask.Callback {
 
 
     }
+
+    public void run_camera_animation_move() {
+        try {
+            if (camera_move_timer <= 1) {
+                camera_move_timer += .02f;
+                camera.xPos = lerp(source_camera_position1[0], target_camera_animation1_position[0], camera_move_timer);
+                camera.yPos = lerp(source_camera_position1[1], target_camera_animation1_position[1], camera_move_timer);
+                camera.zPos = lerp(source_camera_position1[2], target_camera_animation1_position[2], camera_move_timer);
+              //camera.xView = 0;
+               // camera.yView = -1;
+                //camera.zView = 0;
+
+
+
+                camera.setChanged(true);
+
+            } else {
+                camera_move_status = false;
+                camera_move_timer = 0;
+
+
+            }
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+
 
 
     public void run_camera_animation1() {
@@ -1904,7 +1940,7 @@ public class SceneLoader implements LoaderTask.Callback {
             marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
             //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
             marker1.centerAndScale(.1f);
-            marker1.setPosition(new float[]{x, y, z});
+            marker1.setPosition(new float[]{x, .1f, z});
           //  delete_object_by_class("instruction_marker");
             marker1.setobjClass("instruction_marker");
             marker1.setId("instruction_marker");
