@@ -893,6 +893,14 @@ public class SceneLoader implements LoaderTask.Callback {
         target_camera_animation1_position = new float[]{0, 5f, 0};
     }
 
+    public void set_camera_move(float x,float y,float z) {
+        //camera.set_camera(0, 10, 0, 0, 0, 1, 0, 1, 0);
+        camera_animation1_status = true;
+        camera_animation1_timer = 0;
+        source_camera_position1 = new float[]{camera.xPos, camera.yPos, camera.zPos};
+        //target_camera_animation1_position = new float[]{0, 5f, -8};
+        target_camera_animation1_position = new float[]{x, y, z};
+    }
 
     boolean camera_transition_status = false;
     float camera_transition_timer = 0;
@@ -1906,7 +1914,7 @@ public class SceneLoader implements LoaderTask.Callback {
         {
             marker1.setPosition(new float[]{x, y, z});
         }
-
+        set_camera_move(x, y, z);
         // created_pin.add(marker1);
     }
 
