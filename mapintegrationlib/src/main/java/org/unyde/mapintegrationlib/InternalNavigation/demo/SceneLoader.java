@@ -901,7 +901,7 @@ public class SceneLoader implements LoaderTask.Callback {
         camera_move_timer =0;
         source_camera_position1 = new float[]{camera.xPos, camera.yPos, camera.zPos};
         //target_camera_animation1_position = new float[]{0, 5f, -8};
-        target_camera_animation1_position = new float[]{x, y, z};
+        target_camera_animation1_position = new float[]{x, camera.yPos, z};
     }
 
     boolean camera_transition_status = false;
