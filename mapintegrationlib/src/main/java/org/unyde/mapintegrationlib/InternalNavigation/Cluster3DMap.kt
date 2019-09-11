@@ -95,9 +95,9 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
     }
 
 
-    fun instruction_path( x:kotlin.Float, y:kotlin.Float, z:kotlin.Float) {
+    fun instruction_path( x:kotlin.Float, y:kotlin.Float, z:kotlin.Float,isInstructionPathmarker:Boolean) {
 
-        scene!!.create_instruction_path(x,y,z)
+        scene!!.create_instruction_path(x,y,z,isInstructionPathmarker)
     }
 
 

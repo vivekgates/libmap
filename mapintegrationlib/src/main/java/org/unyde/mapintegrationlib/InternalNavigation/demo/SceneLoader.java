@@ -215,7 +215,7 @@ public class SceneLoader implements LoaderTask.Callback {
     Calendar c;
     String clusterId;
 
-
+    Object3DData marker1 = null;
     public float[] marker_old_position = new float[]{0, 0, 0};
     public float[] marker_new_position = new float[]{0, 0, 0};
     public boolean marker_transition_status = false;
@@ -1889,15 +1889,24 @@ public class SceneLoader implements LoaderTask.Callback {
     }
 
 
-    public void create_instruction_path(float x,float y,float z) {
-        Object3DData marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
-        //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
-        marker1.centerAndScale(.3f);
-        marker1.setPosition(new float[]{x, y, z});
-        delete_object_by_class("instruction_marker");
-        marker1.setobjClass("instruction_marker");
-        marker1.setId("instruction_marker");
-        addObject(marker1);
+    public void create_instruction_path(float x,float y,float z,boolean isInstructionPathmarker) {
+
+        if(!isInstructionPathmarker)
+        {
+            marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
+            //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
+            marker1.centerAndScale(.1f);
+            marker1.setPosition(new float[]{x, y, z});
+          //  delete_object_by_class("instruction_marker");
+            marker1.setobjClass("instruction_marker");
+            marker1.setId("instruction_marker");
+            addObject(marker1);
+        }
+        else
+        {
+            marker1.setPosition(new float[]{x, y, z});
+        }
+
         // created_pin.add(marker1);
     }
 

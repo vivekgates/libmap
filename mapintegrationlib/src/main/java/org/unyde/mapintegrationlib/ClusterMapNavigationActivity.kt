@@ -121,6 +121,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     internal var mSensorManager: SensorManager? = null
     var current_flor: Int = 0
     var instruction_count: Int = 0
+    var isInstructionPathmarker:Boolean?=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -238,7 +239,8 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                        cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
                        shownFloorMap=cordinate.get(0).floor_level
                    }
-                   cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat())
+                   cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
+                   isInstructionPathmarker=true
                }
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
@@ -264,7 +266,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                         cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
                         shownFloorMap=cordinate.get(0).floor_level
                     }
-                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat())
+                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                 }
                 Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                 instruction_count--
