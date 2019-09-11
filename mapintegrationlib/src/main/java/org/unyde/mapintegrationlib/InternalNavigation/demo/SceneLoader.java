@@ -1576,7 +1576,12 @@ public class SceneLoader implements LoaderTask.Callback {
 
     public void run_camera_animation_move() {
         try {
-            if (camera_move_timer <= 1) {
+            camera.xView = target_camera_view[0];
+            camera.yView = target_camera_view[1];
+            camera.zView = target_camera_view[2];
+            camera.setChanged(true);
+            camera_move_status = false;
+            /*if (camera_move_timer <= 1) {
                 camera_move_timer += .02f;
                 camera.xView = lerp(camera.xView, target_camera_view[0], camera_move_timer);
                 camera.yView = lerp(camera.yView, target_camera_view[1], camera_move_timer);
@@ -1598,7 +1603,7 @@ public class SceneLoader implements LoaderTask.Callback {
                 camera_move_timer = 0;
 
 
-            }
+            }*/
         } catch (Exception e) {
 
         }
