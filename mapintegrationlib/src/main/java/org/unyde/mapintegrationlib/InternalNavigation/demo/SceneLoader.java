@@ -1950,7 +1950,7 @@ public class SceneLoader implements LoaderTask.Callback {
             marker1 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
             //Object3DData marker1 = Object3DBuilder.loadV5(parent, Uri.parse("assets://assets/models/cube.obj"));
             marker1.centerAndScale(.1f);
-            marker1.setPosition(new float[]{x,.2f, z});
+            marker1.setPosition(new float[]{x,.15f, z});
           //  delete_object_by_class("instruction_marker");
             marker1.setobjClass("instruction_marker");
             marker1.setId("instruction_marker");
@@ -1958,7 +1958,7 @@ public class SceneLoader implements LoaderTask.Callback {
         }
         else
         {
-            marker1.setPosition(new float[]{x, .2f, z});
+            marker1.setPosition(new float[]{x, .15f, z});
         }
         set_camera_move(x, y, z);
         // created_pin.add(marker1);
