@@ -24,8 +24,11 @@ public interface PathNodeDao {
 
 
 
-    @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and store_type!='10' and site_type='Primary' order by floor_level,store_name ")
-    List<PathNode> getAllStores(String cluster_id);
+    @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and store_type='1' and site_type='Primary' order by floor_level,store_name ")
+    List<PathNode> getAllOnlyStores(String cluster_id);
+
+   /* @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and store_type!='10' and site_type='Primary' order by floor_level,store_name ")
+    List<PathNode> getAllStores(String cluster_id);*/
 
 
     @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and site_id= :site_id")

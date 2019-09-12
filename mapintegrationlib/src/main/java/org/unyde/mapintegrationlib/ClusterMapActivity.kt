@@ -54,6 +54,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     private var floor: Int = 0
     private val Current_floor = ArrayList<Int>()
     val floor_data_list = ArrayList<String>()
+    val mall_brand = ArrayList<String>()
     var cluster3DMap: Cluster3DMap? = null
     private var is_Map_Loaded: Boolean? = false
     var ATTRS: IntArray? = null
@@ -68,6 +69,17 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         cluster_id = getIntent().getStringExtra("cluster_id")
         mall_name = getIntent().getStringExtra("mall_name")
         mall_address = getIntent().getStringExtra("mall_address")
+        mall_brand!!.addAll(getIntent().getStringArrayListExtra("mall_brand"))
+
+        if(mall_brand!!.size>0)
+        {
+
+            for(i in 0 until mall_brand!!.size)
+            {
+                Toast.makeText(this@ClusterMapActivity,""+mall_brand!!.get(i),Toast.LENGTH_LONG).show()
+            }
+        }
+
         mall_text = findViewById(R.id.mall_name)
         mall_text!!.text=mall_name
         mall_address_txt = findViewById(R.id.mall_address_txt)
