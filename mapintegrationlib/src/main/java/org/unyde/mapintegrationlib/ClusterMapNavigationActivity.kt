@@ -238,6 +238,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    {
                        cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
                        shownFloorMap=cordinate.get(0).floor_level
+                       cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
                    }
                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                    isInstructionPathmarker=true
