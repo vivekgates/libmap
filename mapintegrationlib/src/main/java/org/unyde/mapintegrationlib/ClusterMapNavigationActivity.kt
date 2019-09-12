@@ -236,6 +236,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    }
                    else
                    {
+                       isInstructionPathmarker=false
                        cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
                        shownFloorMap=cordinate.get(0).floor_level
                        cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
@@ -264,6 +265,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                     }
                     else
                     {
+                        isInstructionPathmarker=false
                         cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
                         shownFloorMap=cordinate.get(0).floor_level
                         cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
