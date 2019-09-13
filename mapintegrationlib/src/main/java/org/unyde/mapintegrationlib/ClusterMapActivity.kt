@@ -72,34 +72,6 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         mall_address = getIntent().getStringExtra("mall_address")
         mall_brand!!.addAll(getIntent().getStringArrayListExtra("mall_brand"))
 
-        if(mall_brand!!.size>0)
-        {
-
-            for(i in 0 until mall_brand!!.size)
-            {
-                Toast.makeText(this@ClusterMapActivity,""+mall_brand!!.get(i),Toast.LENGTH_LONG).show()
-                mall_stores=mall_stores+ mall_brand!!.get(i)+","
-            }
-            mall_stores=mall_stores!!.reversed()
-            mall_stores=mall_stores!!.substring(1).reversed()
-            Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
-        }
-
-        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
-        //var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
-        var store_marker = ArrayList<Marker_Internal_Nav>()
-        store_marker!!.clear()
-        if(markers.size>0)
-        {
-            for(i in 0 until markers!!.size)
-            {
-                store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
-                Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
-
-            }
-            cluster3DMap!!.setStoreMarkers(0,store_marker)
-        }
-
 
 
         mall_text = findViewById(R.id.mall_name)
@@ -144,6 +116,34 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
 
         cluster3DMap = Cluster3DMap(this, gLView!!, this, floors_recycler!!,  this, this, cluster_id!!)
         cluster3DMap!!.init()
+        if(mall_brand!!.size>0)
+        {
+
+            for(i in 0 until mall_brand!!.size)
+            {
+                Toast.makeText(this@ClusterMapActivity,""+mall_brand!!.get(i),Toast.LENGTH_LONG).show()
+                mall_stores=mall_stores+ mall_brand!!.get(i)+","
+            }
+            mall_stores=mall_stores!!.reversed()
+            mall_stores=mall_stores!!.substring(1).reversed()
+            Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
+        }
+
+        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
+        //var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
+        var store_marker = ArrayList<Marker_Internal_Nav>()
+        store_marker!!.clear()
+        if(markers.size>0)
+        {
+            for(i in 0 until markers!!.size)
+            {
+                store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
+                Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
+
+            }
+            cluster3DMap!!.setStoreMarkers(0,store_marker)
+        }
+
 
 
         back_button!!.setOnClickListener {
