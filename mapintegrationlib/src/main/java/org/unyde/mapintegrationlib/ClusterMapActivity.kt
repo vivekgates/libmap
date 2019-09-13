@@ -86,14 +86,18 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         }
 
         var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
-
+        var store_marker = ArrayList<Marker_Internal_Nav>()
+        store_marker!!.clear()
         if(markers.size>0)
         {
             for(i in 0 until markers!!.size)
             {
+                store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
                 Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
             }
         }
+
+
 
         mall_text = findViewById(R.id.mall_name)
         mall_text!!.text=mall_name
@@ -150,6 +154,17 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         try {
             floor = floor_list!!.get(pos).floor_number
             cluster3DMap!!.show3DMap(floor)
+            var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,floor.toString());
+            var store_marker = ArrayList<Marker_Internal_Nav>()
+            store_marker!!.clear()
+            if(markers.size>0)
+            {
+                for(i in 0 until markers!!.size)
+                {
+                    store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
+                    Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
+                }
+            }
 
         } catch (e: Exception) {
 
