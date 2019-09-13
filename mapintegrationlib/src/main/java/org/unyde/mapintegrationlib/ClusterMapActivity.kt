@@ -80,8 +80,19 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                 Toast.makeText(this@ClusterMapActivity,""+mall_brand!!.get(i),Toast.LENGTH_LONG).show()
                 mall_stores=mall_stores+ mall_brand!!.get(i)+","
             }
-            mall_stores=mall_stores!!.replace(",",")")
+            mall_stores=mall_stores!!.reversed()
+            mall_stores=mall_stores!!.substring(1).reversed()+")"
             Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
+        }
+
+        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
+
+        if(markers.size>0)
+        {
+            for(i in 0 until markers!!.size)
+            {
+                Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
+            }
         }
 
         mall_text = findViewById(R.id.mall_name)
