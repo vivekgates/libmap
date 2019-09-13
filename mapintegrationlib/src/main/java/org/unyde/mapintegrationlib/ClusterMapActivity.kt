@@ -61,7 +61,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var current_flor: Int = 0
     var mall_text : TextView ?=null
     var mall_address_txt : TextView ?=null
-    var mall_stores : String? = "("
+    var mall_stores : String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                 mall_stores=mall_stores+ mall_brand!!.get(i)+","
             }
             mall_stores=mall_stores!!.reversed()
-            mall_stores=mall_stores!!.substring(1).reversed()+")"
+            mall_stores=mall_stores!!.substring(1).reversed()
             Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
         }
 

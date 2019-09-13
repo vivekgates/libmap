@@ -23,7 +23,7 @@ public interface PathNodeDao {
     List<PathNode> getCordinates(String site_id);
 
 
-    @Query("SELECT * FROM pathnode WHERE store_id = :store_id and floor_level = :floor")
+    @Query("SELECT * FROM pathnode WHERE store_id IN (:store_id) and floor_level = :floor")
     List<PathNode> getCordinatesForMarkers(String store_id,String floor);
 
 
