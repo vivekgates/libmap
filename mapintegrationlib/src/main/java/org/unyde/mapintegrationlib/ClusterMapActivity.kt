@@ -85,7 +85,8 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
             Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
         }
 
-        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
+        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
+        //var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
         var store_marker = ArrayList<Marker_Internal_Nav>()
         store_marker!!.clear()
         if(markers.size>0)
@@ -156,7 +157,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         try {
             floor = floor_list!!.get(pos).floor_number
             cluster3DMap!!.show3DMap(floor)
-            var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,floor.toString());
+            var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
             var store_marker = ArrayList<Marker_Internal_Nav>()
             store_marker!!.clear()
             if(markers.size>0)
