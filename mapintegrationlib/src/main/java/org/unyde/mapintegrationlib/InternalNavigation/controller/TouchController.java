@@ -201,7 +201,7 @@ public class TouchController {
             }
             else
             {
-                // scene.processTouch(x1, y1);
+                scene.processTouch(x1, y1);
             }
         }
 
