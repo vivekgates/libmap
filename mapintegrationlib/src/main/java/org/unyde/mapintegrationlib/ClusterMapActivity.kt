@@ -94,7 +94,9 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
             {
                 store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
                 Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
+
             }
+            cluster3DMap!!.setStoreMarkers(0,store_marker)
         }
 
 
@@ -164,6 +166,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                     store_marker!!.add(Marker_Internal_Nav(java.lang.Float.valueOf(if (markers.get(i).site_map_coord_x != "") markers.get(i).site_map_coord_x else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_y != "") markers.get(i).site_map_coord_y else "0")!!, java.lang.Float.valueOf(if (markers.get(i).site_map_coord_z != "") markers.get(i).site_map_coord_z else "0")!!, "" + markers.get(i).store_id, "N", markers.get(i).site_id, ""))
                     Toast.makeText(this@ClusterMapActivity,""+markers.get(i).store_name,Toast.LENGTH_LONG).show()
                 }
+                cluster3DMap!!.setStoreMarkers(floor,store_marker)
             }
 
         } catch (e: Exception) {
