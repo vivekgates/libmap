@@ -294,7 +294,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             floor = Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)
                             Cluster3DMap.scene!!.destination_floor_number = source_floor
                             cluster3DMap!!.show3DMap(floor)
-                            cluster3DMap!!.setStoreMarkers(floor)
+                         //   cluster3DMap!!.setStoreMarkers(floor)
                             cluster3DMap!!.show3DMapNavigation(floor)
                             shownFloorMap = floor.toString()
                         } else {
