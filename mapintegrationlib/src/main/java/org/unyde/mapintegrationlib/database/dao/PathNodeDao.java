@@ -27,10 +27,6 @@ public interface PathNodeDao {
     List<PathNode> getCordinatesForMarkers(String store_id,String floor);
 
 
-    @Query("SELECT * FROM pathnode WHERE store_id IN (189,1881,1915,1922,1964) and floor_level = 0")
-    List<PathNode> getCordinatesForMarkers1();
-
-
 
     @Query("SELECT * FROM pathnode WHERE clustor_id = :cluster_id and store_type='1' and site_type='Primary' order by floor_level,store_name ")
     List<PathNode> getAllOnlyStores(String cluster_id);

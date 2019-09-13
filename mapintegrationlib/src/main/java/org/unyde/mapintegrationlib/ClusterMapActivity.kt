@@ -61,7 +61,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var current_flor: Int = 0
     var mall_text : TextView ?=null
     var mall_address_txt : TextView ?=null
-    var mall_stores : String? = ""
+    var mall_stores : String? = "("
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,12 +125,12 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                 mall_stores=mall_stores+ mall_brand!!.get(i)+","
             }
             mall_stores=mall_stores!!.reversed()
-            mall_stores=mall_stores!!.substring(1).reversed()
+            mall_stores=mall_stores!!.substring(1).reversed()+")"
             Toast.makeText(this@ClusterMapActivity,""+mall_stores,Toast.LENGTH_LONG).show()
         }
 
-        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
-        //var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
+      //  var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
+        var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
         var store_marker = ArrayList<Marker_Internal_Nav>()
         store_marker!!.clear()
         if(markers.size>0)
@@ -157,7 +157,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         try {
             floor = floor_list!!.get(pos).floor_number
             cluster3DMap!!.show3DMap(floor)
-            var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers1();
+            var markers =DatabaseClient.getInstance(ApplicationContext.get().applicationContext).db.pathNodeList().getCordinatesForMarkers(mall_stores!!,"0");
             var store_marker = ArrayList<Marker_Internal_Nav>()
             store_marker!!.clear()
             if(markers.size>0)
