@@ -501,7 +501,8 @@ public class SceneLoader implements LoaderTask.Callback {
                         marker1.setobjClass("pin");
                         marker1.setId(marker.get(i).getSite_id() + "_marker");
                         addObject(marker1);*/
-                        Object3DData obj4 = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("hotspot_icon"));
+                        //Object3DData obj4 = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("hotspot_icon"));
+                        Object3DData obj4 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
                         obj4.setPosition(new float[]{marker.get(i).getX(), .2f, marker.get(i).getZ()});
                         obj4.setobjClass("pin");
                         obj4.setId(marker.get(i).getSite_id() + "_marker");
