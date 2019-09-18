@@ -490,7 +490,7 @@ public class SceneLoader implements LoaderTask.Callback {
                         created_pin.add(marker1);
                         created_pin_pos.add(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
 */
-                        Object3DData marker1_boundingbox = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj.obj"));
+                        Object3DData marker1_boundingbox = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
                         marker1_boundingbox.setPosition(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
                         marker1_boundingbox.setobjClass("pin_cube");
                         marker1_boundingbox.setId(marker.get(i).getStore_id());
