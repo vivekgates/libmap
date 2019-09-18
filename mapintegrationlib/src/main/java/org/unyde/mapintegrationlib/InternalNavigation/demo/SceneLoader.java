@@ -490,7 +490,7 @@ public class SceneLoader implements LoaderTask.Callback {
                         created_pin.add(marker1);
                         created_pin_pos.add(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
 */
-                        Object3DData marker1_boundingbox = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/storemarker_plane.obj"));
+                        Object3DData marker1_boundingbox = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj.obj"));
                         marker1_boundingbox.setPosition(new float[]{marker.get(i).getX(), marker.get(i).getY() - .1f, marker.get(i).getZ()});
                         marker1_boundingbox.setobjClass("pin_cube");
                         marker1_boundingbox.setId(marker.get(i).getStore_id());
@@ -502,7 +502,7 @@ public class SceneLoader implements LoaderTask.Callback {
                         marker1.setId(marker.get(i).getSite_id() + "_marker");
                         addObject(marker1);*/
                        // Object3DData obj4 = Object3DBuilder.buildplane2V4(Constants.char_byte_data.get("hotspot_icon"));
-                        Object3DData obj4 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/storemarker_plane.obj"));
+                        Object3DData obj4 = Object3DBuilder.loadV5_bg(parent, Uri.parse("models/path_arrow.obj"));
                         obj4.setPosition(new float[]{marker.get(i).getX(), .2f, marker.get(i).getZ()});
                         obj4.setobjClass("pin");
                         obj4.setId(marker.get(i).getSite_id() + "_marker");
