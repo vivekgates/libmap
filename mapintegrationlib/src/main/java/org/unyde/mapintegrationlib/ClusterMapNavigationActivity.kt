@@ -179,11 +179,19 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         destination_floor = intent.getStringExtra("destination_floor_level")
         destination_store_name = intent.getStringExtra("destination_store_name")
         destination_logo = intent.getStringExtra("destination_logo")
-        Picasso.get().load("" + destination_logo)
-            .error(R.drawable.crowd_event).networkPolicy(NetworkPolicy.NO_CACHE)
-            .memoryPolicy(MemoryPolicy.NO_CACHE)
-            .placeholder(R.drawable.crowd_event)
-            .into(set_image_brand);
+
+        try
+        {
+            Picasso.get().load("" + destination_logo)
+                .error(R.drawable.crowd_event).networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .placeholder(R.drawable.crowd_event)
+                .into(set_image_brand);
+        }
+        catch (e:Exception)
+        {
+
+        }
         brands_name!!.text=""+destination_store_name
         destination_store_address = intent.getStringExtra("destination_store_address")
         store_address_txt!!.text=destination_store_address
