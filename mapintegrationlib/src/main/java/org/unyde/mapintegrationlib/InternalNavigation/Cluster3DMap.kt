@@ -275,7 +275,7 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
             var marker = store_marker
 
             val handler = Handler(Looper.getMainLooper())
-            scene!!.setMarker(marker, floor)
+           // scene!!.setMarker(marker, floor)
             handler.postDelayed({
                 scene!!.setMarker(marker, floor)
             }, 100)
