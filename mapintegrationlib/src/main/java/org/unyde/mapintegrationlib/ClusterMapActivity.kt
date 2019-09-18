@@ -248,7 +248,7 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
                     cluster3DMap!!.setStoreMarkers(0, store_marker)
                 }
             } else {
-                var cn = ComponentName(this, "woogly.unyde.org.wooglyunyde.activities.BrandPageAct");
+                var cn = ComponentName(this@ClusterMapActivity, "woogly.unyde.org.wooglyunyde.activities.BrandPageAct");
                 var intent = Intent().setComponent(cn);
                 intent.putExtra("brand_id",store_id)
                 intent.putExtra("brand_name","AND")
