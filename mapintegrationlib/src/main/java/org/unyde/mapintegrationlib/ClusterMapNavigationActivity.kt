@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balysv.materialripple.MaterialRippleLayout
 import com.google.gson.GsonBuilder
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.steps_bottom_sheet.*
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
 import org.unyde.mapintegrationlib.InternalNavigation.demo.SceneLoader
@@ -66,6 +69,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     private var destination_store_name: String = ""
     private var destination_store_address: String = ""
     private var destination_floor: String? = null
+    private var destination_logo: String? = null
 
     ///////////////////////////////Views
 
@@ -106,6 +110,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var store_address_txt : TextView ?=null
     var topcurtwo_steps : ImageView ?=null
     var current_location : ImageView ?=null
+    var set_image_brand : ImageView ?=null
     var bottom_sheet_3d_steps : RelativeLayout?=null
     var startback : LinearLayout?=null
     var bottom_card_v : CardView?=null
@@ -139,6 +144,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         bottom_sheet_3d_steps = findViewById(R.id.bottom_sheet_3d_steps)
         topcurtwo_steps = findViewById(R.id.topcurtwo_steps)
         current_location = findViewById(R.id.current_location)
+        set_image_brand = findViewById(R.id.set_image_brand)
         bottom_card_v = findViewById(R.id.bottom_card_v)
         startback = findViewById(R.id.startback)
         back_button = findViewById(R.id.back_button)
@@ -172,6 +178,12 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         dest_floor_level = intent.getStringExtra("destination_floor_level")
         destination_floor = intent.getStringExtra("destination_floor_level")
         destination_store_name = intent.getStringExtra("destination_store_name")
+        destination_logo = intent.getStringExtra("destination_logo")
+        Picasso.get().load("" + destination_logo)
+            .error(R.drawable.crowd_event).networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .placeholder(R.drawable.crowd_event)
+            .into(set_image_brand);
         brands_name!!.text=""+destination_store_name
         destination_store_address = intent.getStringExtra("destination_store_address")
         store_address_txt!!.text=destination_store_address
