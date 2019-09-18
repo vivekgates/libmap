@@ -120,7 +120,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var ATTRS: IntArray? = null
     internal var mSensorManager: SensorManager? = null
     var current_flor: Int = 0
-    var instruction_count: Int = 1
+    var instruction_count: Int = 0
     var isInstructionPathmarker:Boolean?=false
 
 
@@ -253,28 +253,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
         start_prevbtn!!.setOnClickListener {
 
-            if(instruction_count>=0)
-            {
-                var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
-                    .getCordinates(instruction_site_list!!.get(instruction_count-1))
-                if(cordinate.size>0)
-                {
-                    if(cordinate.get(0).floor_level.equals(shownFloorMap))
-                    {
 
-                    }
-                    else
-                    {
-                        isInstructionPathmarker=false
-                        cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
-                        shownFloorMap=cordinate.get(0).floor_level
-                        cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
-                    }
-                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
-                }
-                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
-                instruction_count--
-            }
 
 
             try {
@@ -310,7 +289,28 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                     }
                 }
                 else{
-                   // Toast.makeText(this@ClusterMapNavigationActivity,"Previous", Toast.LENGTH_SHORT).show()
+                    if(instruction_count>=0)
+                    {
+                        var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
+                            .getCordinates(instruction_site_list!!.get(instruction_count-1))
+                        if(cordinate.size>0)
+                        {
+                            if(cordinate.get(0).floor_level.equals(shownFloorMap))
+                            {
+
+                            }
+                            else
+                            {
+                                isInstructionPathmarker=false
+                                cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
+                                shownFloorMap=cordinate.get(0).floor_level
+                                cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
+                            }
+                            cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
+                        }
+                        Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
+                        instruction_count--
+                    }
                 }
 
 
