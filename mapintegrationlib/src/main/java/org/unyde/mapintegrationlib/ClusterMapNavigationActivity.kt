@@ -120,7 +120,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var ATTRS: IntArray? = null
     internal var mSensorManager: SensorManager? = null
     var current_flor: Int = 0
-    var instruction_count: Int = 0
+    var instruction_count: Int = 1
     var isInstructionPathmarker:Boolean?=false
 
 
