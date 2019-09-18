@@ -15,33 +15,43 @@
         android:fitsSystemWindows="true">
 
     <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="false"
-            android:orientation="vertical"
-    >
+            android:orientation="vertical">
 
         <org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView
                 android:id="@+id/glView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></org.unyde.mapintegrationlib.InternalNavigation.view.ModelSurfaceView>
 
+<androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/current_location"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:src="@drawable/location_current_map">
+
+</androidx.appcompat.widget.AppCompatImageView>
 
         <TextView
+                android:id="@+id/centerline"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_1sdp"
-                android:id="@+id/centerline"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
 
         <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:elevation="0dp"
-                android:background="@color/transparent_original"
                 android:id="@+id/floor_card_container"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent_original"
+                android:elevation="0dp">
 
             <org.unyde.mapintegrationlib.bottomnavigation.SegmentView
                     android:id="@+id/rg"
@@ -49,9 +59,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"
                     android:background="@drawable/segment_shape"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical"
+                    android:visibility="gone" />
 
 
         </RelativeLayout>

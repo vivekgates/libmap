@@ -105,6 +105,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var brands_name : TextView ?=null
     var store_address_txt : TextView ?=null
     var topcurtwo_steps : ImageView ?=null
+    var current_location : ImageView ?=null
     var bottom_sheet_3d_steps : RelativeLayout?=null
     var startback : LinearLayout?=null
     var bottom_card_v : CardView?=null
@@ -137,6 +138,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         store_address_txt = findViewById(R.id.store_address_txt)
         bottom_sheet_3d_steps = findViewById(R.id.bottom_sheet_3d_steps)
         topcurtwo_steps = findViewById(R.id.topcurtwo_steps)
+        current_location = findViewById(R.id.current_location)
         bottom_card_v = findViewById(R.id.bottom_card_v)
         startback = findViewById(R.id.startback)
         back_button = findViewById(R.id.back_button)
@@ -226,6 +228,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
            if(instruction_count<instruction_list!!.size)
            {
+               Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.DIRECTION
                var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
                    .getCordinates(instruction_site_list!!.get(instruction_count))
                if(cordinate.size>0)
@@ -259,7 +262,6 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             try {
 
                 if (start_prev_text!!.text.toString().trim().equals("START")){
-                      Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
                       next_step_btn!!.visibility = View.VISIBLE
                       start_prev_text!!.setText("PREV STEP")
                       start_prev_image!!.setImageResource(R.drawable.ic_arrow_left)
@@ -269,6 +271,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                       nav_bottomsheet_steps!!.isHideable = false
                       nav_bottomsheet_steps!!.isDisableExpanded = false
                     if (isViaBeacon!!) {
+                        Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
                         if (shownFloorMap!!.toInt() != Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)) {
                             floor = Pref_manager.getFloor_Level(ApplicationContext.get().applicationContext)
                             Cluster3DMap.scene!!.destination_floor_number = source_floor
@@ -281,6 +284,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             // Cluster3DMap.scene!!.setthirdpersoncamera()
                         }
                     } else {
+                        Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.DIRECTION
                         if(!shownFloorMap.equals(source_floor))
                         {
                             Cluster3DMap.scene!!.destination_floor_number = source_floor
@@ -291,6 +295,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                 else{
                     if(instruction_count>=0)
                     {
+                        Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.DIRECTION
                         var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
                             .getCordinates(instruction_site_list!!.get(instruction_count-1))
                         if(cordinate.size>0)
@@ -373,6 +378,18 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             }
             else{
                 nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+            }
+
+        }
+
+        current_location!!.setOnClickListener {
+
+            if (isViaBeacon!!) {
+                Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.NAVIGATION
+            }
+            else
+            {
+                Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.DIRECTION
             }
 
         }
