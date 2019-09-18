@@ -926,6 +926,23 @@ public class SceneLoader implements LoaderTask.Callback {
     public List<Object3DData> dot_node_list;
     public int dot_node_index = 0;
 
+
+    public void set_directional_camera_trigger() {
+
+         setthirdpersoncamera();
+        camera_direction_animation = true;
+        camera_direction_timer = 0;
+        source_camera_direction_position = new float[]{camera.xPos, camera.yPos, camera.zPos};
+        target_camera_direction_position = new float[]{0, 5, 0};
+        source_camera_view_position = new float[]{camera.xView, camera.yView, camera.zView};
+        if (path_pos_scene != null && path_pos_scene.size() > 1) {
+            float temp_x = (path_pos_scene.get(0).getX() + path_pos_scene.get(path_pos_scene.size() - 1).getX()) / 2;
+            float temp_z = (path_pos_scene.get(0).getZ() + path_pos_scene.get(path_pos_scene.size() - 1).getZ()) / 2;
+            target_camera_view_position = new float[]{temp_x, camera.yView, temp_z};
+        }
+
+
+    }
    /* public void set_directional_camera_trigger() {
 
         //setthirdpersoncamera();

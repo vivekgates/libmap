@@ -257,7 +257,7 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
             var instruction_direction_list = routeLayer!!.instruction_direction_list
             calorieCallback!!.onCalorieSteps(totCalorie.toString(), totSteps.toString(), instruction_list, instruction_site_list, instruction_direction_list)
             if (mActionMode == IndoorMode.DIRECTION) {
-                // scene!!.set_directional_camera_trigger()
+                scene!!.set_directional_camera_trigger()
             } else if (mActionMode == IndoorMode.NAVIGATION) {
                 scene!!.setthirdpersoncamera()
             }
