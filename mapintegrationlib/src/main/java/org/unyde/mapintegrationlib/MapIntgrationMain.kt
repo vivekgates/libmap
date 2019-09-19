@@ -414,6 +414,7 @@ class MapIntgrationMain {
 
 
         fun getStoreDetails(site_id: String, cluster_id: String, context: Context,instance_id:String,user_id:String): StoreInfo {
+            ApplicationContext.getInstance().init(context);
             Pref_manager.setUserId(context,user_id)
             Pref_manager.setInstanceId(context,instance_id)
             var storeInfo = Store_In_Out.getInstance().check_in(site_id, cluster_id, context)
