@@ -20,6 +20,7 @@ import org.unyde.mapintegrationlib.database.entity.CheckInCheckOut
 import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
 import org.unyde.mapintegrationlib.network.ApiClient
+import org.unyde.mapintegrationlib.services.CheckInCheckOutService
 import org.unyde.mapintegrationlib.util.Constants
 import org.unyde.mapintegrationlib.util.Helper
 import org.unyde.mapintegrationlib.util.NotificationUtils
@@ -196,9 +197,9 @@ class Store_In_Out private constructor() {
         }
 
 
-        /* if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, MyApplication.INSTANCE?.applicationContext)) {
-             //  MyApplication.INSTANCE?.applicationContext!!.startService(Intent(MyApplication.INSTANCE?.applicationContext, CheckInCheckOutService::class.java))
-         }*/
+       if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java,context)) {
+              context.startService(Intent(context, CheckInCheckOutService::class.java))
+        }
 
     }
 
@@ -375,9 +376,9 @@ class Store_In_Out private constructor() {
             }
         }
 
-        /*   if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, MyApplication.INSTANCE?.applicationContext)) {
-               MyApplication.INSTANCE?.applicationContext!!.startService(Intent(MyApplication.INSTANCE?.applicationContext, CheckInCheckOutService::class.java))
-           }*/
+           if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, context)) {
+              context.startService(Intent(context, CheckInCheckOutService::class.java))
+           }
         return storeDetail
     }
 

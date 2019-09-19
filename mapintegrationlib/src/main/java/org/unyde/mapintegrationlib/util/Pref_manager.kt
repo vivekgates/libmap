@@ -37,6 +37,7 @@ class Pref_manager(internal var context: Context) {
         val SUBPANEL_MAINTAIN = "sub_panle"
         val DEVICE_LIST = "device_list"
         val USER_ID = "user_id"
+        val INSTANCE_ID = "instance_id"
         val USER_AUTHTOKEN = "user_token"
         val STORE_DETALIS = "store_details"
         val USER_MAINID = "user_mainID"
@@ -131,6 +132,17 @@ class Pref_manager(internal var context: Context) {
         fun getUserId(context: Context): String {
             var sharedPreferences = context.getSharedPreferences(USER_ID, Context.MODE_PRIVATE)
             return sharedPreferences.getString(USER_ID, "")!!
+        }
+
+
+        fun setInstanceId(context: Context, editable: String) {
+            var sharedPreferences = context.getSharedPreferences(INSTANCE_ID, Context.MODE_PRIVATE)
+            sharedPreferences.edit().putString(INSTANCE_ID, editable).commit()
+        }
+
+        fun getInstanceId(context: Context): String {
+            var sharedPreferences = context.getSharedPreferences(INSTANCE_ID, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(INSTANCE_ID, "")!!
         }
 
 

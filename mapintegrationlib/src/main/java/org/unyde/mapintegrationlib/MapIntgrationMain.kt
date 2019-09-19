@@ -13,6 +13,7 @@ import org.unyde.mapintegrationlib.database.entity.MallMapMain
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
 import org.unyde.mapintegrationlib.network.ApiClient
 import org.unyde.mapintegrationlib.util.Helper
+import org.unyde.mapintegrationlib.util.Pref_manager
 import org.unyde.mapintegrationlib.viewmodel.MallFloorListViewModel
 import org.unyde.mapintegrationlib.worker.helper.LiveDataHelper
 import org.unyde.mapintegrationlib.worker.map_file_download_worker.FileUnzipWorker
@@ -412,7 +413,9 @@ class MapIntgrationMain {
         }
 
 
-        fun getStoreDetails(site_id: String, cluster_id: String, context: Context): StoreInfo {
+        fun getStoreDetails(site_id: String, cluster_id: String, context: Context,instance_id:String,user_id:String): StoreInfo {
+            Pref_manager.setUserId(context,user_id)
+            Pref_manager.setInstanceId(context,instance_id)
             var storeInfo = Store_In_Out.getInstance().check_in(site_id, cluster_id, context)
             return storeInfo!!
         }
