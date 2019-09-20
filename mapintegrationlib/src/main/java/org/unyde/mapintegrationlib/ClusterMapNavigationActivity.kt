@@ -405,14 +405,11 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
                         }
 
-                        else if(instruction_list!!.get(instruction_count-1).contains("Source",false))
-                        {
-                            navigation_top_ui!!.setBackgroundResource(R.drawable.start_point)
-                        }
-
+                      
                         if(instruction_count==1)
                         {
                             title_step_store!!.setText("You are at source")
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.start_point)
                            // Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
                         }
                         else
