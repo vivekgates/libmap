@@ -184,7 +184,6 @@
                         android:layout_marginTop="@dimen/_2sdp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/ic_path"
-                        android:src="@drawable/start_point"
                         android:id="@+id/navigation_top_ui"/>
 
 
