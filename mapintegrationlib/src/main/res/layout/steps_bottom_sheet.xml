@@ -231,7 +231,7 @@ Destination"
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="You are at StarBucks, Walk for about 9 steps along the path."
+                        android:text="You are at source.."
                         android:textColor="@color/white"
                         style="@style/TextAppearance.Small"
                         android:layout_below="@+id/navigation_top_text"

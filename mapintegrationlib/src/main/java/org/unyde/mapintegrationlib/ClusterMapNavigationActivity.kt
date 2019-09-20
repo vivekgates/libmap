@@ -305,6 +305,22 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                    isInstructionPathmarker=true
                }
+               if(instruction_list!!.get(instruction_count+1).contains("Left",false))
+               {
+                   navigation_top_ui!!.setBackgroundResource(R.drawable.turn_left_white)
+               }
+               else if(instruction_list!!.get(instruction_count+1).contains("Right",false))
+               {
+                   navigation_top_ui!!.setBackgroundResource(R.drawable.turn_right_white)
+               }
+               else if(instruction_list!!.get(instruction_count+1).contains("Straight",false))
+               {
+                   navigation_top_ui!!.setBackgroundResource(R.drawable.take_straight_white)
+               }
+               else if(instruction_list!!.get(instruction_count+1).contains("Destination",false))
+               {
+                   navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
+               }
                title_step_store!!.setText(""+instruction_list!!.get(instruction_count+1))
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count+1),Toast.LENGTH_LONG).show()
                instruction_count++
@@ -372,6 +388,23 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             }
                             cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                         }
+                        if(instruction_list!!.get(instruction_count-1).contains("Left",false))
+                        {
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.turn_left_white)
+                        }
+                        else if(instruction_list!!.get(instruction_count-1).contains("Right",false))
+                        {
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.turn_right_white)
+                        }
+                        else if(instruction_list!!.get(instruction_count-1).contains("Straight",false))
+                        {
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.take_straight_white)
+                        }
+                        else if(instruction_list!!.get(instruction_count-1).contains("Destination",false))
+                        {
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
+                        }
+
                         title_step_store!!.setText(""+instruction_list!!.get(instruction_count-1))
                         Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
                         instruction_count--
