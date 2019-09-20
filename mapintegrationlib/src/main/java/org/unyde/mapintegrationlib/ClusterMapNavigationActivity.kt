@@ -50,6 +50,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
 
     override fun onNavStepsClick(pos: Int, siteId_steps: String, titlesteps: String) {
 
+        instruction_count=pos
         title_step_store!!.setText(titlesteps)
 
         nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
