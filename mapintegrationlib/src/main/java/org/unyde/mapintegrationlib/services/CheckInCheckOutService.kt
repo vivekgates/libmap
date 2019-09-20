@@ -25,7 +25,7 @@ class CheckInCheckOutService : Service() {
         try {
 
             if (intent != null) {
-
+                Thread(Runnable {
                 if (Helper.isConnectionAvailable(ApplicationContext.get().applicationContext)) {
                   //  MyApplication.get()!!.db!!.checkInCheckOut().deleteOtherData()
                     var storeCheckInCheckOutData = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().all
@@ -71,19 +71,9 @@ class CheckInCheckOutService : Service() {
                         stopSelf()
                     }
                 }
-                /*   Thread(Runnable {
-                       if (Helper.isConnectionAvailable(applicationContext)) {
-                           var storeCheckInCheckOutData = MyApplication.get()!!.db!!.checkInCheckOut().all
-                           if (storeCheckInCheckOutData.size > 0) {
-                               checkInCheckOutId = storeCheckInCheckOutData.get(0).auto_inc
-                               setUserTransactionImpl = SetUserTransactionImpl(this@CheckInCheckOutService, Pref_manager.getUserId(MyApplication.instance.applicationContext), storeCheckInCheckOutData.get(0).type_in_out.toString(), storeCheckInCheckOutData.get(0).beacon_id,storeCheckInCheckOutData.get(0).createDate+" "+storeCheckInCheckOutData.get(0).time_in_out,"1")
-                               setUserTransactionImpl!!.init()
-                           } else {
-                               stopSelf()
 
-                           }
-                       }
-                   }).start()*/
+
+                   }).start()
             }
 
 
