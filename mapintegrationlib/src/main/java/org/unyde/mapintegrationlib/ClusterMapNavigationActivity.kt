@@ -38,6 +38,7 @@ import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.MallMapMain
 import org.unyde.mapintegrationlib.database.entity.PathNode
 import org.unyde.mapintegrationlib.interfaces.FloorClickListner
+import org.unyde.mapintegrationlib.interfaces.StepsClickList
 import org.unyde.mapintegrationlib.util.Constants
 import org.unyde.mapintegrationlib.util.Pref_manager
 import org.unyde.mapintegrationlib.util.viewpagerAdsCard.AnchorBottomSheetBehavior
@@ -45,7 +46,38 @@ import java.lang.Float
 import java.util.ArrayList
 
 class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, SceneLoader.Callback,
-    Cluster3DMap.CalorieStepsCallback, SensorEventListener {
+    Cluster3DMap.CalorieStepsCallback, SensorEventListener, StepsClickList {
+
+    override fun onNavStepsClick(pos: Int, siteId_steps: String, titlesteps: String) {
+
+        title_step_store!!.setText(titlesteps)
+
+        nav_bottomsheet_steps?.peekHeight = resources.getDimension(R.dimen._165sdp).toInt()
+        nav_bottomsheet_steps!!.state = AnchorBottomSheetBehavior.STATE_COLLAPSED
+        nav_bottomsheet_steps!!.isHideable = false
+        nav_bottomsheet_steps!!.isDisableExpanded = false
+
+
+        var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
+            .getCordinates(siteId_steps)
+        if(cordinate.size>0)
+        {
+            if(cordinate.get(0).floor_level.equals(shownFloorMap))
+            {
+
+            }
+            else
+            {
+                isInstructionPathmarker=false
+                cluster3DMap!!.show3DMap(cordinate.get(0).floor_level.toInt())
+                shownFloorMap=cordinate.get(0).floor_level
+                cluster3DMap!!.show3DMapNavigation(shownFloorMap!!.toInt())
+            }
+            cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
+            isInstructionPathmarker=true
+        }
+
+    }
 
 
     ///////////////Source Beacon
@@ -114,6 +146,8 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
     var bottom_sheet_3d_steps : RelativeLayout?=null
     var startback : LinearLayout?=null
     var bottom_card_v : CardView?=null
+    var navigation_top_ui : ImageView?=null
+    var title_step_store : TextView?=null
     var nav_bottomsheet_steps: AnchorBottomSheetBehavior<View>? = null
     var instruction_list: MutableList<String>? = null
     var instruction_site_list: MutableList<String>? = null
@@ -152,6 +186,8 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
         leftsegment = findViewById(R.id.leftsegment)
         card_expand = findViewById(R.id.card_expand)
         open_floor = findViewById(R.id.open_floor)
+        navigation_top_ui = findViewById(R.id.navigation_top_ui)
+        title_step_store = findViewById(R.id.title_step_store)
 
 
 
@@ -269,6 +305,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                }
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
+               title_step_store!!.setText(""+instruction_list!!.get(instruction_count))
            }
 
         }
@@ -590,7 +627,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                 this.instruction_list = instruction_list
                 this.instruction_site_list = instruction_site_list
                 this.instruction_direction_list = instruction_direction_list
-                stepsInstructionRecyclerAdapter = StepsInstructionAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@ClusterMapNavigationActivity)
+                stepsInstructionRecyclerAdapter = StepsInstructionAdapter(instruction_list, instruction_site_list, instruction_direction_list, this@ClusterMapNavigationActivity,this@ClusterMapNavigationActivity)
                 instruction_list_recyclerview?.setAdapter(stepsInstructionRecyclerAdapter)
                 stepsInstructionRecyclerAdapter!!.notifyDataSetChanged()
             }

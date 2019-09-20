@@ -12,13 +12,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.unyde.mapintegrationlib.R
+import org.unyde.mapintegrationlib.interfaces.StepsClickList
 import org.unyde.mapintegrationlib.util.Constants
 import java.util.ArrayList
 
 class StepsInstructionAdapter(internal var instruction_list: MutableList<String>?
                       ,internal var  instruction_site_list :MutableList<String>?
                       ,internal var  instruction_direction_list :MutableList<Int>?
-                      ,internal var context: Context
+                      ,internal var context: Context,internal var stepsClickList: StepsClickList
 ) : RecyclerView.Adapter<StepsInstructionAdapterViewholder>() {
 
 
@@ -117,6 +118,9 @@ class StepsInstructionAdapter(internal var instruction_list: MutableList<String>
 
 
 
+        holder.itemView.setOnClickListener {
+            stepsClickList.onNavStepsClick(position,instruction_site_list!!.get(position),instruction_list!!.get(position).toString())
+        }
 
 
 

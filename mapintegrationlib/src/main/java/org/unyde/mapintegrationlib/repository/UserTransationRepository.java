@@ -34,7 +34,7 @@ public class UserTransationRepository {
     public MutableLiveData<UserTransactionResponse> setUserTransaction(Context context ,String token, String node_id , String time , String transaction_type , String type) {
         final MutableLiveData<UserTransactionResponse> setUserTransactionMutableLiveData = new MutableLiveData<>();
         apiInterface = ApiClient.getClientToken().create(APIInterface.class);
-        Call<UserTransactionResponse> call = apiInterface.setUserTransation(token, Pref_manager.Companion.getINSTANCE_ID(),node_id,time,transaction_type,type,Pref_manager.Companion.getUSER_ID());
+        Call<UserTransactionResponse> call = apiInterface.setUserTransation(token, Pref_manager.Companion.getInstanceId(context),node_id,time,transaction_type,type,Pref_manager.Companion.getUserId(context));
 
         call.enqueue(new Callback<UserTransactionResponse>() {
             @Override

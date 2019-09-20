@@ -205,6 +205,7 @@
                     android:layout_toRightOf="@+id/iconandtext"
                     android:layout_centerVertical="true"
                     android:visibility="visible"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_height="match_parent">
@@ -215,6 +216,7 @@
                         android:layout_height="wrap_content"
                         android:text="Your
 Destination"
+                        android:visibility="gone"
                         android:textSize="@dimen/_7sdp"
                         android:layout_marginRight="@dimen/_8sdp"
                         android:layout_marginLeft="@dimen/_8sdp"
@@ -235,7 +237,7 @@ Destination"
                         android:layout_below="@+id/navigation_top_text"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_toLeftOf="@+id/offer_animation_onClick"
-                        android:id="@+id/title_offer_store"
+                        android:id="@+id/title_step_store"
                         android:layout_marginLeft="@dimen/_8sdp"/>
 
 
