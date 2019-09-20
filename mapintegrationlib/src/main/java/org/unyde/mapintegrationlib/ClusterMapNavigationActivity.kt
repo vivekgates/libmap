@@ -322,7 +322,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
                }
                title_step_store!!.setText(""+instruction_list!!.get(instruction_count+1))
-               Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count+1),Toast.LENGTH_LONG).show()
+             //  Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count+1),Toast.LENGTH_LONG).show()
                instruction_count++
            }
 
@@ -368,7 +368,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                     }
                 }
                 else{
-                    if(instruction_count>=0)
+                    if(instruction_count>0)
                     {
                         Cluster3DMap.mActionMode = Cluster3DMap.IndoorMode.DIRECTION
                         var cordinate= DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.pathNodeList()
@@ -405,8 +405,22 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
                         }
 
-                        title_step_store!!.setText(""+instruction_list!!.get(instruction_count-1))
-                        Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
+                        else if(instruction_list!!.get(instruction_count-1).contains("Source",false))
+                        {
+                            navigation_top_ui!!.setBackgroundResource(R.drawable.start_point)
+                        }
+
+                        if(instruction_count==1)
+                        {
+                            title_step_store!!.setText("You are at source")
+                           // Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
+                        }
+                        else
+                        {
+                            title_step_store!!.setText(""+instruction_list!!.get(instruction_count-1))
+                            //Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
+                        }
+
                         instruction_count--
                     }
                 }
