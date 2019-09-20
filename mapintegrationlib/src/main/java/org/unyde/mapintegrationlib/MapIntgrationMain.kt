@@ -73,10 +73,7 @@ class MapIntgrationMain {
 
         fun downloadmap(c: FragmentActivity, cluster_id: String) {
 
-            ApplicationContext.getInstance().init(c);
-            if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, c)) {
-                c.startService(Intent(c, CheckInCheckOutService::class.java))
-            }
+
             mViewModel_clusterList =
                 ViewModelProviders.of(c).get(MallFloorListViewModel::class.java!!)
             mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
@@ -437,6 +434,14 @@ class MapIntgrationMain {
             Pref_manager.setInstanceId(context, instance_id)
             var storeInfo = Store_In_Out.getInstance().check_in(site_id, cluster_id, context)
             return storeInfo!!
+        }
+
+
+        fun startCheckinCheckOutService(context: Context, instance_id: String, user_id: String) {
+            ApplicationContext.getInstance().init(context);
+            if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, context)) {
+                context.startService(Intent(context, CheckInCheckOutService::class.java))
+            }
         }
 
 
