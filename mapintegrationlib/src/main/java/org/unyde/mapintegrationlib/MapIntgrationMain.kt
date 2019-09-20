@@ -2,6 +2,7 @@ package org.unyde.mapintegrationlib
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import org.unyde.mapintegrationlib.viewmodel.ClusterDetailViewModel
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import org.unyde.mapintegrationlib.database.DatabaseClient
 import org.unyde.mapintegrationlib.database.entity.MallMapMain
 import org.unyde.mapintegrationlib.model.store_info.StoreInfo
 import org.unyde.mapintegrationlib.network.ApiClient
+import org.unyde.mapintegrationlib.services.CheckInCheckOutService
 import org.unyde.mapintegrationlib.util.Helper
 import org.unyde.mapintegrationlib.util.Pref_manager
 import org.unyde.mapintegrationlib.viewmodel.MallFloorListViewModel
@@ -72,7 +74,11 @@ class MapIntgrationMain {
         fun downloadmap(c: FragmentActivity, cluster_id: String) {
 
             ApplicationContext.getInstance().init(c);
-            mViewModel_clusterList = ViewModelProviders.of(c).get(MallFloorListViewModel::class.java!!)
+            if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, c)) {
+                c.startService(Intent(c, CheckInCheckOutService::class.java))
+            }
+            mViewModel_clusterList =
+                ViewModelProviders.of(c).get(MallFloorListViewModel::class.java!!)
             mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
             mViewModel_clusterList!!.mallFloorList.observeForever { clusterDetail ->
 
@@ -89,9 +95,12 @@ class MapIntgrationMain {
                                         clusterDetail.data!!.floors!!.get(i).floorMap.toString()
                                 var url_json = ApiClient.imageUrl +
                                         clusterDetail.data!!.floors!!.get(i).floorJson.toString()
-                                var floor_number = clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
-                                var floor_map_date = clusterDetail.data!!.floors!!.get(i).floorMapDate
-                                var floor_json_date = clusterDetail.data!!.floors!!.get(i).floorJsonDate
+                                var floor_number =
+                                    clusterDetail.data!!.floors!!.get(i).floorNumber.toString()
+                                var floor_map_date =
+                                    clusterDetail.data!!.floors!!.get(i).floorMapDate
+                                var floor_json_date =
+                                    clusterDetail.data!!.floors!!.get(i).floorJsonDate
                                 var floor_date = clusterDetail.data!!.floors!!.get(i).floorDate
 
                                 if (floor_map_date != null) {
@@ -112,10 +121,11 @@ class MapIntgrationMain {
                                     floor_date = ""
                                 }
 
-                                var floor_data = DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
-                                    cluster_id.toString(),
-                                    floor_number
-                                )
+                                var floor_data =
+                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.floorData(
+                                        cluster_id.toString(),
+                                        floor_number
+                                    )
 
                                 if (floor_data != null) {
 
@@ -217,7 +227,9 @@ class MapIntgrationMain {
 
                                     )
 
-                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.addfilePath(mallMap)
+                                    DatabaseClient.getInstance(c)!!.db!!.mallMapMain()!!.addfilePath(
+                                        mallMap
+                                    )
 
                                     startMapDownloadWorker(
                                         "Noida",
@@ -413,10 +425,16 @@ class MapIntgrationMain {
         }
 
 
-        fun getStoreDetails(site_id: String, cluster_id: String, context: Context,instance_id:String,user_id:String): StoreInfo {
+        fun getStoreDetails(
+            site_id: String,
+            cluster_id: String,
+            context: Context,
+            instance_id: String,
+            user_id: String
+        ): StoreInfo {
             ApplicationContext.getInstance().init(context);
-            Pref_manager.setUserId(context,user_id)
-            Pref_manager.setInstanceId(context,instance_id)
+            Pref_manager.setUserId(context, user_id)
+            Pref_manager.setInstanceId(context, instance_id)
             var storeInfo = Store_In_Out.getInstance().check_in(site_id, cluster_id, context)
             return storeInfo!!
         }
