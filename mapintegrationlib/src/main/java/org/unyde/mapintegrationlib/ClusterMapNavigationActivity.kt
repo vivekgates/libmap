@@ -303,9 +303,9 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                    cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                    isInstructionPathmarker=true
                }
+               title_step_store!!.setText(""+instruction_list!!.get(instruction_count))
                Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count),Toast.LENGTH_LONG).show()
                instruction_count++
-               title_step_store!!.setText(""+instruction_list!!.get(instruction_count))
            }
 
         }
@@ -370,6 +370,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             }
                             cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
                         }
+                        title_step_store!!.setText(""+instruction_list!!.get(instruction_count))
                         Toast.makeText(this@ClusterMapNavigationActivity,""+instruction_list!!.get(instruction_count-1),Toast.LENGTH_LONG).show()
                         instruction_count--
                     }
