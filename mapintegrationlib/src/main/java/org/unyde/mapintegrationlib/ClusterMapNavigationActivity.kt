@@ -76,6 +76,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
             }
             cluster3DMap!!.instruction_path(cordinate.get(0).site_map_coord_x.toFloat(),cordinate.get(0).site_map_coord_y.toFloat(),cordinate.get(0).site_map_coord_z.toFloat(),isInstructionPathmarker!!)
             isInstructionPathmarker=true
+            instruction_count++
         }
 
     }
