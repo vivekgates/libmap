@@ -405,7 +405,7 @@ class ClusterMapNavigationActivity : AppCompatActivity(), FloorClickListner, Sce
                             navigation_top_ui!!.setBackgroundResource(R.drawable.end_point)
                         }
 
-                      
+
                         if(instruction_count==1)
                         {
                             title_step_store!!.setText("You are at source")
