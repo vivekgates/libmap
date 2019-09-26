@@ -2,7 +2,9 @@ package org.unyde.mapintegrationlib.services
 
 import android.app.Service
 import android.content.Intent
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Observer
 import org.unyde.mapintegrationlib.ApplicationContext
