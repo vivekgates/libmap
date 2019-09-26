@@ -73,7 +73,7 @@ class MapIntgrationMain {
 
         fun downloadmap(c: FragmentActivity, cluster_id: String) {
 
-
+            ApplicationContext.getInstance().init(c)
             mViewModel_clusterList =
                 ViewModelProviders.of(c).get(MallFloorListViewModel::class.java!!)
             mViewModel_clusterList!!.init(c, "28.554810", cluster_id)
