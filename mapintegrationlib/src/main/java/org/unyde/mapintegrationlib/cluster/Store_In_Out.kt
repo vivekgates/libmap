@@ -198,7 +198,7 @@ class Store_In_Out private constructor() {
 
 
       // if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java,context)) {
-              context.startService(Intent(context, CheckInCheckOutService::class.java))
+           //   context.startService(Intent(context, CheckInCheckOutService::class.java))
      //   }
 
     }
@@ -377,7 +377,7 @@ class Store_In_Out private constructor() {
         }
 
         //   if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, context)) {
-              context.startService(Intent(context, CheckInCheckOutService::class.java))
+            //  context.startService(Intent(context, CheckInCheckOutService::class.java))
          //  }
         return storeDetail
     }

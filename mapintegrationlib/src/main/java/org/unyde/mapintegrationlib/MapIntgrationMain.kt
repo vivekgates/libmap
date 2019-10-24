@@ -441,9 +441,9 @@ class MapIntgrationMain {
             ApplicationContext.getInstance().init(context)
             Pref_manager.setUserId(context, user_id)
             Pref_manager.setInstanceId(context, instance_id)
-            if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, context)) {
+            /*if (!Helper.isMyServiceRunning(CheckInCheckOutService::class.java, context)) {
                 context.startService(Intent(context, CheckInCheckOutService::class.java))
-            }
+            }*/
         }
 
 

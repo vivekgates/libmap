@@ -14,9 +14,9 @@
             android:allowBackup="false"
             android:label="@string/app_name"
             android:supportsRtl="true">
-        <service
+       <!-- <service
                 android:name=".services.CheckInCheckOutService"
-                android:enabled="true" />
+                android:enabled="true" />-->
     </application>
 
 
