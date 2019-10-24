@@ -14,7 +14,7 @@ interface MallMapMainDao {
     fun downlaodedAll(cluster: String): List<MallMapMain>
 
     @Query("SELECT cluster_id FROM mall_map_main WHERE isMapDownloaded=1 or isJsonDownloaded=1")
-    fun downlaoded_Cluster(): List<String>
+    fun downlaoded_Cluster(): List<Int>
 
 
     @Query("UPDATE mall_map_main SET isJsonDownloaded = 1 WHERE cluster_id = :cluster and floor_number= :floor_number")

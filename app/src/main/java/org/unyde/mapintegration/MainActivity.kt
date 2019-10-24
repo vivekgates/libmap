@@ -25,7 +25,7 @@ class MainActivity : FragmentActivity() {
 
            Log.i("mainActivity",""+clusterDetail.toString())*/
         //MapIntgrationMain.downloadmap(this,"101",this@MainActivity)
-       var store= MapIntgrationMain.getStoreDetails("FF11011C000650000007000011032800","101",this@MainActivity)
+     //  var store= MapIntgrationMain.getStoreDetails("FF11011C000650000007000011032800","101",this@MainActivity)
 
       LiveDataHelper.getInstance().observePercentage()
           .observeForever {
