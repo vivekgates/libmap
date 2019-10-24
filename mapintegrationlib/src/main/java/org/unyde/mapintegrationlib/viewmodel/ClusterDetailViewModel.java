@@ -19,7 +19,7 @@ public class ClusterDetailViewModel extends ViewModel {
     }
 
     public void init(Context context,String token, String cluster_id) {
-        this.data=null;
+       // this.data=null;
 
         if (this.data != null) {
 

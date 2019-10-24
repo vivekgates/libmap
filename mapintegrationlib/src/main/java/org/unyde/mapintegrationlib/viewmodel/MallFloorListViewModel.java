@@ -19,7 +19,7 @@ public class MallFloorListViewModel extends ViewModel {
     }
 
     public void init(Context context, String token, String mallid) {
-        this.data=null;
+       // this.data=null;
 
         if (this.data != null) {
 

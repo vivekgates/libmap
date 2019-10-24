@@ -23,7 +23,7 @@ public class UserTransactionViewModel extends ViewModel {
     }
 
     public void init(Context context, String token, String node_id, String time, String transaction_type, String type) {
-        this.data=null;
+      //  this.data=null;
 
         if (this.data != null) {
 

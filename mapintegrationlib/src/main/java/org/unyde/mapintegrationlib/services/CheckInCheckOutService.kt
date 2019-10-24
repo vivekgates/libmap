@@ -39,19 +39,9 @@ class CheckInCheckOutService : Service() {
                         Handler(Looper.getMainLooper()).post {
                             mViewModel_userTransaction!!.setUserTransaction().observeForever(Observer {favData  ->
 
-                                if(favData.status.equals("true")){
-                                    DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().deleteData(checkInCheckOutId)
-                                    var storeCheckInCheckOutData = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().all
-                                    if (storeCheckInCheckOutData.size > 0) {
-                                        startService(Intent(this@CheckInCheckOutService, CheckInCheckOutService::class.java))
-                                    } else {
-                                        stopSelf()
-                                    }
-                                }
-
-                                else
+                                if(favData!=null)
                                 {
-                                    try {
+                                    if(favData.status.equals("true")){
                                         DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().deleteData(checkInCheckOutId)
                                         var storeCheckInCheckOutData = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().all
                                         if (storeCheckInCheckOutData.size > 0) {
@@ -59,11 +49,25 @@ class CheckInCheckOutService : Service() {
                                         } else {
                                             stopSelf()
                                         }
-                                    } catch (e: Exception) {
-                                        Log.e("InoutService", e.message)
                                     }
 
+                                    else
+                                    {
+                                        try {
+                                            DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().deleteData(checkInCheckOutId)
+                                            var storeCheckInCheckOutData = DatabaseClient.getInstance(ApplicationContext.get().applicationContext)!!.db!!.checkInCheckOut().all
+                                            if (storeCheckInCheckOutData.size > 0) {
+                                                startService(Intent(this@CheckInCheckOutService, CheckInCheckOutService::class.java))
+                                            } else {
+                                                stopSelf()
+                                            }
+                                        } catch (e: Exception) {
+                                            Log.e("InoutService", e.message)
+                                        }
+
+                                    }
                                 }
+
 
                             })
 
