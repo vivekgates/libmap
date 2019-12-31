@@ -25,10 +25,10 @@ public class UserTransactionViewModel extends ViewModel {
     public void init(Context context, String token, String node_id, String time, String transaction_type, String type) {
       //  this.data=null;
 
-        if (this.data != null) {
+       /* if (this.data != null) {
 
             return;
-        }
+        }*/
 
 
         token="$xnNUH!ui:1;m]SArDPgeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjgsImNvbXBhbnlfaWQiOjEsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjgwMDEvbG9naW4iLCJuYW1lIjoic3VuaWxfdW55ZGUiLCJpYXQiOjE1NjAyNDUxMDR9.oI7860RlEFPNpVcVgyGPa7HdFpna3sdF726SzoNExlA";
