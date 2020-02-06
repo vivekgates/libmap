@@ -17,7 +17,11 @@ public class ApiClient {
 
     public static final String URL_BASE= "http://13.232.107.128/woogly/public/index.php/api/";
     public static final String BASE_URL1=  "http://services.unyde.in/unyde/public/index.php/api/" ;// Production
-    public static final String imageUrl= "https://s3.ap-south-1.amazonaws.com/ally-staging-images/";
+   // public static final String imageUrl= "https://s3.ap-south-1.amazonaws.com/ally-staging-images/";
+    public static final String imageUrl= "https://s3.ap-south-1.amazonaws.com/woogly-new-app/";
+
+   /* val URL_BASE = "http://13.232.107.128/woogly/public/index.php/api/"
+    val imageUrl = ""*/
 
     private static Retrofit retrofit;
 
