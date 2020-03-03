@@ -513,7 +513,8 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         var mappings = sorted1.entries
         var store_marker = ArrayList<Marker_Internal_Nav>()
         store_marker!!.clear()
-        store_marker!!.add(Marker_Internal_Nav(0f,0f,0f,"A","N","B","D"));
+        Log.e("Cluster3DMap:","------VIVEK-----")
+        store_marker!!.add(Marker_Internal_Nav(0f,1f,0f,"A","1","B","D"));
         cluster3DMap!!.setStoreMarkers(floor, store_marker)
         for (mapping1 in mappings)
         {

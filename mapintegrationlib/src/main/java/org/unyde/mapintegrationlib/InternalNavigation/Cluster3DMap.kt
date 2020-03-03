@@ -272,6 +272,7 @@ class Cluster3DMap(internal var activity: AppCompatActivity, internal var glView
 
     fun setStoreMarkers(floor: Int,store_marker:ArrayList<Marker_Internal_Nav>) {
         try {
+            Log.e("Cluster3DMap:","------VIVEKSETSTORE-----")
             var marker = store_marker
 
             val handler = Handler(Looper.getMainLooper())
