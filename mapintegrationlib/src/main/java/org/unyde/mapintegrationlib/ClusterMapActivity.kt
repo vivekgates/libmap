@@ -7,6 +7,8 @@ import android.graphics.drawable.InsetDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.balysv.materialripple.MaterialRippleLayout
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.steps_bottom_sheet.*
 import org.unyde.mapintegrationlib.InternalNavigation.Cluster3DMap
@@ -65,6 +68,170 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
     var mall_address_txt: TextView? = null
     var mall_stores: String? = "("
 
+    private var wifiManager: WifiManager?=null
+    private var results:List<ScanResult>?=null
+    private var arrayList = ArrayList<String>()
+    private var myMultiMap = HashMap<String, List<Int>>()
+    private var mydev_name = HashMap<String, String>()
+    private var mydevsignal_mapper = HashMap<String, Int>()
+    //  private var progressBar: ProgressBar?=null
+    private var scan_mode = false
+    private var count = 0
+    var gson: Gson?=null
+    var root: Root?=null
+    var json_val = "{\n" +
+            "\"point_list\": [\n" +
+            "\n" +
+            "{\n" +
+            "\"name\": \"chaayos\",\n" +
+            "\"signal_val\": [{\n" +
+            "\"hw_id\": \"04:95:e6:22:bb:71\",\n" +
+            "\"hw_name\": \"Unyde_Win\",\n" +
+            "\"hw_value\": \"-81\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"40:9b:cd:0d:11:70\",\n" +
+            "\"hw_name\": \"Unyde_Core\",\n" +
+            "\"hw_value\": \"-81\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"64:70:02:8a:d8:da\",\n" +
+            "\"hw_name\": \"UNYDE_DMZ\",\n" +
+            "\"hw_value\": \"-77\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"18:0f:76:35:f8:e8\",\n" +
+            "\"hw_name\": \"Unyde-Conference\",\n" +
+            "\"hw_value\": \"-53\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"9c:7d:a3:09:b8:98\",\n" +
+            "\"hw_name\": \"UnydeNetzi-2.4G\",\n" +
+            "\"hw_value\": \"-76\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"30:46:9a:a3:61:72\",\n" +
+            "\"hw_name\": \"VISION MISSION\",\n" +
+            "\"hw_value\": \"-85\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"32:46:9a:a3:61:73\",\n" +
+            "\"hw_name\": \"NETGEAR_Guest1\",\n" +
+            "\"hw_value\": \"-85\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "}\n" +
+            "\n" +
+            "]\n" +
+            "},\n" +
+            "{\n" +
+            "\"name\": \"blackberry\",\n" +
+            "\"signal_val\": [{\n" +
+            "\"hw_id\": \"04:95:e6:22:bb:71\",\n" +
+            "\"hw_name\": \"Unyde_Win\",\n" +
+            "\"hw_value\": \"-77\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"40:9b:cd:0d:11:70\",\n" +
+            "\"hw_name\": \"Unyde_Core\",\n" +
+            "\"hw_value\": \"-66\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"64:70:02:8a:d8:da\",\n" +
+            "\"hw_name\": \"UNYDE_DMZ\",\n" +
+            "\"hw_value\": \"-84\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"18:0f:76:35:f8:e8\",\n" +
+            "\"hw_name\": \"Unyde-Conference\",\n" +
+            "\"hw_value\": \"-72\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"9c:7d:a3:09:b8:98\",\n" +
+            "\"hw_name\": \"UnydeNetzi-2.4G\",\n" +
+            "\"hw_value\": \"-72\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"30:46:9a:a3:61:72\",\n" +
+            "\"hw_name\": \"VISION MISSION\",\n" +
+            "\"hw_value\": \"-84\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"32:46:9a:a3:61:73\",\n" +
+            "\"hw_name\": \"NETGEAR_Guest1\",\n" +
+            "\"hw_value\": \"-86\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "}\n" +
+            "]\n" +
+            "},\n" +
+            "{\n" +
+            "\"name\": \"haldiram\",\n" +
+            "\"signal_val\": [{\n" +
+            "\"hw_id\": \"04:95:e6:22:bb:71\",\n" +
+            "\"hw_name\": \"Unyde_Win\",\n" +
+            "\"hw_value\": \"-57\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"40:9b:cd:0d:11:70\",\n" +
+            "\"hw_name\": \"Unyde_Core\",\n" +
+            "\"hw_value\": \"-83\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"64:70:02:8a:d8:da\",\n" +
+            "\"hw_name\": \"UNYDE_DMZ\",\n" +
+            "\"hw_value\": \"-85\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"9c:7d:a3:09:b8:98\",\n" +
+            "\"hw_name\": \"UnydeNetzi-2.4G\",\n" +
+            "\"hw_value\": \"-60\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"18:0f:76:35:f8:e8\",\n" +
+            "\"hw_name\": \"Unyde-Conference\",\n" +
+            "\"hw_value\": \"-80\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"30:46:9a:a3:61:72\",\n" +
+            "\"hw_name\": \"VISION MISSION\",\n" +
+            "\"hw_value\": \"-81\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"32:46:9a:a3:61:73\",\n" +
+            "\"hw_name\": \"NETGEAR_Guest1\",\n" +
+            "\"hw_value\": \"-82\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "},\n" +
+            "{\n" +
+            "\"hw_id\": \"78:32:1b:38:8a:57\",\n" +
+            "\"hw_name\": \"D-Link VMF\",\n" +
+            "\"hw_value\": \"-77\",\n" +
+            "\"sample_size\": \"16\"\n" +
+            "}\n" +
+            "\n" +
+            "]\n" +
+            "}\n" +
+            "\n" +
+            "]\n" +
+            "\n" +
+            "}";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
