@@ -513,6 +513,8 @@ class ClusterMapActivity : AppCompatActivity(), FloorClickListner, SceneLoader.C
         var mappings = sorted1.entries
         var store_marker = ArrayList<Marker_Internal_Nav>()
         store_marker!!.clear()
+        Toast.makeText(getApplicationContext(), "Get nearest point", Toast.LENGTH_SHORT).show()
+
         Log.e("Cluster3DMap:","------VIVEK-----")
         store_marker!!.add(Marker_Internal_Nav(0f,1f,0f,"A","1","B","D"));
         cluster3DMap!!.setStoreMarkers(floor, store_marker)
